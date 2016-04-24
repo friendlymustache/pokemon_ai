@@ -90,7 +90,6 @@ class Selenium():
         except:
             raise TierException()
 
-
     def start_ladder_battle(self):
         self.logger.info("Starting ladder battle!")
         url1 = self.driver.current_url
@@ -151,7 +150,7 @@ class Selenium():
         builder = self.driver.find_element_by_css_selector(".button[value='teambuilder']")
         builder.click()
         self.screenshot('log.png')
-        new_team = self.driver.find_element_by_css_selector("[name='new']")
+        new_team = self.driver.find_element_by_css_selector("[name='newTop']")
         new_team.click()
         self.screenshot('log.png')
         time.sleep(3)

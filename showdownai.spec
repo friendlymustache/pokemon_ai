@@ -1,6 +1,6 @@
 # -*- mode: python -*-
 a = Analysis(['server/showdownbot.py'],
-             pathex=['/home/vasu/Work/pokemon_ai'],
+             pathex=['/Users/siddharth/School/CS/159/pokemon_ai'],
              hiddenimports=[],
              hookspath=None,
              runtime_hooks=None)
@@ -16,7 +16,7 @@ exe = EXE(pyz,
 dict_tree = Tree("data/", prefix="data")
 static_tree = Tree("server/static/", prefix="static")
 template_tree = Tree("server/templates/", prefix="templates")
-selenium_tree = Tree("venv/lib/python2.7/site-packages/selenium/", prefix="selenium")
+selenium_tree = Tree("/usr/local/lib/python2.7/site-packages/selenium-2.47.1-py2.7.egg", prefix="selenium")
 teams_tree = Tree("empty_teams/", prefix="teams")
 lib_tree = Tree("lib/", prefix="lib")
 coll = COLLECT(exe,

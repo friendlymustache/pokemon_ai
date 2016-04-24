@@ -25,7 +25,10 @@ KERNEL_STATE = "state.json"
 
 OS_MAP = {
     '64bit' : {
-        'ELF' : 'linux64'
+        'ELF' : 'linux64',
+        # Added this in so that Mac driver for chrome would be present
+        # TODO: Add phantomjs driver?
+        ''    : 'mac32'
     },
     '32bit': {
         'ELF' : 'linux32'

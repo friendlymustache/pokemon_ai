@@ -88,7 +88,7 @@ class Selenium():
 
     def choose_tier(self, tier='ou'):
         try:
-            self.logger.info("Selecting tier...")
+            self.logger.info("Selecting tier %s"%tier)
             while not self.check_exists_by_css_selector(".select.formatselect"):
                 time.sleep(1)
             form = self.driver.find_element_by_css_selector(".select.formatselect")
@@ -155,16 +155,16 @@ class Selenium():
         id = url_list[-2:]
         return '-'.join(id)
 
-    def make_team(self, team):
-        self.logger.info("Making team...")
+    def make_team(self, team, tier='ou'):
+        self.logger.info("Making team...validating for tier %s"%tier)
         builder = self.driver.find_element_by_css_selector(".button[value='teambuilder']")
         builder.click()
         #self.screenshot('log.png')
-        new_team = self.driver.find_element_by_css_selector("[name='new']")
+        new_team = self.driver.find_element_by_css_selector("[name='newTop']")
         new_team.click()
         #self.screenshot('log.png')
         time.sleep(3)
-        import_button = self.driver.find_element_by_css_selector(".majorbutton[name='import']")
+        import_button = self.driver.find_element_by_css_selector(".button[name='import']")
         import_button.click()
         #self.screenshot('log.png')
         textfield = self.driver.find_element_by_css_selector(".teamedit .textbox")
@@ -172,8 +172,28 @@ class Selenium():
         #self.screenshot('log.png')
         save = self.driver.find_element_by_css_selector(".savebutton[name='saveImport']")
         save.click()
-        #self.screenshot('log.png')
-        close_button = self.driver.find_element_by_css_selector(".closebutton[href='/teambuilder']")
+        
+        # Validate team so that we can use it for OU
+        # First, open the format selector form
+        format_form = self.driver.find_element_by_css_selector('.teambuilderformatselect')
+        format_form.click()
+
+        # Select OU
+        ou_button = self.driver.find_element_by_css_selector("[name='selectFormat'][value='%s']"%tier)
+        ou_button.click()
+
+        # Click validate button
+        validate_button = self.driver.find_element_by_css_selector("[name='validate']")
+        validate_button.click()
+        # Sleep (wait for validation to complete)
+        time.sleep(3)
+
+        # Close validation success message (TODO: Handle cases where validation fails)
+        success_button = self.driver.find_element_by_css_selector("[name='close']")
+        success_button.click()
+
+        # Return to home page
+        close_button = self.driver.find_element_by_css_selector("a[href='/']")
         close_button.click()
         #self.screenshot('log.png')
         time.sleep(2)

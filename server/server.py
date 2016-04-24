@@ -51,17 +51,28 @@ class Server():
             'browser': Arg(str, default="phantomjs"),
         })
         def play_game(args):
+            username = args.get('username', None)
+            password = args.get('password', None)
+            browser = args.get('browser', None)            
+
+            print "Playing game as user %s"%username
+            print "Password: %s"%password
+            print "Browser: %s"%browser
+
             if args['teamtext'] != "":
                 team_text = args['teamtext']
             else:
                 team_text = (self.teamdir / args['teamfile']).text()
+
+            constructor_param = PessimisticMinimaxAgent(2, self.pokedata)
+            print "about to initialize showdown object"
             showdown = Showdown(
                 team_text,
-                PessimisticMinimaxAgent(2, self.pokedata),
-                args['username'],
+                constructor_param,
+                username,
                 self.pokedata,
-                browser=args['browser'],
-                password=args['password'],
+                browser=browser,
+                password=password,
             )
             id = self.run_showdown(showdown, args)
             response = {'id': id}
