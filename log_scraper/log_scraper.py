@@ -9,7 +9,7 @@ REPLAY_URL= "http://replay.pokemonshowdown.com/{replay_id}"
 
 def parse_args():
     argparser = ArgumentParser()
-    argparser.add_argument('db_path')
+    argparser.add_argument('--db_path', default='db')
     argparser.add_argument('--start_index', default=0, type=int)
     argparser.add_argument('--end_index', default=499, type=int)
     argparser.add_argument('--max_page', default=100, type=int)

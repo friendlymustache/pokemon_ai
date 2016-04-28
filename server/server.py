@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, send_from_directory, render_template
-from webargs import Arg
+from webargs import fields
 from webargs.flaskparser import use_args
 from showdownai import Showdown
 from showdownai import PessimisticMinimaxAgent
@@ -42,13 +42,13 @@ class Server():
 
         @app.route("/api/play_game", methods=['get', 'post'])
         @use_args({
-            'iterations': Arg(int, default=1),
-            'username': Arg(str, required=True),
-            'password': Arg(str, required=True),
-            'teamfile': Arg(str, required=True),
-            'teamtext': Arg(str, required=True),
-            'challenge': Arg(str, default=None),
-            'browser': Arg(str, default="phantomjs"),
+            'iterations': fields.Int(default=1),
+            'username': fields.Str(required=True),
+            'password': fields.Str(required=True),
+            'teamfile': fields.Str(required=True),
+            'teamtext': fields.Str(required=True),
+            'challenge': fields.Str(missing=None),
+            'browser': fields.Str(default="phantomjs"),
         })
         def play_game(args):
             username = args.get('username', None)
@@ -91,6 +91,7 @@ class Server():
         return self.counter
 
     def run_showdown(self, showdown, args):
+        print args
         Thread(target=showdown.run, args=(args['iterations'],),
                 kwargs={
                     'challenge': args['challenge']
