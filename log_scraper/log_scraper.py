@@ -9,7 +9,7 @@ REPLAY_URL= "http://replay.pokemonshowdown.com/{replay_id}"
 
 def parse_args():
     argparser = ArgumentParser()
-    argparser.add_argument('--db_path', default='db')
+    argparser.add_argument('--db_path', default='../data/db')
     argparser.add_argument('--start_index', default=0, type=int)
     argparser.add_argument('--end_index', default=499, type=int)
     argparser.add_argument('--max_page', default=100, type=int)
@@ -58,6 +58,8 @@ if __name__ == "__main__":
         for i in range(1, args.max_page + 1):
             print "Page: %d" % i
             replay_ids = get_replay_ids(user, i)
+            if not replay_ids:
+                break
             if page_done(r, replay_ids):
                 print "Skipped page: %d" % i
                 continue
