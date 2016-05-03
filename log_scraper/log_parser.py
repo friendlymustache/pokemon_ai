@@ -1,6 +1,16 @@
+"""
+Parses the HTML representing a given replay's
+sequence of moves/events into a graph of move co-occurrences.
+TODO: parse logs into a feature representation
+of each game state
+"""
+
 import re
 import json
 from path import path
+from database import ReplayDatabase
+
+
 directory = path('.')
 USER_PLAYER = r"\|player\|(?P<player>.+?)\|(?P<username>.+?)\|.*?"
 POKE = r"\|poke\|p(?P<player>.+?)\|(?P<poke>.+)"
@@ -11,9 +21,15 @@ MOVE_CORRECTIONS = {"ExtremeSpeed": "Extreme Speed",
                     "ThunderPunch": "Thunder Punch",
                     "SolarBeam": "Solar Beam",
                     "DynamicPunch": "Dynamic Punch"}
+TIER =  r"\|tier\|(?P<tier>.+)"
 
 def handle_line(username, line):
     line = line.strip()
+    # If line is invalid for some reason, return False
+    # so that we can stop processing the current battle log
+    if not validate_line(line):
+        return False
+
     match = re.match(USER_PLAYER, line)
     if match:
         if match.group("player") == "p1" and match.group("username").lower() != username.lower():
@@ -26,11 +42,13 @@ def handle_line(username, line):
     if match:
         if player == match.group("player"):
             poke = match.group("poke").split(",")[0]
+            # Filter out item information
+            poke = poke.split("|")[0]
             if poke == "Zoroark":
-                raise Zoroark()
-            if poke == "Zorua":
-                raise Zoroark()
-            if "Keldeo" in poke:
+                return False
+            elif poke == "Zorua":
+                return False
+            elif "Keldeo" in poke:
                 poke = "Keldeo"
             opp_team[poke] = []
     match = re.match(SWITCH, line)
@@ -72,8 +90,33 @@ def handle_line(username, line):
         if "Keldeo" in poke:
             poke = "Keldeo"
         if player == match.group("player"):
+            # if poke not in opp_nicknames:
+            #     print "%s not in %s"%(poke, opp_nicknames)
+            # if opp_nicknames[poke] not in opp_team:
+            #     print "%s not in %s"%(opp_nicknames[poke], opp_team)
+
             if match.group("move") not in opp_team[opp_nicknames[poke]]:
                 opp_team[opp_nicknames[poke]].append(match.group("move"))
+    return True
+
+def validate_line(line):
+    '''
+    Validates a line of a battle log. Currently, just checks if line
+    describes the tier of the battle, and if so, checks that the tier
+    is OU
+    '''
+    return validate_tier(line)
+
+def validate_tier(line):
+    tier_match = re.match(TIER, line)    
+    # Return False current line gives us information on the tier of the
+    # current game and the tier is not OU. Otherwise, return True. 
+    if tier_match and tier_match.group("tier") != "OU":
+        return False
+    return True
+
+
+
 
 def make_graph_move(opp_team, graph_move, graph_move_frequencies):
     for poke in opp_team:
@@ -130,34 +173,28 @@ if __name__ == "__main__":
     graph_move = {}
     graph_move_frequencies = {}
     graph_frequencies = {}
-    names = path("./uu/logs").listdir() + path('./ou/logs').listdir()
-    for username in names:
-        directory = username
-        for log in directory.files():
-            if "uu-186975396" in log or "uu-197134198" in log or "uu-202631332" in log or "uu-190650459" in log or "ou-203216292" in log or "ou-202070019" in log or "ou-147740692" in log:
-                continue
-            if "gen4" in log or "gen3" in log or "gen2" in log or "gen1" in log or "pandora" in log:
-                continue
-            if "uu-" not in log and "ou-" not in log:
-                continue
-            print log
+    # Connects to SQLite database stored in file at ../data/db
+    db = ReplayDatabase()
+
+    # For each replay (battle log)...
+    for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username")):
+            log, user = log_attributes
+            print "Parsing log %s"%idx
             player = ""
             opp_team = {}
             opp_nicknames = {}
-            with open("%s" % log) as f:
-                log = f.read()
-            user = directory.name
             lines = log.split("\n")
-            skip = False
+            valid_line = True
+            # Parse each line of the log
             for line in lines:
-                try:
-                    handle_line(user, line)
-                except Zoroark:
-                    skip = True
+                # If we were unable to parse the current line,
+                # we're parsing an invalid battle log, so skip the remainder
+                # of its lines
+                valid_line = handle_line(user, line)
+                if not valid_line:
                     break
-            if skip:
-                continue
-            graph_poke, graph_move_frequencies = make_graph_poke(opp_team, graph_poke, graph_move_frequencies)
+            if valid_line:
+                graph_poke, graph_move_frequencies = make_graph_poke(opp_team, graph_poke, graph_move_frequencies)
     poke_graph = {
         'frequencies': graph_move_frequencies,
         'cooccurences': graph_poke,

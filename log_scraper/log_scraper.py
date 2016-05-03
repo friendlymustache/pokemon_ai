@@ -1,3 +1,7 @@
+'''
+Scrapes replay logs of games and saves them to a database.
+'''
+
 from bs4 import BeautifulSoup
 import requests
 from argparse import ArgumentParser
@@ -51,8 +55,13 @@ def get_logs(replay_id):
 
 if __name__ == "__main__":
     args = parse_args()
+    # Get a hard-coded list of users whose replays we want to scrape
     usernames = get_usernames()
+
+    # Connect to the database
     r = ReplayDatabase(args.db_path)
+
+    # Scrape the replays
     for user in usernames[args.start_index:args.end_index]:
         print "User: %s" % user
         for i in range(1, args.max_page + 1):
@@ -66,5 +75,5 @@ if __name__ == "__main__":
             for replay_id in replay_ids:
                 if not r.check_replay_exists(replay_id):
                     print "New replay ID: %s" % replay_id
-                    r.add_replay(replay_id, get_logs(replay_id))
+                    r.add_replay(replay_id, get_logs(replay_id), user)
             r.commit()
