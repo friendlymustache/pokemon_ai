@@ -6,6 +6,22 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
 from exceptions import *
+from path import Path
+import platform
+
+OS_MAP = {
+    '64bit' : {
+        'ELF' : 'linux64',
+        # Added this in so that Mac driver for chrome would be present
+        # TODO: Add phantomjs driver?
+        ''    : 'mac32'
+    },
+    '32bit': {
+        'ELF' : 'linux32'
+    }
+}
+
+
 
 class Selenium():
     BASE_URL="http://play.pokemonshowdown.com"
@@ -14,14 +30,17 @@ class Selenium():
         self.logger = logging.getLogger("showdown.browser")
         self.timer_on = timer_on
         self.browser = browser
-        self.lib_dir = lib_dir
+        arch = platform.architecture()
+        self.lib_dir = Path(lib_dir) / OS_MAP[arch[0]][arch[1]]
+
         self.logger.info("Browser: %s" % browser)
         if browser == "firefox":
             self.logger.info("Selecting Firefox to use as browser...")
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             self.logger.info("Selecting Chrome to use as browser...")
-            chrome_path = self.lib_dir / "chromedriver"
+            chrome_path = str(self.lib_dir / "chromedriver")
+            print "Chrome path: %s"%chrome_path
             self.driver = webdriver.Chrome(executable_path=chrome_path)
         elif browser == "phantomjs":
             self.logger.info("Selecting PhantomJS to use as browser...")

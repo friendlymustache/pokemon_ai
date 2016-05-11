@@ -23,18 +23,6 @@ import logging
 
 KERNEL_STATE = "state.json"
 
-OS_MAP = {
-    '64bit' : {
-        'ELF' : 'linux64',
-        # Added this in so that Mac driver for chrome would be present
-        # TODO: Add phantomjs driver?
-        ''    : 'mac32'
-    },
-    '32bit': {
-        'ELF' : 'linux32'
-    }
-}
-
 class Showdown():
     def __init__(self, team_text, agent, username, pokedata, password=None,
                  monitor_url=None, proxy=False, browser='phantomjs', predictor_name='PokeFrequencyPredictor',
@@ -57,8 +45,7 @@ class Showdown():
         self.my_team = Team.make_team(team_text, self.smogon_data)
         self.opp_team = None
         self.simulator = Simulator(pokedata)
-        arch = platform.architecture()
-        self.lib_dir = Path(lib_dir) / OS_MAP[arch[0]][arch[1]]
+        self.lib_dir = Path(lib_dir)
         self.selenium = Selenium(proxy=proxy, browser=browser, lib_dir=self.lib_dir)
         self.verbose = verbose
         self.kernel_dir = Path(kernel_dir)
