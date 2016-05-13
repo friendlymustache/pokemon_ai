@@ -28,7 +28,7 @@ DAMAGE_MODIFIER = "(It's not very effective... |It's super effective! )"
 
 POKE_NAME = '((?P<pokename>[^ ]+?)|(?P<nickname>.+?) \((?P<pokename2>[^ ]+?)\))'
 
-BATTLE_STARTED = r'Battle between (.*?) and (.*?) started!'
+BATTLE_STARTED = r'Battle between (?P<username>.+?) and (?P<username1>.+?) started!'
 TEAM = r"(?P<username>.+?)'s team:"
 POKES = r"(.+?) / (.+?) / (.+?)"
 MY_SWITCH = r'Go! %s!' % POKE_NAME
@@ -39,7 +39,7 @@ TURN = r'Turn (.+?)'
 LOST_ITEM = r".+? knocked off (?P<opposing>the opposing )?(?P<poke>.+?)'s .+?!"
 DAMAGE = r"%s?%s?(?P<opposing>The opposing )?(?P<poke>.+?) lost (?P<damage>[0-9]+(\.[0-9]+)?)%% of its health!" % (DAMAGE_MODIFIER, CRITICAL_HIT)
 FAINTED = r'(?P<opposing>The opposing )?(?P<poke>.+?) fainted!'
-GAIN_HEALTH = r'(?P<opposing>The opposing )?(?P<poke>.+?) regained health!'
+GAIN_HEALTH = r'(?P<opposing>The opposing )?(?P<poke>.+?) (?:regained health!|restored its HP.)'
 LEFTOVERS = r'(?P<opposing>The opposing )?(?P<poke>.+?) restored a little HP using its (?P<item>.+?)!'
 LEECH_SEED = r"(?P<opposing>The opposing )?(?P<poke>.+?)'s health is sapped by Leech Seed!"
 ROCKS = r"Pointed stones float in the air around (?P<opposing>your|the opposing) team!"
@@ -49,7 +49,7 @@ BURN = r"(?P<opposing>The opposing )?(?P<poke>.+?) was burned!"
 PARALYZE = r"(?P<opposing>The opposing )?(?P<poke>.+?) was paralyzed! It may be unable to move!"
 HURT_BURN = r"(?P<opposing>The opposing )?(?P<poke>.+?) was hurt by its burn!"
 FLOAT_BALLOON = r"(?P<opposing>The opposing )?(?P<poke>.+?) floats in the air with its Air Balloon!"
-DRAGGED_OUT = r"(?P<opposing>The opposing )?(?P<nickname>.+?) (\((?P<poke>.+?)\))? was dragged out!"
+DRAGGED_OUT = r"(?P<opposing>The opposing )?((?P<pokename>[^ ]+?)|(?P<nickname>.+?) \((?P<pokename2>[^ ]+?)\)) was dragged out!"
 POP_BALLOON = r"(?P<opposing>The opposing )?(?P<poke>.+?)'s Air Balloon popped!"
 NEW_ITEM = r"(?P<opposing>The opposing )?(?P<poke>.+?) obtained one (?P<item>.+)."
 BELLY_DRUM = r"(?P<opposing>The opposing )?(?P<poke>.+?) cut its own HP and maximized its Attack!"
@@ -88,6 +88,16 @@ class SimulatorLog():
             self.detected_team = (False, None)
             return SimulatorEvent.from_dict(event)
 
+
+        match = re.match(BATTLE_STARTED, line)
+        if match:
+            self.event_count += 1
+            event['type'] = 'battle_started'
+            event['index'] = self.event_count
+            event['player'] = 0
+            event['poke'] = None
+            event['details'] = {'username':match.group('username'), 'username1':match.group('username1')}
+            return SimulatorEvent.from_dict(event)
 
         match = re.match(TEAM, line)
         if match:
@@ -406,7 +416,7 @@ class SimulatorLog():
             username = match.group('username')
             details = {'username': username}
             event['details'] = details
-            event['player'] = None
+            event['player'] = 0
             event['poke'] = None
             return SimulatorEvent.from_dict(event)
 
@@ -495,13 +505,15 @@ class SimulatorLog():
         match = re.match(DRAGGED_OUT, line)
         if match:
             self.event_count += 1
-            player = 1 if match.group('opposing') is not None else 0
+            #player = 1 if match.group('opposing') is not None else 0
+            player = 1-self.events[-1].player
             event['index'] = self.event_count
             event['type'] = 'switch'
-            if match.group('poke'):
-                self.nicknames[0][match.group('nickname')] = match.group('poke')
-            nickname = match.group('nickname')
-            poke = self.nicknames[player][nickname]
+            if match.group('nickname'):
+                self.nicknames[player][match.group('nickname')] = match.group('pokename2')
+            else:
+                self.nicknames[player][match.group('pokename')] = match.group('pokename')
+            poke = match.group('pokename') or match.group('pokename2')
             event['player'] = player
             event['poke'] = poke
             details = {}

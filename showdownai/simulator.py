@@ -13,7 +13,7 @@ class Simulator():
             move.pokedata = pokedata
         self.score = 0
         self.total = 0
-        self.latest_turn = None
+        self.latest_turn = []
 
     def append_log(self, gamestate, lines, my_poke=None, opp_poke=None):
         self.latest_turn = []
@@ -55,34 +55,31 @@ class Simulator():
             print "%s got damaged: %f" % (poke, event.details['damage'])
         elif type == "move":
             print "%s used %s." % (poke, event.details['move'])
+            poke.last_move = event.details['move']
             if event.details['move'] == "Relic Song":
                 my_poke = gamestate.get_team(player).primary()
                 my_poke.meloetta_evolve()
-            if player == 1:
-                move = event.details['move']
-                poke_name = correct_mega(poke.name)
-                if move in MOVE_CORRECTIONS:
-                    print move
-                    move = MOVE_CORRECTIONS[move]
-                    print move
-                if move == "Hidden Power":
-                    hidden_power = get_hidden_power(poke_name, self.smogon_data)
-                    if hidden_power:
-                        move = hidden_power
-                    else:
-                        return
-                known_moves = poke.moveset.known_moves
-                if move not in known_moves:
-                    self.total += 1
-                    old_guess_moves = [x[0] for x in poke.predict_moves(known_moves)][:4 - len(known_moves)]
-                    if move in old_guess_moves:
-                        self.score += 1
-                    known_moves.append(move)
-                    guess_moves = [x[0] for x in poke.predict_moves(known_moves) if x[0] not in known_moves][:4 - len(known_moves)]
-                    poke.moveset.moves = poke.moveset.known_moves + guess_moves
-            if player == 0:
-                my_poke = gamestate.get_team(player).primary()
-		my_poke.last_move = event.details['move']
+            move = event.details['move']
+            poke_name = correct_mega(poke.name)
+            if move in MOVE_CORRECTIONS:
+                print move
+                move = MOVE_CORRECTIONS[move]
+                print move
+            if move == "Hidden Power":
+                hidden_power = get_hidden_power(poke_name, self.smogon_data)
+                if hidden_power:
+                    move = hidden_power
+                else:
+                    return
+            known_moves = poke.moveset.known_moves
+            if poke.predictor and move not in known_moves:
+                self.total += 1
+                old_guess_moves = [x[0] for x in poke.predict_moves(known_moves)][:4 - len(known_moves)]
+                if move in old_guess_moves:
+                    self.score += 1
+                known_moves.append(move)
+                guess_moves = [x[0] for x in poke.predict_moves(known_moves) if x[0] not in known_moves][:4 - len(known_moves)]
+                poke.moveset.moves = poke.moveset.known_moves + guess_moves
 
             if poke.item in ["Choice Scarf", "Choice Specs", "Choice Band"]:
                 moves = poke.moveset.moves
@@ -103,9 +100,10 @@ class Simulator():
                 poke.decrease_stage(event.details['stat'], abs(stages))
                 print "%s decreased its %s by %d stages" % (poke, event.details['stat'], stages)
         elif type == "switch":
-            if poke == "Meloetta":
-                poke.meloetta_reset()
-            team.set_primary(team.poke_list.index(poke))
+            #if poke == "Meloetta":
+            #    poke.meloetta_reset()
+            #team.set_primary(team.poke_list.index(poke))
+            gamestate.switch_pokemon(team.poke_list.index(poke), player, log=True)
             print "Player %d switched in %s" % (player, poke)
         elif type == "regain_health":
             poke.heal(0.5)
@@ -234,6 +232,7 @@ class Simulator():
         gamestate = gamestate.deep_copy()
         my_action = actions[who]
         opp_action = actions[1 - who]
+
         if my_action.is_switch():
             gamestate.switch_pokemon(my_action.switch_index, who, log=log)
             my_move = MOVES["Noop"]

@@ -3,6 +3,7 @@ import json
 import re
 from mega_items import mega_items
 from math import floor
+from operator import itemgetter
 
 import logging
 logging.basicConfig()
@@ -214,6 +215,10 @@ class Pokemon():
         if self.choiced:
             poke.move_choice = self.move_choice
         return poke
+    
+    def to_list(self):
+        return [self.name, self.item, self.health] + self.typing + [None]*(2-len(self.typing)) + [self.status, self.taunt, self.disabled, self.last_move, self.encore] + self.moveset.known_moves + [None for i in range(4-len(self.moveset.known_moves))] + self.moveset.moves + map(itemgetter(1), sorted(self.stats.items())) 
+    
     def to_tuple(self):
         return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.last_move, self.encore, tuple(self.stages.values()))
 
@@ -229,6 +234,10 @@ class Team():
         team = Team([p.copy() for p in self.poke_list])
         team.primary_poke = self.primary_poke
         return team
+
+
+    def to_list(self):
+        return [self.primary_poke, self.poke_list[self.primary_poke]] + sum([x.to_list() for x in self.poke_list], [])
 
     def to_tuple(self):
         return (self.primary_poke, tuple(x.to_tuple() for x in self.poke_list))
