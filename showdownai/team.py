@@ -217,8 +217,8 @@ class Pokemon():
         return poke
     
     def to_list(self):
-        return [self.name, self.item, self.health] + self.typing + [None]*(2-len(self.typing)) + [self.status, self.taunt, self.disabled, self.last_move, self.encore] + self.moveset.known_moves + [None for i in range(4-len(self.moveset.known_moves))] + self.moveset.moves + map(itemgetter(1), sorted(self.stats.items())) 
-    
+        return [self.name, self.item, self.health] + self.typing + [None]*(2-len(self.typing)) + [self.status, self.taunt, self.disabled, self.last_move, self.encore] + self.moveset.known_moves + [None]*(4-len(self.moveset.known_moves)) + self.moveset.moves + map(itemgetter(1), sorted(self.stats.items())) 
+
     def to_tuple(self):
         return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.last_move, self.encore, tuple(self.stages.values()))
 

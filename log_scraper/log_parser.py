@@ -148,14 +148,18 @@ def update_latest_turn(gamestate, turn, turn_num=0):
         if not event:
             continue
         simulator.latest_turn.append(event)
-        data_line = gamestate.to_list()
-        data_line.append(turn_num)
-        data_line.append(event.player)
         if event.type == "move":
+            data_line = gamestate.to_list()
+            data_line.append(turn_num)
+            data_line.append(event.player)
             data_line.append(event.details['move'])
+            data.append(data_line)
         elif event.type == "switch":
+            data_line = gamestate.to_list()
+            data_line.append(turn_num)
+            data_line.append(event.player)
             data_line.append(event.poke)
-        data.append(data_line)
+            data.append(data_line)
         simulator.handle_event(gamestate, event)
     return gamestate
 
