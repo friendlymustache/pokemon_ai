@@ -237,7 +237,7 @@ class Team():
 
 
     def to_list(self):
-        return [self.primary_poke, self.poke_list[self.primary_poke]] + sum([x.to_list() for x in self.poke_list], [])
+        return [self.primary_poke, self.poke_list[self.primary_poke].name] + sum([x.to_list() for x in self.poke_list], [])
 
     def to_tuple(self):
         return (self.primary_poke, tuple(x.to_tuple() for x in self.poke_list))
