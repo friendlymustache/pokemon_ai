@@ -4,7 +4,7 @@ sequence of moves/events into a graph of move co-occurrences.
 TODO: parse logs into a feature representation
 of each game state
 """
-
+import pandas
 import re
 import json
 from path import path
@@ -197,5 +197,5 @@ if __name__ == "__main__":
     # Example usage
     lines = [line.rstrip('\n') for line in open('example_log.txt', 'rb')]
     parse_lines(lines)
-    for line in data:
-        print line
+    df = pandas.DataFrame(data)
+    df.to_csv("data.csv", index=False)
