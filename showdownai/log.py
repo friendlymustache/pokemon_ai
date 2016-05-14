@@ -26,7 +26,7 @@ STAT_CHANGE = r'%s|%s' % (ABILITY_STAT_CHANGE, MOVE_STAT_CHANGE)
 CRITICAL_HIT = r"(A critical hit! )"
 DAMAGE_MODIFIER = "(It's not very effective... |It's super effective! )"
 
-POKE_NAME = '((?P<pokename>[^ ]+?)|(?P<nickname>.+?) \((?P<pokename2>[^ ]+?)\))'
+POKE_NAME = '((?P<nickname>.+?) \((?P<pokename2>[^ ]+?)\)|(?P<pokename>[^ ]+?))'
 
 BATTLE_STARTED = r'Battle between (?P<username>.+?) and (?P<username1>.+?) started!'
 TEAM = r"(?P<username>.+?)'s team:"
