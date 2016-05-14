@@ -196,5 +196,5 @@ if __name__ == "__main__":
                 print e
 
     df = pandas.DataFrame(data)
-    print df.size
+    print df.shape
     df.to_csv("data.csv", index=False)
