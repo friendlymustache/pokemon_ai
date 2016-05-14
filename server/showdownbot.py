@@ -1,6 +1,7 @@
+import sys
+print sys.path
+sys.path.append('/Users/Goldenstar/git/pokemon_ai/')
 from server import main
-import os
-os.chdir('../')
 
 if __name__ == "__main__":
     main()
