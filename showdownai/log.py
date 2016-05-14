@@ -35,6 +35,7 @@ MY_SWITCH = r'Go! %s!' % POKE_NAME
 OPP_SWITCH = r'.+? sent out %s!' % POKE_NAME
 MOVE = r'(?P<opposing>The opposing )?(?P<poke>.+?) used (?P<move>.+?)!'
 MEGA_EVOLVE = r"(?P<opposing>The opposing )?(?P<poke>.+?) has Mega Evolved into Mega (?P<mega>.+?)!"
+MEGA_EVOLVE_ITEM = r"(?P<opposing>The opposing )?(?P<poke>.+?)'s (?P<item>.+?) is reacting to (?P<username>.+?)'s Mega Bracelet!"
 TURN = r'Turn (.+?)'
 LOST_ITEM = r".+? knocked off (?P<opposing>the opposing )?(?P<poke>.+?)'s .+?!"
 DAMAGE = r"%s?%s?(?P<opposing>The opposing )?(?P<poke>.+?) lost (?P<damage>[0-9]+(\.[0-9]+)?)%% of its health!" % (DAMAGE_MODIFIER, CRITICAL_HIT)
@@ -537,54 +538,29 @@ class SimulatorLog():
             event['details'] = details
             return SimulatorEvent.from_dict(event)
 
-        match = re.match(MEGA_EVOLVE, line)
+        match = re.match(MEGA_EVOLVE_ITEM, line)
         if match:
             self.event_count += 1
             index = self.event_count
-            type = "mega_evolve"
+            type = "mega_item"
             poke = match.group('poke')
-            mega = match.group('mega')
-            mega = mega.split()
+            item = match.group('item')
             player = 1 if match.group('opposing') is not None else 0
-            old_poke = poke
-
             if poke not in self.nicknames[player]:
                 player = 1 - player
-            poke = self.nicknames[player][poke]
+            old_poke = self.nicknames[player][poke]
+            new_poke = old_poke+"-Mega"
+            if item[-1] == "X":
+                new_poke += "-X"
+            elif item[-1] == "Y":
+                new_poke += "-Y"
+            self.nicknames[player][poke] = new_poke
             event['player'] = player
-            details = {}
+            details = {'item': item}
             event['index'] = index
             event['type'] = type
             event['details'] = details
-            event['poke'] = poke
-            mega_name = self.nicknames[player][old_poke] + "-Mega"
-            if "Charizard" in mega_name or "Mewtwo" in mega_name:
-                mega_name += "-X"
-            '''if player == 1:
-                print "opp_poke", opp_poke
-                if opp_poke == "charizard-mega-x":
-                    mega_name = "Charizard-Mega-X"
-                elif opp_poke == "charizard-mega-y":
-                    mega_name = "Charizard-Mega-Y"
-                elif opp_poke == "mewtwo-mega-x":
-                    mega_name = "Mewtwo-Mega-X"
-                elif opp_poke == "mewtwo-mega-y":
-                    mega_name = "Mewtwo-Mega-Y"
-                else:
-                    mega_name = self.nicknames[player][old_poke] + "-Mega"
-            if player == 0:
-                if my_poke == "charizard-mega-x":
-                    mega_name = "Charizard-Mega-X"
-                elif my_poke == "charizard-mega-y":
-                    mega_name = "Charizard-Mega-Y"
-                elif my_poke == "mewtwo-mega-x":
-                    mega_name = "Mewtwo-Mega-X"
-                elif my_poke == "mewtwo-mega-y":
-                    mega_name = "Mewtwo-Mega-Y"
-                else:
-                    mega_name = self.nicknames[player][old_poke] + "-Mega"'''
-            self.nicknames[player][old_poke] = mega_name
-            event['details']['mega'] = mega_name
+            event['poke'] = old_poke
             return SimulatorEvent.from_dict(event)
 
         match = re.match(LADDER, line)

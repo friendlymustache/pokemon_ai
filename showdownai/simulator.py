@@ -44,11 +44,10 @@ class Simulator():
             poke.health = 0
             poke.alive = False
             print "%s fainted." % (poke)
-        elif type == "mega_evolve":
-            poke.item = get_mega_item(event.details['mega'])
+        elif type == "mega_item":
+            poke.item = event.details['item']
             team = gamestate.get_team(player)
             team.poke_list[team.primary_poke] = poke.mega_evolve(self.pokedata)
-            print "%s mega evolved!" % (poke)
         elif type == "damage":
             hp = poke.final_stats['hp']
             poke.damage(event.details['damage'] / 100 * hp)
