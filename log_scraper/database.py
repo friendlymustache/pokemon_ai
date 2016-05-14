@@ -12,9 +12,9 @@ def parse_args():
 
 class ReplayDatabase(object):
 
-    def __init__(self, db_path="../data/db"):
+    def __init__(self, db_path="../data/db", timeout=5.0):
         self.db_path = db_path
-        self.conn = sqlite3.connect(self.db_path)
+        self.conn = sqlite3.connect(self.db_path, timeout=timeout)
         print "Connected to database at %s"%db_path
         try:
             c = self.conn.cursor()

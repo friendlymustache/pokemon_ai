@@ -7,6 +7,7 @@ import requests
 from argparse import ArgumentParser
 from database import ReplayDatabase
 from path import Path
+from multiprocessing import Pool
 
 import sys
 sys.path.append('../showdownai')
@@ -19,7 +20,7 @@ import re
 LADDER_URL = "http://pokemonshowdown.com/ladder/ou"
 USERNAME_URL = "http://replay.pokemonshowdown.com/search/?output=html&user={user}&format=&page={page}&output=html"
 REPLAY_URL= "http://replay.pokemonshowdown.com/{replay_id}"
-MAX_GAME_LENGTH = 500
+MAX_GAME_LENGTH = 300
 
 
 class SeleniumScraper(Selenium):
@@ -44,8 +45,8 @@ class SeleniumScraper(Selenium):
             for i in range(MAX_GAME_LENGTH):
                 fast_forward_btn.click()
                 # Once we've skipped through at least 100 turns, check if the
-                # battle has ended every 20 turns
-                if i > 100 & i % 20 == 0:
+                # battle has ended every 50 turns
+                if i > 100 & i % 50 == 0:
                     log = self.driver.find_element_by_css_selector(".battle-log")
                     if "won the battle" in log.text:
                         return log.text 
@@ -74,6 +75,7 @@ def parse_args():
     argparser.add_argument('--end_index', default=499, type=int)
     argparser.add_argument('--max_page', default=100, type=int)
     argparser.add_argument('--max_logs_to_scrape', default=15000, type=int)
+    argparser.add_argument('--nworkers', default=1, type=int)    
     argparser.add_argument('--no-background', dest='background', action='store_false')    
 
     return argparser.parse_args()
@@ -111,18 +113,27 @@ def get_logs(replay_id):
     log = script.text
     return log
 
-if __name__ == "__main__":
-    args = parse_args()
+def main(arguments):
+    '''
+    Runs the scraper given that the process running the scraper has
+    is the <index>th process out of <nprocesses> processes 
+    running the scraper in parallel
+    '''
+    args, index, nworkers = arguments
+
+    def print_helper(string):
+        print "Process %s: %s"%(index, string)
+
     # Get a hard-coded list of users whose replays we want to scrape
     usernames = get_usernames()
-    print "Running log scraper."
-    print "NOTE: Argument --no-background can be used to speed up scraper."
+    print_helper("Running log scraper.")
+    print_helper("NOTE: Argument --no-background can be used to speed up scraper.")
 
     # Connect to the database
-    r = ReplayDatabase(args.db_path)
+    r = ReplayDatabase(args.db_path, timeout=5.0*nworkers)
     run_in_background = args.background
-    print "Scraper running in background: %s"%run_in_background
-    print "Adding to dataset of %s scraped logs"%(r.get_replay_count())
+    print_helper("Scraper running in background: %s"%run_in_background)
+    print_helper("Adding to dataset of %s scraped logs"%(r.get_replay_count()))
 
     # Scrape the replays
     scraper = SeleniumScraper(lib_dir=Path("../lib"), browser="chrome")
@@ -130,25 +141,35 @@ if __name__ == "__main__":
     for user in usernames[args.start_index:args.end_index]:
         if nreplays > args.max_logs_to_scrape:
             break
-        print "User: %s" % user
+        print_helper("User: %s" % user)
         for i in range(1, args.max_page + 1):
-            print "Page: %d" % i
+            print_helper("Page: %d" % i)
             replay_ids = get_replay_ids(user, i)
             if not replay_ids:
                 break
             if page_done(r, replay_ids):
                 continue
-            for replay_id in replay_ids:
+            # The current process is assigned to all replays at offsets
+            # equal to <index> mod <nworkers> in the list of replays
+            for i in xrange(index, len(replay_ids), nworkers):
+                replay_id = replay_ids[i]
                 if not r.check_replay_exists(replay_id):                
-                    # print "New replay ID: %s" % replay_id
+                    # print_helper("New replay ID: %s" % replay_id)
                     try:
                         replay_text = scraper.get_replay_text(replay_id, run_in_background)
                         r.add_replay(replay_id, replay_text, user)
-                        nreplays += 1
-                        print "Scraped %s replays"%nreplays
                         r.commit()
+                        time.sleep(0.5*nworkers)
+                        nreplays += 1
+                        print_helper("Scraped %s replays"%(nreplays))
                     except Exception as e:
-                        print "Exception: %s"%e.message
+                        print_helper("Exception: %s"%e.message)
                         continue
-                else:
-                    print "Already scraped replay %s"%replay_id
+
+
+
+
+if __name__ == "__main__":
+    args = parse_args()
+    pool = Pool(processes=args.nworkers)
+    pool.map(main, [(args, i, args.nworkers) for i in xrange(args.nworkers) ])
