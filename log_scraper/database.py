@@ -19,11 +19,16 @@ class ReplayDatabase(object):
         try:
             c = self.conn.cursor()
             c.execute("CREATE TABLE replay (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-                "replay_id TEXT NOT NULL UNIQUE, battle_log TEXT," + 
+                "replay_id TEXT NOT NULL UNIQUE, battle_log TEXT NOT NULL," + 
                 "username VARCHAR(100))")
             print "Created database for replays"
         except:
             pass
+
+    def get_replay_count(self):
+        c = self.conn.cursor()
+        counts = c.execute("SELECT COUNT(*) FROM replay").fetchone()
+        return counts
 
     def get_replay_ids(self):
         '''

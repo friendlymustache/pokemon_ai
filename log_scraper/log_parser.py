@@ -7,6 +7,13 @@ of each game state
 import pandas
 import re
 import json
+# Add parent directory to module search path
+import sys
+import os
+sys.path.append(os.path.abspath("../"))
+
+
+
 from path import path
 from database import ReplayDatabase
 from showdownai.log import SimulatorLog
@@ -17,6 +24,8 @@ from showdownai.simulator import Simulator
 from smogon import SmogonMoveset
 from showdownai.gamestate import GameState
 from compiler.ast import flatten
+
+
 
 username = None
 username1 = None
@@ -186,15 +195,30 @@ if __name__ == "__main__":
     smogon_data = pokedata.smogon_data
     smogon_bw_data = pokedata.smogon_bw_data
     simulator = Simulator(pokedata)
+    successes = 0.0
+    failures = 0.0
     # For each replay (battle log)...
-    for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username")):
-            log, user = log_attributes
-            lines = log.split('\n')
+    for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username", "replay_id")):
+            log, user, replay_id = log_attributes
             try:
+                lines = log.split('\n')
                 parse_lines(lines)
-            except KeyError as e:
+                successes += 1
+            except Exception as e:
+                failures += 1
+            # Catches acceptable errors
+            except (KeyError, AssertionError) as e:
+                failures += 1
                 print e
-
+            # Catches unacceptable errors and prints the replay id + game log of the
+            # offending replay
+            except ValueError:
+                sys.stderr.write(replay_id)
+                sys.stderr.write("\n\n\n\n\n")
+                sys.stderr.write(log)
+            if idx % 100 == 0:
+                sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
+    sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
     df = pandas.DataFrame(data)
     print df.shape
     df.to_csv("data.csv", index=False)
