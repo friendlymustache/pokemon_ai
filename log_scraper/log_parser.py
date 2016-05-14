@@ -187,15 +187,14 @@ if __name__ == "__main__":
     smogon_bw_data = pokedata.smogon_bw_data
     simulator = Simulator(pokedata)
     # For each replay (battle log)...
-    '''for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username")):
+    for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username")):
             log, user = log_attributes
-            print log
-            #log = log.encode('utf-8')
             lines = log.split('\n')
-            parse_lines(lines)
-            break'''
-    # Example usage
-    lines = [line.rstrip('\n') for line in open('example_log.txt', 'rb')]
-    parse_lines(lines)
+            try:
+                parse_lines(lines)
+            except KeyError as e:
+                print e
+
     df = pandas.DataFrame(data)
+    print df.size
     df.to_csv("data.csv", index=False)

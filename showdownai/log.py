@@ -506,7 +506,10 @@ class SimulatorLog():
         if match:
             self.event_count += 1
             #player = 1 if match.group('opposing') is not None else 0
-            player = 1-self.events[-1].player
+            for i in range(len(self.events)-1, -1, -1):
+                if self.events[i].type == 'move':
+                    player = 1-self.events[i].player
+                    break
             event['index'] = self.event_count
             event['type'] = 'switch'
             if match.group('nickname'):
@@ -554,8 +557,11 @@ class SimulatorLog():
             event['type'] = type
             event['details'] = details
             event['poke'] = poke
-            mega_name = None
-            if player == 1:
+            mega_name = self.nicknames[player][old_poke] + "-Mega"
+            if "Charizard" in mega_name or "Mewtwo" in mega_name:
+                mega_name += "-X"
+            '''if player == 1:
+                print "opp_poke", opp_poke
                 if opp_poke == "charizard-mega-x":
                     mega_name = "Charizard-Mega-X"
                 elif opp_poke == "charizard-mega-y":
@@ -576,7 +582,7 @@ class SimulatorLog():
                 elif my_poke == "mewtwo-mega-y":
                     mega_name = "Mewtwo-Mega-Y"
                 else:
-                    mega_name = self.nicknames[player][old_poke] + "-Mega"
+                    mega_name = self.nicknames[player][old_poke] + "-Mega"'''
             self.nicknames[player][old_poke] = mega_name
             event['details']['mega'] = mega_name
             return SimulatorEvent.from_dict(event)
