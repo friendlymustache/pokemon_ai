@@ -162,12 +162,16 @@ def update_latest_turn(gamestate, turn, turn_num=0):
             data_line.append(turn_num)
             data_line.append(event.player)
             data_line.append(event.details['move'])
+            if 'Struggle' in data_line:
+                return False
             data.append(data_line)
         elif event.type == "switch":
             data_line = gamestate.to_list()
             data_line.append(turn_num)
             data_line.append(event.player)
             data_line.append(event.poke)
+            if 'Struggle' in data_line:
+                return False
             data.append(data_line)
         simulator.handle_event(gamestate, event)
     return gamestate
@@ -186,7 +190,9 @@ def parse_lines(lines):
     gamestate = update_latest_turn(gamestate, turns[0])
     for i in range(1, len(turns)):
         print "TURN", i
-        update_latest_turn(gamestate, turns[i], turn_num=i)
+        gamestate = update_latest_turn(gamestate, turns[i], turn_num=i)
+        if not gamestate:
+            break
 
 if __name__ == "__main__":
     # Connects to SQLite database stored in file at ../data/db
@@ -194,11 +200,11 @@ if __name__ == "__main__":
     pokedata = load_data('../data')
     smogon_data = pokedata.smogon_data
     smogon_bw_data = pokedata.smogon_bw_data
-    simulator = Simulator(pokedata)
     successes = 0.0
     failures = 0.0
     # For each replay (battle log)...
     for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username", "replay_id")):
+            simulator = Simulator(pokedata)
             log, user, replay_id = log_attributes
             try:
                 lines = log.split('\n')
