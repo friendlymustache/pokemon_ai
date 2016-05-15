@@ -1,6 +1,6 @@
 class MonteCarloTree():
     def __init__(self, state):
-        self.root = 
+        self.root = Node(state, NULL)
 
 class Node():
     def __init__(self, state, parent):

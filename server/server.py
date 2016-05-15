@@ -3,6 +3,7 @@ from webargs import fields
 from webargs.flaskparser import use_args
 from showdownai import Showdown
 from showdownai import PessimisticMinimaxAgent
+from showdownai import MonteCarloAgent
 from showdownai import load_data
 from argparse import ArgumentParser
 from path import Path
@@ -64,7 +65,9 @@ class Server():
             else:
                 team_text = (self.teamdir / args['teamfile']).text()
 
-            constructor_param = PessimisticMinimaxAgent(2, self.pokedata)
+            # constructor_param = PessimisticMinimaxAgent(4, self.pokedata)
+            constructor_param = MonteCarloAgent(60, self.pokedata)
+
             print "about to initialize showdown object"
             showdown = Showdown(
                 team_text,

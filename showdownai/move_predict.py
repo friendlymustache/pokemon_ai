@@ -173,7 +173,7 @@ class PokeFrequencyPredictor(MovePredictor):
                         #probs[othermove] = 1
                     #probs[othermove] *= prob
         if probs == {}:
-            probs = self.get_freqs(poke, self.freq)
+            probs = self.get_freqs(self.freq)
         self.predictions = sorted(probs.items(), key=lambda x: -x[1])
         return self.predictions
 

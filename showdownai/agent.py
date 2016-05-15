@@ -138,3 +138,26 @@ class OptimisticMinimaxAgent(MinimaxAgent):
                 best_best_my_action = best_my_action
                 opp_v = my_v
         return best_best_my_action, opp_v, best_action
+
+
+class MonteCarloAgent(Agent):
+    def __init__(self, maxtime, pokedata):
+        self.maxtime = maxtime
+        self.simulator = Simulator(pokedata)
+        self.tree = MonteCarloTree()
+
+
+    def get_action(self, state, who, log=True):
+        start = time.time()
+        best_action, value, opp_action = self.search(state, who, start, log=log)
+
+
+    def search(self, state, who, start, log=False):
+        tree.re_root(state)
+        while (time.time() - start) < self.maxtime:
+            child = tree.select_child()
+            tree.expand(child)
+            outcome = child.simulate()
+            tree.backprop(child, outcome)
+
+        return tree.best_move()
