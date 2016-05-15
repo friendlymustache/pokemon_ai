@@ -158,6 +158,6 @@ class MonteCarloAgent(Agent):
             child = tree.select_child()
             tree.expand(child)
             outcome = child.simulate()
-            tree.backprop(child, outcome)
+            tree.back_propogate(child, outcome)
 
         return tree.best_move()
