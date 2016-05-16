@@ -1,5 +1,6 @@
 import itertools
 import numpy as np
+from operator import itemgetter
 
 class MonteCarloTree():
     def __init__(self):
@@ -13,33 +14,29 @@ class MonteCarloTree():
         else:
             self.root = GameStateNode(state)
 
+    def select_and_expand(self):
+        current = self.root
+
+        my_action = max(current.my_actions, key=itemgetter(1))[0]
+        opp_action = max(current.opp_actions, key=itemgetter(1))[0]
+        key = (my_action, opp_action)
+
+        while (key in current.children_actionpairs):
+            actionpair_node = current.children_actionpairs[key]
+
+            # TODO: 0 for now, change when non-deterministic
+            current = actionpair_node.children_gamestates[0]
+
+            my_action = max(current.my_actions, key=itemgetter(1))[0]
+            opp_action = max(current.opp_actions, key=itemgetter(1))[0]
+            key = (my_action, opp_action)
+
+        current.children_actionpairs[key] = ActionPairNode(current, key)
+
+
+
     def back_propogate(self, node, outcome):
         #TODO
-
-    def get_action_pair(self, node):
-        #TODO
-
-class Node():
-    def __init__(self, state=None, prev_action=None, parent=None):
-        self.state = state
-        self.teams = state.teams
-
-        self.times_visited = 0.0
-        self.wins = 0.0
-
-        self.my_possible_actions = state.get_legal_actions(teams[0])
-        self.opp_possible_actions = state.get_legal_actions(teams[1])
-
-        self.parent = parent
-        self.prev_action = prev_action
-        self.action_pairs = list(itertools.product(self.my_possible_actions, self.opp_possible_actions))
-        self.children = {pair : [] for pair in self.action_pairs}
-
-        self.my_action_n = {a : 0 for a in self.my_possible_actions}
-        self.opp_action_n = {a : 0 for a in self.opp_possible_actions}
-
-        self.my_uct_score = {a : 1 / len(self.possible_actions) for a in self.my_possible_actions}
-        self.opp_uct_score = {a : 1 / len(self.possible_actions) for a in self.opp_possible_actions}
 
     def calc_uct_score(self, action_pair):
         C = 0.5
@@ -51,37 +48,37 @@ class Node():
 
 
 class Node():
-	def __init__(self, parent=None):
-		self.times_visited = 0.0
-		self.wins = 0.0
-		self.parent = parent
+    def __init__(self, parent=None):
+        self.times_visited = 0.0
+        self.wins = 0.0
+        self.parent = parent
 
 class GameStateNode(Node):
-	def __init__(self, state, parent=None):
-		super(GameStateNode, self).__init__(parent)
+    def __init__(self, state, parent=None):
+        super(GameStateNode, self).__init__(parent)
 
-		self.state = state
-		self.teams = gamestate.teams
+        self.state = state
+        self.teams = gamestate.teams
 
-		self.my_possible_actions = state.get_legal_actions(teams[0])
-        self.opp_possible_actions = state.get_legal_actions(teams[1])
-        self.action_pairs = list(itertools.product(self.my_possible_actions, self.opp_possible_actions))
-        
+        # [(action, uct_score)]
+        self.my_actions = [(a, float("inf")) for a in state.get_legal_actions(teams[0])]
+        self.opp_actions = [(b, float("inf")) for b in state.get_legal_actions(teams[1])]
+
+        # {(my_action, opp_action) : action pair node}
+        self.children_actionpairs = {}
+
+        # {(game_state_tuple) : game_state_node}
         self.children_gamestates = {}
         if parent is not None:
             self.parent.parent.children_gamestates[state.to_tuple()] = self
 
 
-        self.my_uct_score = {a : 1 / len(self.possible_actions) for a in self.my_possible_actions}
-        self.opp_uct_score = {a : 1 / len(self.possible_actions) for a in self.opp_possible_actions}
-
-
 class ActionPairNode(Node):
-	def __init__(self, parent):
-		super(ActionPairNode, self).__init__(parent)
+    def __init__(self, parent, action_pair):
+        super(ActionPairNode, self).__init__(parent)
 
         self.action_pair = action_pair
-        self.uct_score 
+        self.children_gamestates = []
 
 
 

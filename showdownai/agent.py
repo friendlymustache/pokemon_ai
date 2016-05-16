@@ -155,7 +155,7 @@ class MonteCarloAgent(Agent):
     def search(self, state, who, start, log=False):
         tree.re_root(state)
         while (time.time() - start) < self.maxtime:
-            child = tree.select_child()
+            child = tree.select_and_expand()
             tree.expand(child)
             outcome = child.simulate()
             tree.back_propogate(child, outcome)
