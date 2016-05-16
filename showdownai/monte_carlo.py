@@ -14,7 +14,7 @@ class MonteCarloTree():
         else:
             self.root = GameStateNode(state)
 
-    def select_and_expand(self):
+    def select_add_actionpair(self):
         current = self.root
 
         my_action = max(current.my_actions, key=itemgetter(1))[0]
@@ -31,9 +31,15 @@ class MonteCarloTree():
             opp_action = max(current.opp_actions, key=itemgetter(1))[0]
             key = (my_action, opp_action)
 
-        current.children_actionpairs[key] = ActionPairNode(current, key)
+        new_actionpair = ActionPairNode(current, key)
+        current.children_actionpairs[key] = new_actionpair
 
+        return new_actionpair
 
+    def add_gamestate(self, actionpair_node, new_state): 
+        new_gamestate = GameStateNode(state, actionpair_node)
+        actionpair_node.children_gamestates.append(new_gamestate)
+        return new_gamestate
 
     def back_propogate(self, node, outcome):
         #TODO
