@@ -3,6 +3,7 @@ from simulator import Action
 from type import get_multiplier
 from data import MOVES
 import logging
+import sys
 logging.basicConfig()
 
 class GameState():
@@ -36,8 +37,12 @@ class GameState():
     def get_team(self, team):
         return self.teams[team]
 
-    def to_list(self):
-        return self.teams[0].to_list() + self.teams[1].to_list() + [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
+    def to_list(self, encoder=None):
+        first_team = self.teams[0].to_list(encoder=encoder)
+        second_team = self.teams[1].to_list(encoder=encoder)
+        additional_state = [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
+        result = [first_team, second_team, additional_state]
+        return flatten(result)
 
     def to_tuple(self):
         return (tuple(x.to_tuple() for x in self.teams), (self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]))

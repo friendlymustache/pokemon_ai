@@ -21,6 +21,7 @@ from showdownai.data import NAME_CORRECTIONS, MOVE_CORRECTIONS, load_data, get_m
 from showdownai.move_predict import create_predictor
 from showdownai.team import Team, Pokemon
 from showdownai.simulator import Simulator
+from showdownai.feature_encoders import GamestateEncoder
 from smogon import SmogonMoveset
 from showdownai.gamestate import GameState
 from compiler.ast import flatten
@@ -35,6 +36,7 @@ smogon_bw_data = None
 simulator = None
 
 data = []
+poke_names = set()
 
 def create_initial_gamestate(turn_0):
     log = SimulatorLog()
@@ -150,15 +152,16 @@ def create_initial_gamestate(turn_0):
     gamestate = GameState([my_pokes, opp_pokes])
     return gamestate
 
-def update_latest_turn(gamestate, turn, turn_num=0):
+def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
     simulator.latest_turn = []
+    global poke_names
     for line in turn:
         event = simulator.log.add_event(line)
         if not event:
             continue
         simulator.latest_turn.append(event)
         if event.type == "move":
-            data_line = gamestate.to_list()
+            data_line = gamestate.to_list(encoder=encoder)
             data_line.append(turn_num)
             data_line.append(event.player)
             data_line.append(event.details['move'])
@@ -166,17 +169,22 @@ def update_latest_turn(gamestate, turn, turn_num=0):
                 return False
             data.append(data_line)
         elif event.type == "switch":
-            data_line = gamestate.to_list()
+            data_line = gamestate.to_list(encoder=encoder)
             data_line.append(turn_num)
             data_line.append(event.player)
             data_line.append(event.poke)
             if 'Struggle' in data_line:
                 return False
             data.append(data_line)
+
+        # Build up a set of all pokemon names
+        team_1, team_2 = gamestate.teams[0], gamestate.teams[1]
+        for poke in team_1.poke_list + team_2.poke_list:
+            poke_names.add(poke.name)            
         simulator.handle_event(gamestate, event)
     return gamestate
 
-def parse_lines(lines):
+def parse_lines(lines, encoder=None):
     turns = []
     buffer = []
     for line in lines:
@@ -190,7 +198,7 @@ def parse_lines(lines):
     gamestate = update_latest_turn(gamestate, turns[0])
     for i in range(1, len(turns)):
         print "TURN", i
-        gamestate = update_latest_turn(gamestate, turns[i], turn_num=i)
+        gamestate = update_latest_turn(gamestate, turns[i], turn_num=i, encoder=encoder)
         if not gamestate:
             break
 
@@ -202,29 +210,32 @@ if __name__ == "__main__":
     smogon_bw_data = pokedata.smogon_bw_data
     successes = 0.0
     failures = 0.0
+    encoder = GamestateEncoder()    
     # For each replay (battle log)...
     for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username", "replay_id")):
             simulator = Simulator(pokedata)
             log, user, replay_id = log_attributes
             try:
                 lines = log.split('\n')
-                parse_lines(lines)
+                parse_lines(lines, encoder=encoder)
                 successes += 1
-            except Exception as e:
-                failures += 1
+            # except Exception as e:
+            #     failures += 1
             # Catches acceptable errors
-            except (KeyError, AssertionError) as e:
+            except (AttributeError, KeyError, AssertionError, ValueError, Exception) as e:
                 failures += 1
                 print e
             # Catches unacceptable errors and prints the replay id + game log of the
             # offending replay
-            except ValueError:
-                sys.stderr.write(replay_id)
-                sys.stderr.write("\n\n\n\n\n")
-                sys.stderr.write(log)
+            # except ValueError:
+            #     sys.stderr.write(replay_id)
+            #     sys.stderr.write("\n\n\n\n\n")
+            #     sys.stderr.write(log)
             if idx % 100 == 0:
                 sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
     sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
+    print "Poke names: %s"%poke_names
+    print "%s pokemon names in parsed data"%(len(poke_names))
     df = pandas.DataFrame(data)
     print df.shape
     df.to_csv("data.csv", index=False)

@@ -15,12 +15,21 @@ from browser import Selenium
 import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import *
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.common.by import By
+
+
 import re
 
 LADDER_URL = "http://pokemonshowdown.com/ladder/ou"
 USERNAME_URL = "http://replay.pokemonshowdown.com/search/?output=html&user={user}&format=&page={page}&output=html"
 REPLAY_URL= "http://replay.pokemonshowdown.com/{replay_id}"
 MAX_GAME_LENGTH = 300
+
+class EndOfLogException(Exception):
+    pass
 
 
 class SeleniumScraper(Selenium):
@@ -40,7 +49,7 @@ class SeleniumScraper(Selenium):
 
     def get_replay_helper(self, replay_id, background):
         if background:
-            fast_forward_btn = self.driver.find_element_by_css_selector("[data-action='ff']")                
+            fast_forward_btn = self.driver.find_element_by_css_selector("[data-action='ff']") 
             # Iterate through up to MAX_GAME_LENGTH turns
             for i in range(MAX_GAME_LENGTH):
                 fast_forward_btn.click()
@@ -51,7 +60,7 @@ class SeleniumScraper(Selenium):
                     if "won the battle" in log.text:
                         return log.text 
             # If the game hasn't ended after MAX_GAME_LENGTH turns, throw an exception
-            raise Exception("Failed to reach end of log file")                
+            raise EndOfLogException("Failed to reach end of log file")                
         else:
             # Open the turn picking dialogue
             pick_turn_btn = self.driver.find_element_by_css_selector("[data-action='ffto']")
@@ -122,7 +131,7 @@ def main(arguments):
     args, index, nworkers = arguments
 
     def print_helper(string):
-        print "Process %s: %s"%(index, string)
+        print "Process %s: %s"%(index + 1, string)
 
     # Get a hard-coded list of users whose replays we want to scrape
     usernames = get_usernames()
@@ -143,8 +152,8 @@ def main(arguments):
             break
         print_helper("User: %s" % user)
         for i in range(1, args.max_page + 1):
-            print_helper("Page: %d" % i)
             replay_ids = get_replay_ids(user, i)
+            print_helper("Page: %s"%i)
             if not replay_ids:
                 break
             if page_done(r, replay_ids):
@@ -153,17 +162,24 @@ def main(arguments):
             # equal to <index> mod <nworkers> in the list of replays
             for i in xrange(index, len(replay_ids), nworkers):
                 replay_id = replay_ids[i]
-                if not r.check_replay_exists(replay_id):                
+                if r.should_scrape_replay(replay_id):                
                     # print_helper("New replay ID: %s" % replay_id)
                     try:
                         replay_text = scraper.get_replay_text(replay_id, run_in_background)
                         r.add_replay(replay_id, replay_text, user)
                         r.commit()
-                        time.sleep(0.5*nworkers)
+                        time.sleep(0.5 * nworkers)
                         nreplays += 1
                         print_helper("Scraped %s replays"%(nreplays))
-                    except Exception as e:
-                        print_helper("Exception: %s"%e.message)
+                    # If we reach an invalid log, save it in the DB so the scraper
+                    # doesn't waste time scraping it the next time it is run
+                    except (EndOfLogException, NoSuchElementException, ElementNotVisibleException) as e:
+                        print "Recording invalidity of log %s"%replay_id
+                        r.add_invalid_replay(replay_id)
+                        r.commit()
+                        time.sleep(0.5 * nworkers)
+                    # except Exception as e:
+                    #     print_helper("Exception: %s"%e.message)
                         continue
 
 
