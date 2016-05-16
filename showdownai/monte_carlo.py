@@ -42,6 +42,27 @@ class Node():
         opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
 
 
+class Node():
+	def __init__(self, parent):
+		self.times_visited = 0.0
+		self.wins = 0.0
+		self.parent = parent
+
+class GameStateNode(Node):
+	def __init__(self, state, parent):
+		super(GameStateNode, self).__init__()
+
+		self.state = state
+		self.teams = gamestate.teams
+
+		self.my_possible_actions = state.get_legal_actions(teams[0])
+        self.opp_possible_actions = state.get_legal_actions(teams[1])
+
+
+class ActionPairNode(Node):
+	def __init__(self, parent):
+		super(ActionPairNode, self).__init__()
+
 
 
 self.root = Node(state)
