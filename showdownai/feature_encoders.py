@@ -33,20 +33,22 @@ class GamestateEncoder:
             return "Hidden Power"
         return move_name
 
-    def encode_list_helper(self, dictionary, lst):
+    def encode_list_helper(self, dictionary, lst, index=False):
         # Get the non-zero indices of the output
         lst_indices = [dictionary[elem] for elem in lst]
         result = [0] * len(dictionary)        
-        for idx in lst_indices:
-            result[idx] = 1
+        for i in range(len(lst_indices)):
+            if index:
+                result[lst_indices[i]] = i
+            else:
+                result[lst_indices[i]] = 1
         return result
-
 
     def encode_team(self, poke_names):
         '''
         One-hot encode a team
         '''
-        return self.encode_list_helper(self.pokemon_map, poke_names)
+        return self.encode_list_helper(self.pokemon_map, poke_names, index=True)
 
     def encode_moveset(self, moveset):
         '''
