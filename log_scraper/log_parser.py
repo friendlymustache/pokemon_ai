@@ -30,6 +30,9 @@ from scipy import io
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import cPickle
 
+DENSE_DATA_LINE_LENGTH = 287
+SPARSE_DATA_LINE_LENGTH = 8174
+
 
 username = None
 username1 = None
@@ -42,6 +45,9 @@ dense_data = []
 sparse_data = []
 Y = []
 poke_names = set()
+
+class InvalidDataFormat(Exception):
+    pass
 
 def create_initial_gamestate(turn_0):
     log = SimulatorLog()
@@ -175,6 +181,11 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             dense_data.append(dense_line_data)
             sparse_data.append(sparse_line_data)
 
+            if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
+                raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, len(sparse_line_data)))
+            elif sparse_line_data.shape[1] != SPARSE_DATA_LINE_LENGTH:
+                raise InvalidDataFormat("Line length: %s, expected: %s. Dense data length: %s"%(sparse_line_data.shape[1], SPARSE_DATA_LINE_LENGTH, len(dense_line_data)))                
+
         elif event.type == "switch":
             dense_line_data, sparse_line_data = gamestate.to_list(encoder=encoder)
             dense_line_data.append(turn_num)
@@ -186,6 +197,11 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             Y.append(event.poke)                
             dense_data.append(dense_line_data)
             sparse_data.append(sparse_line_data)
+
+            if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
+                raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, sparse_line_data.shape[1]))
+            elif sparse_line_data.shape[1] != SPARSE_DATA_LINE_LENGTH:
+                raise InvalidDataFormat("Line length: %s, expected: %s. Dense data length: %s"%(sparse_line_data.shape[1], SPARSE_DATA_LINE_LENGTH, len(dense_line_data)))                            
            
         simulator.handle_event(gamestate, event)
     return gamestate
@@ -203,7 +219,6 @@ def parse_lines(lines, encoder=None):
     gamestate = create_initial_gamestate(turns[0])
     gamestate = update_latest_turn(gamestate, turns[0], encoder=encoder)
     for i in range(1, len(turns)):
-        print "TURN", i
         gamestate = update_latest_turn(gamestate, turns[i], turn_num=i, encoder=encoder)
         if not gamestate:
             break
@@ -229,6 +244,9 @@ if __name__ == "__main__":
             #     failures += 1
             # Catches acceptable errors
             # except (AttributeError, KeyError, AssertionError, ValueError) as e:
+            except InvalidDataFormat as e:
+                raise e
+
             except (Exception) as e:            
                 failures += 1
                 print e

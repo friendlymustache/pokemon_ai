@@ -269,14 +269,7 @@ class Team():
         pokemon_encodings = []
         sparse_data = []
 
-        poke_list = self.poke_list + [None] * (6 - len(self.poke_list))
-
         for poke in self.poke_list:
-            # Handle empty pokemon by adding arrays of 0
-            if poke is None and encoder is not None:
-                empty_moveset = encoder.encode_moveset([])
-                sparse_data.append(sp.csr_matrix(empty_moveset))
-
             # Add list representation of pokemon to list of pokemon encodings            
             list_representation, moveset = poke.to_list(encoder=encoder)
             pokemon_encodings.append(list_representation)
@@ -284,8 +277,6 @@ class Team():
             # Convert moveset into a sparse csr matrix
             sparse_data.append(sp.csr_matrix(moveset))
 
-        if len(poke_list) != 6:
-            sys.stderr.write("List length: %s\n"%len(poke_list))
         # Team format...
         # <pokemon_encodings><team_encoding><moveset_encodings>
 

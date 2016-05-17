@@ -43,7 +43,7 @@ class Simulator():
         if type == "faint":
             poke.health = 0
             poke.alive = False
-            print "%s fainted." % (poke)
+            # print "%s fainted." % (poke)
         elif type == "mega_item":
             poke.item = event.details['item']
             team = gamestate.get_team(player)
@@ -51,9 +51,9 @@ class Simulator():
         elif type == "damage":
             hp = poke.final_stats['hp']
             poke.damage(event.details['damage'] / 100 * hp)
-            print "%s got damaged: %f" % (poke, event.details['damage'])
+            # print "%s got damaged: %f" % (poke, event.details['damage'])
         elif type == "move":
-            print "%s used %s." % (poke, event.details['move'])
+            # print "%s used %s." % (poke, event.details['move'])
             poke.last_move = event.details['move']
             if event.details['move'] == "Relic Song":
                 my_poke = gamestate.get_team(player).primary()
@@ -61,9 +61,9 @@ class Simulator():
             move = event.details['move']
             poke_name = correct_mega(poke.name)
             if move in MOVE_CORRECTIONS:
-                print move
+                # print move
                 move = MOVE_CORRECTIONS[move]
-                print move
+                # print move
             if move == "Hidden Power":
                 hidden_power = get_hidden_power(poke_name, self.smogon_data)
                 if hidden_power:
@@ -86,7 +86,7 @@ class Simulator():
                     moves.index(event.details['move'])
                     poke.choiced = True
                     poke.move_choice = event.details['move']
-                    print "%s is choiced to %s" % (poke, event.details['move'])
+                    # print "%s is choiced to %s" % (poke, event.details['move'])
                 except:
                     pass
 
@@ -94,75 +94,75 @@ class Simulator():
             stages = event.details['stages']
             if stages > 0:
                 poke.increase_stage(event.details['stat'], abs(stages))
-                print "%s increased its %s by %d stages" % (poke, event.details['stat'], stages)
+                # print "%s increased its %s by %d stages" % (poke, event.details['stat'], stages)
             else:
                 poke.decrease_stage(event.details['stat'], abs(stages))
-                print "%s decreased its %s by %d stages" % (poke, event.details['stat'], stages)
+                # print "%s decreased its %s by %d stages" % (poke, event.details['stat'], stages)
         elif type == "switch":
             #if poke == "Meloetta":
             #    poke.meloetta_reset()
             #team.set_primary(team.poke_list.index(poke))
             gamestate.switch_pokemon(team.poke_list.index(poke), player, log=True)
-            print "Player %d switched in %s" % (player, poke)
+            # print "Player %d switched in %s" % (player, poke)
         elif type == "regain_health":
             poke.heal(0.5)
-            print "%s regained health" % poke
+            # print "%s regained health" % poke
         elif type == "leftovers":
             poke.item = "Leftovers"
             poke.heal(1.0 / 16)
-            print "%s regained health due to leftovers" % poke
+            # print "%s regained health due to leftovers" % poke
         elif type == "life_orb":
             poke.item = "Life Orb"
             poke.damage_percent(1.0/10)
         elif type == "leech_seed":
             damage = poke.damage_percent(1.0 / 8)
             opp_poke.heal(damage)
-            print "%s was sapped and %s gained health due to leech seed." % (poke, opp_poke)
+            # print "%s was sapped and %s gained health due to leech seed." % (poke, opp_poke)
         elif type == "rocks":
             gamestate.set_rocks(player, True)
-            print "Player %u got rocked!" % player
+            # print "Player %u got rocked!" % player
         elif type == "spikes":
             gamestate.spikes[player] += 1
-            print "Player %u now has %d spikes!" % (player, gamestate.spikes[player])
+            # print "Player %u now has %d spikes!" % (player, gamestate.spikes[player])
         elif type == "rocks_gone":
             gamestate.set_rocks(player, False)
-            print "Player %u's rocks disappeared!" % player
+            # print "Player %u's rocks disappeared!" % player
         elif type == "burn":
             poke.set_status("burn")
         elif type == "paralyze":
             poke.set_status("paralyze")
-            print "%s got burned!" % poke
+            # print "%s got burned!" % poke
         elif type == "hurt_burn":
             poke.damage_percent(1.0 / 8)
-            print "%s got hurt due to its burn!" % poke
+            # print "%s got hurt due to its burn!" % poke
         elif type == "float_balloon":
             poke.item = "Air Balloon"
-            print "%s has an air balloon!" % poke
+            # print "%s has an air balloon!" % poke
         elif type == "pop_balloon":
             poke.item = None
-            print "%s's air balloon was popped!" % poke
+            # print "%s's air balloon was popped!" % poke
         elif type == "new_item":
             poke.item = event.details['item']
-            print "%s got a %s" % (poke, event.details['item'])
+            # print "%s got a %s" % (poke, event.details['item'])
         elif type == "lost_item":
             poke.item = None
             poke.choiced = False
-            print "%s lost its item!" % poke
+            # print "%s lost its item!" % poke
         elif type == "belly_drum":
             poke.increase_stage('patk', 9999)
         elif type == "mold_breaker":
             poke.ability = "Mold Breaker"
-            print "%s has mold breaker!" % poke
+            # print "%s has mold breaker!" % poke
         elif type == "disabled":
             move = event.details['move']
             poke.disabled = move
-            print "%s has mold breaker!" % poke
+            # print "%s has mold breaker!" % poke
         elif type == "taunt":
             poke.set_taunt(True)
-            print "%s just got taunted!" % poke
+            # print "%s just got taunted!" % poke
         elif type == "encore":
             poke.set_encore(True)
-            print "%s just got encored!" % poke
+            # print "%s just got encored!" % poke
 
 
     def get_first(self, gamestate, moves, who=0, log=False):
@@ -273,11 +273,12 @@ class Simulator():
             other_action = actions[1 - i]
             damage = move.handle(gamestate, i, log=log)
             if log:
-                print ("%s used %s and dealt %u damage." % (
-                    team.primary(),
-                    move.name,
-                    damage
-                ))
+                pass
+                # print ("%s used %s and dealt %u damage." % (
+                #     team.primary(),
+                #     move.name,
+                #     damage
+                # ))
             if damage > 0 and other_team.primary().item == "Air Balloon":
                 other_team.primary().item = None
             if damage > 0 and move.name in ["U-turn", "Volt Switch"] and action.volt_turn is not None:
@@ -286,9 +287,10 @@ class Simulator():
             if other_team.primary().health == 0:
                 other_team.primary().alive = False
                 if log:
-                    print (
-                        "%s fainted." % other_team.primary()
-                    )
+                    pass
+                    # print (
+                    #     "%s fainted." % other_team.primary()
+                    # )
 
             if gamestate.is_over():
                 return

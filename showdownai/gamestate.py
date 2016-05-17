@@ -39,7 +39,13 @@ class GameState():
     def get_team(self, team):
         return self.teams[team]
 
+    def validate_teams(self):
+        return len(self.teams[0].poke_list) == 6 and len(self.teams[1].poke_list) == 6
+
     def to_list(self, encoder=None):
+        if not self.validate_teams():
+            return False
+
         first_team_dense, first_team_sparse = self.teams[0].to_list(encoder=encoder)
         second_team_dense, second_team_sparse = self.teams[1].to_list(encoder=encoder)
         additional_state = [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
@@ -106,12 +112,14 @@ class GameState():
 	my_poke.reset_encore()
         opp_poke = opp_team.primary()
         if log:
-            print (
-                "%s switched in." % my_poke
-            )
+            pass
+            # print (
+            #     "%s switched in." % my_poke
+            # )
         if my_poke.ability == "Intimidate":
             if log:
-                print ("%s got intimidated." % opp_poke)
+                pass
+                # print ("%s got intimidated." % opp_poke)
             opp_poke.decrease_stage('patk', 1)
         if self.rocks[who] and hazards:
             type = 1.0
@@ -121,7 +129,8 @@ class GameState():
             damage = 1.0 / 8 * type
             d = my_poke.damage_percent(damage)
             if log:
-                print "%s was damaged %f due to rocks!" % (my_poke, d)
+                pass
+                # print "%s was damaged %f due to rocks!" % (my_poke, d)
             if self.spikes[who] > 0 and "Flying" not in my_poke.typing and my_poke.ability != "Levitate":
                 if self.spikes[who] == 1:
                     d = my_poke.damage_percent(1.0 / 8)
@@ -130,7 +139,8 @@ class GameState():
                 elif self.spikes[who] == 3:
                     d = my_poke.damage_percent(1.0 / 4)
                 if log:
-                    print "%s was damaged %f due to spikes!" % (my_poke, d)
+                    pass
+                    # print "%s was damaged %f due to spikes!" % (my_poke, d)
 
 
 
