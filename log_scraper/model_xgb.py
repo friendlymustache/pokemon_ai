@@ -22,18 +22,18 @@ xg_test = xgboost.DMatrix(X_test, label=y_test)
 
 param = {}
 # use softmax multi-class classification
-param['objective'] = 'multi:softmax'
+param['objective'] = 'multi:softprob'
 param['eta'] = 0.002
-param['max_depth'] = 8
+param['max_depth'] = 7
 param['nthread'] = 7
 param['num_class'] = len(le.classes_)
 param['eval_metric'] = 'merror'
-evals = [ (xg_test, 'eval') ]
+evals = [ (xg_train, 'train'), (xg_test, 'eval') ]
 
 # Train xgboost
 print "Training"
 t1 = time.time()
-bst = xgboost.train(param, xg_train, 1000, evals, early_stopping_rounds=10)
+bst = xgboost.train(param, xg_train, 500, evals, early_stopping_rounds=3)
 t2 = time.time()
 print t2-t1
 bst.save_model('clf.p')

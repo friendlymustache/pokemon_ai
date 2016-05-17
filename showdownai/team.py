@@ -257,17 +257,18 @@ class Team():
 
 
     def to_list(self, encoder=None):
-        if encoder is not None:
+        '''if encoder is not None:
             primary_poke_name = encoder.encode_poke_name(self.poke_list[self.primary_poke].name)
         else:
             primary_poke_name = self.poke_list[self.primary_poke].name
-
-        primary_poke_info = [self.primary_poke, primary_poke_name]
-
+        primary_poke_info = [self.primary_poke, primary_poke_name]'''
+        
+        prime_poke = self.poke_list[self.primary_poke]
+        prime_list_representation, prime_moveset = prime_poke.to_list(encoder=encoder)
         # Concatenate the (possibly-encoded) list representations of each pokemon
         # in our team.   
-        pokemon_encodings = []
-        sparse_data = []
+        pokemon_encodings = [prime_list_representation]
+        sparse_data = [sp.csr_matrix(prime_moveset)]
 
         for poke in self.poke_list:
             # Add list representation of pokemon to list of pokemon encodings            
@@ -280,7 +281,7 @@ class Team():
         # Team format...
         # <pokemon_encodings><team_encoding><moveset_encodings>
 
-        dense_data = primary_poke_info + pokemon_encodings
+        dense_data = pokemon_encodings
 
         # If encoder is provided, obtain a representation of the pokemon comprising
         # the team from the encoder and prepend it to the team representation (e.g. a one-hot

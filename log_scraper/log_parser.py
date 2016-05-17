@@ -30,8 +30,8 @@ from scipy import io
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import cPickle
 
-DENSE_DATA_LINE_LENGTH = 287
-SPARSE_DATA_LINE_LENGTH = 8174
+DENSE_DATA_LINE_LENGTH = 328
+SPARSE_DATA_LINE_LENGTH = 9416
 
 
 username = None
@@ -174,7 +174,6 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             dense_line_data, sparse_line_data = gamestate.to_list(encoder=encoder)
             dense_line_data.append(turn_num)
             dense_line_data.append(event.player)
-            dense_line_data.append(event.details['move'])
             if 'Struggle' in dense_line_data or 'Struggle' in event.details['move']:
                 return False
             Y.append(event.details['move'])                
@@ -190,7 +189,6 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             dense_line_data, sparse_line_data = gamestate.to_list(encoder=encoder)
             dense_line_data.append(turn_num)
             dense_line_data.append(event.player)
-            dense_line_data.append(event.poke)
 
             if 'Struggle' in dense_line_data:
                 return False
