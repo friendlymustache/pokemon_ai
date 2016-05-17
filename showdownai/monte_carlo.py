@@ -42,10 +42,20 @@ class MonteCarloTree():
         return new_gamestate
 
     def back_propogate(self, node, outcome):
-        #TODO
+        # Node passed in is a GS node
+        while(node.parent != None):
+            # Parent is action node; increment vars and get action
+            node = node.parent
+            node.increment()
+            score = update_uct_scores(node)
 
-    def calc_uct_score(self, action_pair):
+            node = node.parent
+            node.increment()
+
+
+    def update_uct_scores(self, node):
         C = 0.5
+        ap = node.action_pair
         mean = self.wins / self.times_visited
         my_n = self.my_action_n[action_pair[0]]
         opp_n = self.opp_action_n[action_pair[1]]
@@ -58,6 +68,10 @@ class Node():
         self.times_visited = 0.0
         self.wins = 0.0
         self.parent = parent
+
+    def increment(self, outcome):
+        self.times_visited += 1
+        self.wins += outcome
 
 class GameStateNode(Node):
     def __init__(self, state, parent=None):
