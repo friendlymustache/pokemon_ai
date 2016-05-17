@@ -4,7 +4,7 @@ information
 '''
 import sys
 import os
-sys.path.append(os.abspath("../"))
+sys.path.append(os.path.abspath("../"))
 
 # from smogon.smogon import Smogon
 
@@ -26,12 +26,17 @@ class GamestateEncoder:
         return self.pokemon_map[poke_name]     
 
     def encode_move(self, move_name):
-        return self.move_map[move_name]
+        return self.moves_map[move_name]
+
+    def sanitize_move(self, move_name):
+        if "Hidden Power" in move_name:
+            return "Hidden Power"
+        return move_name
 
     def encode_list_helper(self, dictionary, lst):
         # Get the non-zero indices of the output
         lst_indices = [dictionary[elem] for elem in lst]
-        result = [0] * len(dictionary)
+        result = [0] * len(dictionary)        
         for idx in lst_indices:
             result[idx] = 1
         return result

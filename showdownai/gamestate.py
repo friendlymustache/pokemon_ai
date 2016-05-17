@@ -4,6 +4,8 @@ from type import get_multiplier
 from data import MOVES
 import logging
 import sys
+from compiler.ast import flatten
+import scipy.sparse as sp
 logging.basicConfig()
 
 class GameState():
@@ -38,11 +40,13 @@ class GameState():
         return self.teams[team]
 
     def to_list(self, encoder=None):
-        first_team = self.teams[0].to_list(encoder=encoder)
-        second_team = self.teams[1].to_list(encoder=encoder)
+        first_team_dense, first_team_sparse = self.teams[0].to_list(encoder=encoder)
+        second_team_dense, second_team_sparse = self.teams[1].to_list(encoder=encoder)
         additional_state = [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
-        result = [first_team, second_team, additional_state]
-        return flatten(result)
+        dense_data = [first_team_dense, second_team_dense, additional_state]
+
+        return (flatten(dense_data), sp.hstack([first_team_sparse, second_team_sparse]))
+
 
     def to_tuple(self):
         return (tuple(x.to_tuple() for x in self.teams), (self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]))

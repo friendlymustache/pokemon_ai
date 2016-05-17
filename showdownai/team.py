@@ -6,6 +6,7 @@ from math import floor
 from operator import itemgetter
 import sys
 from compiler.ast import flatten
+import scipy.sparse as sp
 
 import logging
 logging.basicConfig()
@@ -221,20 +222,22 @@ class Pokemon():
     def to_list(self, encoder=None):
         basic_info = flatten([[self.name, self.item, self.health], 
             self.typing, [None] * (2 - len(self.typing)), 
-            [self.status, self.taunt, self.disabled, self.last_move, self.encore])
+            [self.status, self.taunt, self.disabled, self.last_move, self.encore]])
 
-        moveset = flatten([self.moveset.moves, 
-            self.moveset.known_moves, [None]*(4-len(self.moveset.known_moves)))
+        moveset = flatten([self.moveset.moves, self.moveset.known_moves])
+
         other_info = (map(itemgetter(1), sorted(self.stats.items())) 
             + map(itemgetter(1), sorted(self.stages.items())))
 
         # If we're passed an encoder, use it to encode the pokemon's moveset
         # (e.g. one-hot encode the moves)
         if encoder is not None:
-            moveset = flatten([encoder.encode_moveset(self.moveset.moves),
-                encoder.encode_moveset(self.moveset.known_moves)])
+            # encoded_moves = encoder.encode_moveset(self.moveset.moves)
+            encoded_known_moves = encoder.encode_moveset(self.moveset.known_moves)
 
-        return flatten(basic_info, moveset, other_info)
+            moveset = flatten([encoded_known_moves])
+
+        return (flatten([basic_info, other_info]), moveset)
 
     def to_tuple(self):
         return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.last_move, self.encore, tuple(self.stages.values()))
@@ -262,18 +265,42 @@ class Team():
         primary_poke_info = [self.primary_poke, primary_poke_name]
 
         # Concatenate the (possibly-encoded) list representations of each pokemon
-        # in our team.     
-        team_poke_info = sum([x.to_list(encoder=encoder) for x in self.poke_list], [])
-        result = primary_poke_info + team_poke_info
+        # in our team.   
+        pokemon_encodings = []
+        sparse_data = []
+
+        poke_list = self.poke_list + [None] * (6 - len(self.poke_list))
+
+        for poke in self.poke_list:
+            # Handle empty pokemon by adding arrays of 0
+            if poke is None and encoder is not None:
+                empty_moveset = encoder.encode_moveset([])
+                sparse_data.append(sp.csr_matrix(empty_moveset))
+
+            # Add list representation of pokemon to list of pokemon encodings            
+            list_representation, moveset = poke.to_list(encoder=encoder)
+            pokemon_encodings.append(list_representation)
+
+            # Convert moveset into a sparse csr matrix
+            sparse_data.append(sp.csr_matrix(moveset))
+
+        if len(poke_list) != 6:
+            sys.stderr.write("List length: %s\n"%len(poke_list))
+        # Team format...
+        # <pokemon_encodings><team_encoding><moveset_encodings>
+
+        dense_data = primary_poke_info + pokemon_encodings
 
         # If encoder is provided, obtain a representation of the pokemon comprising
         # the team from the encoder and prepend it to the team representation (e.g. a one-hot
         # encoded representation of the team)
         if encoder is not None:
             names = [poke.name for poke in self.poke_list]
-            result = encoder.encode_team(names) + result
+            encoded_names = sp.csr_matrix(encoder.encode_team(names))
+            sparse_data.append(encoded_names)
+
         
-        return primary_poke_info + team_poke_info
+        return (dense_data, sp.hstack(sparse_data))
 
     def to_tuple(self):
         return (self.primary_poke, tuple(x.to_tuple() for x in self.poke_list))

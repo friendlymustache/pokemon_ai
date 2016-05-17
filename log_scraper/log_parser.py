@@ -25,7 +25,10 @@ from showdownai.feature_encoders import GamestateEncoder
 from smogon import SmogonMoveset
 from showdownai.gamestate import GameState
 from compiler.ast import flatten
-
+import scipy.sparse as sp
+from scipy import io
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+import cPickle
 
 
 username = None
@@ -35,7 +38,9 @@ smogon_data = None
 smogon_bw_data = None
 simulator = None
 
-data = []
+dense_data = []
+sparse_data = []
+Y = []
 poke_names = set()
 
 def create_initial_gamestate(turn_0):
@@ -154,33 +159,34 @@ def create_initial_gamestate(turn_0):
 
 def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
     simulator.latest_turn = []
-    global poke_names
     for line in turn:
         event = simulator.log.add_event(line)
         if not event:
             continue
         simulator.latest_turn.append(event)
         if event.type == "move":
-            data_line = gamestate.to_list(encoder=encoder)
-            data_line.append(turn_num)
-            data_line.append(event.player)
-            data_line.append(event.details['move'])
-            if 'Struggle' in data_line:
+            dense_line_data, sparse_line_data = gamestate.to_list(encoder=encoder)
+            dense_line_data.append(turn_num)
+            dense_line_data.append(event.player)
+            dense_line_data.append(event.details['move'])
+            if 'Struggle' in dense_line_data or 'Struggle' in event.details['move']:
                 return False
-            data.append(data_line)
-        elif event.type == "switch":
-            data_line = gamestate.to_list(encoder=encoder)
-            data_line.append(turn_num)
-            data_line.append(event.player)
-            data_line.append(event.poke)
-            if 'Struggle' in data_line:
-                return False
-            data.append(data_line)
+            Y.append(event.details['move'])                
+            dense_data.append(dense_line_data)
+            sparse_data.append(sparse_line_data)
 
-        # Build up a set of all pokemon names
-        team_1, team_2 = gamestate.teams[0], gamestate.teams[1]
-        for poke in team_1.poke_list + team_2.poke_list:
-            poke_names.add(poke.name)            
+        elif event.type == "switch":
+            dense_line_data, sparse_line_data = gamestate.to_list(encoder=encoder)
+            dense_line_data.append(turn_num)
+            dense_line_data.append(event.player)
+            dense_line_data.append(event.poke)
+
+            if 'Struggle' in dense_line_data:
+                return False
+            Y.append(event.poke)                
+            dense_data.append(dense_line_data)
+            sparse_data.append(sparse_line_data)
+           
         simulator.handle_event(gamestate, event)
     return gamestate
 
@@ -195,7 +201,7 @@ def parse_lines(lines, encoder=None):
             buffer.append(line)
     turns.append(buffer)
     gamestate = create_initial_gamestate(turns[0])
-    gamestate = update_latest_turn(gamestate, turns[0])
+    gamestate = update_latest_turn(gamestate, turns[0], encoder=encoder)
     for i in range(1, len(turns)):
         print "TURN", i
         gamestate = update_latest_turn(gamestate, turns[i], turn_num=i, encoder=encoder)
@@ -222,7 +228,8 @@ if __name__ == "__main__":
             # except Exception as e:
             #     failures += 1
             # Catches acceptable errors
-            except (AttributeError, KeyError, AssertionError, ValueError, Exception) as e:
+            # except (AttributeError, KeyError, AssertionError, ValueError) as e:
+            except (Exception) as e:            
                 failures += 1
                 print e
             # Catches unacceptable errors and prints the replay id + game log of the
@@ -236,6 +243,29 @@ if __name__ == "__main__":
     sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
     print "Poke names: %s"%poke_names
     print "%s pokemon names in parsed data"%(len(poke_names))
-    df = pandas.DataFrame(data)
-    print df.shape
-    df.to_csv("data.csv", index=False)
+
+    # Combine all sparse data into one sparse matrix
+    sparse_data = sp.vstack(sparse_data)
+    dense_data = pandas.DataFrame(dense_data)
+
+    # Converts categorical to integers
+    le = LabelEncoder()
+    dense_data.fillna(0, inplace=True)
+    names = list(dense_data)
+
+    # Convert categorical columns to integers
+    cats = []
+    for i in range(len(names)):
+        if dense_data[names[i]].dtype != 'int64' and dense_data[names[i]].dtype != 'float64':
+            dense_data[names[i]] = le.fit_transform(dense_data[names[i]])
+            cats.append(i)
+    dense_data = dense_data.values
+
+    moves = pandas.DataFrame(Y)
+    moves.to_csv("moves.csv")
+
+    dense_data = sp.hstack((dense_data, sparse_data))
+    sys.stderr.write(str(dense_data.shape))
+    io.mmwrite("data_low_dim.csv", dense_data)
+
+    # dense_data.to_csv("data.csv", index=False)
