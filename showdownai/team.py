@@ -255,6 +255,11 @@ class Team():
         team.primary_poke = self.primary_poke
         return team
 
+    def get_index(self, poke_name):
+        for i in range(len(self.poke_list)):
+            if self.poke_list[i].name == poke_name:
+                return i
+        return -1
 
     def to_list(self, encoder=None):
         '''if encoder is not None:

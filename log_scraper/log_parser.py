@@ -192,7 +192,7 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
 
             if 'Struggle' in dense_line_data:
                 return False
-            Y.append(event.poke)                
+            Y.append(gamestate.teams[event.player].get_index(event.poke))                
             dense_data.append(dense_line_data)
             sparse_data.append(sparse_line_data)
 
