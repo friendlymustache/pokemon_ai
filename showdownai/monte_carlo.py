@@ -8,10 +8,13 @@ class MonteCarloTree():
 
     def re_root(self, state):
         if (self.root == None):
+            print "Created initial MCTS"
             self.root = GameStateNode(state)
         elif (state.to_tuple() in self.root.children_gamestates):
+            print "Found gamestate"
             self.root = self.root.children_gamestates[state.to_tuple()]
         else:
+            print "Created new gamestate"
             self.root = GameStateNode(state)
 
     def select_add_actionpair(self):
@@ -59,6 +62,11 @@ class MonteCarloTree():
             node.increment(outcome, ap)
             node.update_uct_scores(ap)
 
+    def best_move(self):
+        best_action = max(self.root.my_actions, key=lambda i: self.root.my_actions_n[i][0] / self.root.my_actions_n[i][1])
+        opp_action = max(self.root.opp_actions, key=lambda i: self.root.opp_actions_n[i][0] / self.root.opp_actions_n[i][1])
+        return best_action, 0.0, opp_action
+
 
 
 class Node(object):
@@ -103,7 +111,7 @@ class GameStateNode(Node):
         self.times_visited += 1
         self.wins += outcome
         self.my_actions_n[action_pair[0]][0] += outcome
-        self.opp_actions_n[action_pair[1]][0] += outcome
+        self.opp_actions_n[action_pair[1]][0] += 1 - outcome
         self.my_actions_n[action_pair[0]][1] += 1
         self.opp_actions_n[action_pair[1]][1] += 1
 
@@ -125,9 +133,6 @@ class GameStateNode(Node):
         self.my_actions[my_action] = my_mean + my_explore
         self.opp_actions[opp_action] = opp_mean + opp_explore
 
-    def best_move(self):
-        best_action = max(self.my_actions, key=lambda i: self.my_actions_n[i][0] / self.my_actions_n[i][1])
-        return best_action
 
 class ActionPairNode(Node):
     def __init__(self, parent, action_pair):
