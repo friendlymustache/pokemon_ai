@@ -160,16 +160,16 @@ class MonteCarloAgent(Agent):
         return int(winner==1)
 
     def search(self, state, who, start, log=False):
-        tree.re_root(state)
+        self.tree.re_root(state)
         while (time.time() - start) < self.maxtime:
             # select an action pair and get new actionpair node
-            child = tree.select_add_actionpair()
+            child = self.tree.select_add_actionpair()
             # run simulation given previous state and action chosen, return new state
             new_state = self.simulator.simulate(child.parent.state, child.action_pair, who)
-            # add new gamestate node to tree
-            leaf = tree.add_gamestate(child, new_state)
+            # add new gamestate node to self.tree
+            leaf = self.tree.add_gamestate(child, new_state)
             # run rollout policy and backpropogate outcome
             outcome = self.rollout(new_state)
-            tree.back_propogate(leaf, outcome)
+            self.tree.back_propogate(leaf, outcome)
 
-        return tree.best_move()
+        return self.tree.best_move()

@@ -115,6 +115,9 @@ class GameStateNode(Node):
         self.my_actions[my_action] = my_mean + my_explore
         self.opp_actions[opp_action] = opp_mean + opp_explore
 
+    def best_move(self):
+        best_action = max(self.my_actions, key=lambda i: self.my_actions_n[i][0] / self.my_actions_n[i][1])
+        return best_action
 
 class ActionPairNode(Node):
     def __init__(self, parent, action_pair):
