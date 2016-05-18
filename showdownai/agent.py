@@ -1,7 +1,9 @@
 from simulator import Simulator, Action
+from monte_carlo import MonteCarloTree
 
 import logging
 import time
+
 logging.basicConfig()
 
 class Agent():
@@ -145,15 +147,20 @@ class MonteCarloAgent(Agent):
         self.maxtime = maxtime
         self.simulator = Simulator(pokedata)
         self.tree = MonteCarloTree()
+        print "Monte Carlo tree created"
 
 
     def get_action(self, state, who, log=True):
+        print "Getting action"
         start = time.time()
         best_action, value, opp_action = self.search(state, who, start, log=log)
 
 
     def search(self, state, who, start, log=False):
-        tree.re_root(state)
+        print "Reroot tree"
+        self.tree.re_root(state)
+
+        print "Searching Tree"
         while (time.time() - start) < self.maxtime:
             # select an action pair and get new actionpair node
             child = tree.select_add_actionpair()
@@ -165,4 +172,4 @@ class MonteCarloAgent(Agent):
             outcome = self.rollout(new_state)
             tree.back_propogate(leaf, outcome)
 
-        return tree.best_move()
+        return self.tree.best_move()

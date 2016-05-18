@@ -122,7 +122,3 @@ class ActionPairNode(Node):
 
         self.action_pair = action_pair
         self.children_gamestates = []
-
-
-
-self.root = Node(state)
