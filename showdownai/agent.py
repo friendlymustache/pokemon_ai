@@ -146,11 +146,18 @@ class MonteCarloAgent(Agent):
         self.simulator = Simulator(pokedata)
         self.tree = MonteCarloTree()
 
-
     def get_action(self, state, who, log=True):
         start = time.time()
         best_action, value, opp_action = self.search(state, who, start, log=log)
 
+    def rollout(self, state):
+        while not (winner=state.get_winner()):
+            my_actions = state.get_legal_actions(teams[0])
+            opp_actions = state.get_legal_actions(teams[1])
+            i = random.randrange(len(my_actions))
+            j = random.randrange(len(opp_actions))
+            state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0)
+        return int(winner==1)
 
     def search(self, state, who, start, log=False):
         tree.re_root(state)
