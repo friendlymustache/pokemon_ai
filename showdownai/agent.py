@@ -3,6 +3,7 @@ from monte_carlo import MonteCarloTree
 
 import logging
 import time
+import random
 
 logging.basicConfig()
 
@@ -155,13 +156,17 @@ class MonteCarloAgent(Agent):
         best_action, value, opp_action = self.search(state, who, start, log=log)
 
     def rollout(self, state):
-        while not (winner=state.get_winner()):
-            my_actions = state.get_legal_actions(teams[0])
-            opp_actions = state.get_legal_actions(teams[1])
+        winner = state.get_winner()
+
+        while not winner:
+            my_actions = state.get_legal_actions(0)
+            opp_actions = state.get_legal_actions(1)
             i = random.randrange(len(my_actions))
             j = random.randrange(len(opp_actions))
             state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0)
-        return int(winner==1)
+            winner = state.get_winner()
+
+        return int(winner == 1)
 
     def search(self, state, who, start, log=False):
         print "Reroot tree"
@@ -170,13 +175,23 @@ class MonteCarloAgent(Agent):
         print "Searching Tree"
         while (time.time() - start) < self.maxtime:
             # select an action pair and get new actionpair node
-            child = tree.select_add_actionpair()
+            print "Selcting and adding child action pair node"
+            child = self.tree.select_add_actionpair()
+
+            print "Simulating action pair on current state"
             # run simulation given previous state and action chosen, return new state
-            new_state = self.simulator.simulate(child.parent.state, child.action_pair, who)
+            parent_state = child.parent.state.deep_copy()
+            new_state = self.simulator.simulate(parent_state, child.action_pair, who)
+            
+            print "Adding new simulated gamestate"
             # add new gamestate node to tree
-            leaf = tree.add_gamestate(child, new_state)
+            leaf = self.tree.add_gamestate(child, new_state)
+            
+            print "Rollout"
             # run rollout policy and backpropogate outcome
             outcome = self.rollout(new_state)
-            tree.back_propogate(leaf, outcome)
+
+            print "Back Propogate"
+            self.tree.back_propogate(leaf, outcome)
 
         return self.tree.best_move()

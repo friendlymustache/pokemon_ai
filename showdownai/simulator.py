@@ -322,9 +322,9 @@ class Action():
 
     def __hash__(self):
         if self.type == "move":
-            return hash(self.type, self.move_index, self.backup_switch, self.mega)
+            return hash((self.type, self.move_index, self.backup_switch, self.mega))
         if self.type == "switch":
-            return (self.type, self.switch_index, self.backup_switch)
+            return hash((self.type, self.switch_index, self.backup_switch))
 
     @staticmethod
     def create(move_string):
