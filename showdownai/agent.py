@@ -198,7 +198,7 @@ class MonteCarloAgent(Agent):
             winner = parent_state.get_winner()
             if winner != 0:
                 outcome = int(winner==1)
-                self.tree.back_propogate(parent_state, outcome)
+                self.tree.back_propogate(child.parent, outcome)
             else:
                 new_state = self.simulator.simulate(parent_state, child.action_pair, who)
                 
