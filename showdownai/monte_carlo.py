@@ -28,10 +28,13 @@ class MonteCarloTree():
         # Iteratively traverse the tree until we find an action pair which has
         # not been added to the tree
         while (key in current.children_actionpairs):
+            if current.state.is_over():
+                break
             actionpair_node = current.children_actionpairs[key]
 
             # TODO: 0 for now, change when non-deterministic
             current = actionpair_node.children_gamestates[0]
+
 
             my_action = max(current.my_actions, key=lambda i: current.my_actions[i])
             opp_action = max(current.opp_actions, key=lambda i: current.opp_actions[i])

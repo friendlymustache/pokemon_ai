@@ -195,14 +195,17 @@ class MonteCarloAgent(Agent):
 
             # run simulation given previous state and action chosen, return new state
             parent_state = child.parent.state.deep_copy()
-            new_state = self.simulator.simulate(parent_state, child.action_pair, who)
-            
-            # add new gamestate node to tree
-            leaf = self.tree.add_gamestate(child, new_state)
-            
-            # run rollout policy and backpropogate outcome
-            outcome = self.rollout(new_state)
-
+            winner = parent_state.get_winner()
+            if winner != 0:
+                outcome = int(winner==1)
+            else:
+                new_state = self.simulator.simulate(parent_state, child.action_pair, who)
+                
+                # add new gamestate node to tree
+                leaf = self.tree.add_gamestate(child, new_state)
+                
+                # run rollout policy and backpropogate outcome
+                outcome = self.rollout(new_state)
             self.tree.back_propogate(leaf, outcome)
             count += 1
 
