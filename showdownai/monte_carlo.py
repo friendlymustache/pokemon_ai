@@ -63,7 +63,10 @@ class MonteCarloTree():
             # Update corresponding UCT score in previous GS node
             node = node.parent
             node.increment(outcome, ap)
-            node.update_uct_scores(ap)
+            for a in node.my_actions:
+                node.update_uct_scores((a, None))
+            for b in node.opp_actions:
+                node.update_uct_scores((None, b))
 
     def best_move(self):
         best_action = max(self.root.my_actions, key=lambda i: self.root.my_actions_n[i][0] / self.root.my_actions_n[i][1])
@@ -123,18 +126,20 @@ class GameStateNode(Node):
 
         my_action = action_pair[0]
         opp_action = action_pair[1]
+        
+        if my_action:
+            my_n = self.my_actions_n[my_action][1]
+            if my_n > 0:
+                my_mean = self.my_actions_n[my_action][0] / my_n
+                my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
+                self.my_actions[my_action] = my_mean + my_explore
 
-        my_n = self.my_actions_n[my_action][1]
-        opp_n = self.opp_actions_n[opp_action][1]
-
-        my_mean = self.my_actions_n[my_action][0] / my_n
-        opp_mean = self.opp_actions_n[opp_action][0] / opp_n
-
-        my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
-        opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
-
-        self.my_actions[my_action] = my_mean + my_explore
-        self.opp_actions[opp_action] = opp_mean + opp_explore
+        if opp_action:
+            opp_n = self.opp_actions_n[opp_action][1]
+            if opp_n > 0:
+                opp_mean = self.opp_actions_n[opp_action][0] / opp_n
+                opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
+                self.opp_actions[opp_action] = opp_mean + opp_explore
 
 
 class ActionPairNode(Node):
