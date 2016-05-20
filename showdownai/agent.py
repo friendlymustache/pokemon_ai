@@ -198,6 +198,7 @@ class MonteCarloAgent(Agent):
             winner = parent_state.get_winner()
             if winner != 0:
                 outcome = int(winner==1)
+                self.tree.back_propogate(parent_state, outcome)
             else:
                 new_state = self.simulator.simulate(parent_state, child.action_pair, who)
                 
@@ -206,7 +207,7 @@ class MonteCarloAgent(Agent):
                 
                 # run rollout policy and backpropogate outcome
                 outcome = self.rollout(new_state)
-            self.tree.back_propogate(leaf, outcome)
+                self.tree.back_propogate(leaf, outcome)
             count += 1
 
         print "Searched", count, "Nodes"
