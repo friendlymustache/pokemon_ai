@@ -107,31 +107,54 @@ def main():
     # to use for saving the label encoder
     moves_model_name = "moves_vs_all"
     moves_X, moves_Y = read_matrices(X_fname, moves_vs_all_fname, moves_model_name)
+    moves_le = load_label_encoder(moves_model_name)
+
 
     X_train = moves_X[idx_train]
     y_train = moves_Y[idx_train]
     X_test = moves_X[idx_test]
     y_test = moves_Y[idx_test]
 
+    # Save common eval set for both classifiers
+    test_data = xgboost.DMatrix(X_test)
+    eval_set_size = len(y_test)
+
+
     # Done splitting train/eval sets for moves data, so delete
     # moves data from RAM
     del moves_X
     del moves_Y
 
-    # Train moves vs all classifier
-    moves_vs_all_clf = train_helper(X_train, X_test, y_train, y_test, moves_model_name)
+
+    # Filter out training/test points where no move was made
+    # while training the moves classifier
+    move_indices = []
+    for i in xrange(eval_set_size):
+        if y_test[i] != moves_le.transform("-1"):
+            move_indices.append(i)
+
+    # TODO remove, sanity check
+    assert(len(move_indices) != eval_set_size)
+    print "%s out of %s are moves"%(len(move_indices), eval_set_size)
+
+    X_train = X_train[move_indices]
+    y_train = y_train[move_indices]
+    X_test = X_test[move_indices]
+    # Preserve old y_test so that we know which move
+    # was made for each point in the eval set (even for points
+    # where no move was made)
+    filtered_y_test = y_test[move_indices]
+
+
+    # Train moves vs all classifier on move-only data
+    moves_vs_all_clf = train_helper(X_train, X_test, y_train, filtered_y_test, moves_model_name)
 
     # Done training classifiers, so we can delete training sets from RAM
     del X_train
     del y_train
+    del X_test
+    del filtered_y_test
 
-    # Use classifiers + eval sets to compute error
-    test_data = xgboost.DMatrix(X_test)
-    switch_predictions = switch_vs_all_clf.predict(test_data, ntree_limit=switch_vs_all_clf.best_ntree_limit)
-    moves_predictions = moves_vs_all_clf.predict(test_data, ntree_limit=moves_vs_all_clf.best_ntree_limit)
-
-
-    eval_set_size = len(y_test)
     num_correct = 0.0
     num_switches_correct = 0.0
 
@@ -150,6 +173,11 @@ def main():
 
     del switch_X
     del switch_Y
+
+
+    # Use classifiers + eval sets to compute error
+    switch_predictions = switch_vs_all_clf.predict(test_data, ntree_limit=switch_vs_all_clf.best_ntree_limit)
+    moves_predictions = moves_vs_all_clf.predict(test_data, ntree_limit=moves_vs_all_clf.best_ntree_limit)
 
     # Load label encoder of switch predictor
     switch_le = load_label_encoder(switch_model_name)
@@ -186,8 +214,6 @@ def main():
         if model_prediction == actual_label:
             num_correct += 1
             num_moves_correct += 1
-
-
 
     print "Fraction correct: (%s / %s): %s"%(num_correct, eval_set_size, num_correct / eval_set_size)
     print "Switches correct: (%s / %s): %s"%(num_switches_correct, eval_set_size, num_switches_correct / eval_set_size)
