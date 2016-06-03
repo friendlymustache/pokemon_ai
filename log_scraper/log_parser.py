@@ -30,8 +30,10 @@ from scipy import io
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import cPickle
 
-DENSE_DATA_LINE_LENGTH = 328
-SPARSE_DATA_LINE_LENGTH = 9416
+DENSE_DATA_LINE_LENGTH = 118
+SPARSE_DATA_LINE_LENGTH = 1964
+
+from datetime import datetime
 
 
 username = None
@@ -176,9 +178,14 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             dense_line_data.append(event.player)
             if 'Struggle' in dense_line_data or 'Struggle' in event.details['move']:
                 return False
-            Y.append(event.details['move'])                
-            dense_data.append(dense_line_data)
-            sparse_data.append(sparse_line_data)
+
+            # Y.append(-1)
+            # TODO restore this
+            Y.append(event.details['move'])     
+
+            # TODO uncomment to build + save dense data           
+            # dense_data.append(dense_line_data)
+            # sparse_data.append(sparse_line_data)
 
             if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
                 raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, len(sparse_line_data)))
@@ -192,9 +199,24 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
 
             if 'Struggle' in dense_line_data:
                 return False
-            Y.append(event.poke)                
-            dense_data.append(dense_line_data)
-            sparse_data.append(sparse_line_data)
+
+            # TODO restore this
+            # Y.append(event.poke) 
+
+            # Use when doing moves vs all classification
+            Y.append(-1)
+
+            # Just use the index of the pokemon switched-to
+            # in the team...
+
+            # curr_player_team = gamestate.teams[event.player]
+            # names = [poke.name for poke in curr_player_team.poke_list]
+            # Y.append(names.index(event.poke))
+
+
+            # TODO uncomment to build + save dense data
+            # dense_data.append(dense_line_data)
+            # sparse_data.append(sparse_line_data)
 
             if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
                 raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, sparse_line_data.shape[1]))
@@ -232,56 +254,55 @@ if __name__ == "__main__":
     encoder = GamestateEncoder()    
     # For each replay (battle log)...
     for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username", "replay_id")):
+            # TODO remove
+            # if idx >= 100:
+            #     break
             simulator = Simulator(pokedata)
             log, user, replay_id = log_attributes
             try:
                 lines = log.split('\n')
                 parse_lines(lines, encoder=encoder)
                 successes += 1
-            # except Exception as e:
-            #     failures += 1
-            # Catches acceptable errors
-            # except (AttributeError, KeyError, AssertionError, ValueError) as e:
             except InvalidDataFormat as e:
                 raise e
-
             except (Exception) as e:            
                 failures += 1
                 print e
-            # Catches unacceptable errors and prints the replay id + game log of the
-            # offending replay
-            # except ValueError:
-            #     sys.stderr.write(replay_id)
-            #     sys.stderr.write("\n\n\n\n\n")
-            #     sys.stderr.write(log)
+
             if idx % 100 == 0:
                 sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
     sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
     print "Poke names: %s"%poke_names
     print "%s pokemon names in parsed data"%(len(poke_names))
 
-    # Combine all sparse data into one sparse matrix
-    sparse_data = sp.vstack(sparse_data)
-    dense_data = pandas.DataFrame(dense_data)
+    # # Combine all sparse data into one sparse matrix
+    # sparse_data = sp.vstack(sparse_data)
+    # dense_data = pandas.DataFrame(dense_data)
 
-    # Converts categorical to integers
-    le = LabelEncoder()
-    dense_data.fillna(0, inplace=True)
-    names = list(dense_data)
+    # # Converts categorical to integers
+    # le = LabelEncoder()
+    # dense_data.fillna(0, inplace=True)
+    # names = list(dense_data)
 
-    # Convert categorical columns to integers
-    cats = []
-    for i in range(len(names)):
-        if dense_data[names[i]].dtype != 'int64' and dense_data[names[i]].dtype != 'float64':
-            dense_data[names[i]] = le.fit_transform(dense_data[names[i]])
-            cats.append(i)
-    dense_data = dense_data.values
+    # # Convert categorical columns to integers
+    # cats = []
+    # for i in range(len(names)):
+    #     if dense_data[names[i]].dtype != 'int64' and dense_data[names[i]].dtype != 'float64':
+    #         dense_data[names[i]] = le.fit_transform(dense_data[names[i]])
+    #         cats.append(i)
+    # dense_data = dense_data.values
 
     moves = pandas.DataFrame(Y)
-    moves.to_csv("moves.csv")
+    if len(sys.argv) == 1:
+        filename_prefix = str(datetime.now())    
+    else:
+        filename_prefix = sys.argv[1]
+    moves.to_csv("%s_labels.csv"%filename_prefix)
 
-    dense_data = sp.hstack((dense_data, sparse_data))
-    sys.stderr.write(str(dense_data.shape))
-    io.mmwrite("data_low_dim.csv", dense_data)
+    # dense_data_encoding_len = dense_data.shape[1]
 
-    # dense_data.to_csv("data.csv", index=False)
+    # dense_data = sp.hstack((dense_data, sparse_data))
+    # sys.stderr.write(str(dense_data.shape))
+
+    # data_filename = "%s_features.csv"%(filename_prefix)
+    # io.mmwrite(data_filename, dense_data)

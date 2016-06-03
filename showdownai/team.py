@@ -220,21 +220,21 @@ class Pokemon():
         return poke
     
     def to_list(self, encoder=None):
-        basic_info = flatten([[self.name, self.item, self.health], 
+        basic_info = flatten([[self.health], 
             self.typing, [None] * (2 - len(self.typing)), 
             [self.status, self.taunt, self.disabled, self.last_move, self.encore]])
 
         moveset = flatten([self.moveset.moves, self.moveset.known_moves])
 
-        other_info = (map(itemgetter(1), sorted(self.stats.items())) 
-            + map(itemgetter(1), sorted(self.stages.items())))
+        # other_info = (map(itemgetter(1), sorted(self.stats.items())) 
+        #     + map(itemgetter(1), sorted(self.stages.items())))
+        other_info = []
 
         # If we're passed an encoder, use it to encode the pokemon's moveset
         # (e.g. one-hot encode the moves)
         if encoder is not None:
             # encoded_moves = encoder.encode_moveset(self.moveset.moves)
             encoded_known_moves = encoder.encode_moveset(self.moveset.known_moves)
-
             moveset = flatten([encoded_known_moves])
 
         return (flatten([basic_info, other_info]), moveset)
@@ -263,25 +263,20 @@ class Team():
             primary_poke_name = self.poke_list[self.primary_poke].name
         primary_poke_info = [self.primary_poke, primary_poke_name]'''
         
-        prime_poke = self.poke_list[self.primary_poke]
-        prime_list_representation, prime_moveset = prime_poke.to_list(encoder=encoder)
+        primary_poke = self.poke_list[self.primary_poke]
+        primary_poke_dense, primary_poke_moveset = primary_poke.to_list(encoder=encoder)
         # Concatenate the (possibly-encoded) list representations of each pokemon
         # in our team.   
-        pokemon_encodings = [prime_list_representation]
-        sparse_data = [sp.csr_matrix(prime_moveset)]
+        dense_data = [primary_poke_dense]
+        sparse_data = [sp.csr_matrix(primary_poke_moveset)]
 
         for poke in self.poke_list:
-            # Add list representation of pokemon to list of pokemon encodings            
-            list_representation, moveset = poke.to_list(encoder=encoder)
-            pokemon_encodings.append(list_representation)
+            # Add (dense) list representation of pokemon to list of pokemon encodings            
+            dense_representation, moveset = poke.to_list(encoder=encoder)
+            dense_data.append(dense_representation)
 
             # Convert moveset into a sparse csr matrix
-            sparse_data.append(sp.csr_matrix(moveset))
-
-        # Team format...
-        # <pokemon_encodings><team_encoding><moveset_encodings>
-
-        dense_data = pokemon_encodings
+            # sparse_data.append(sp.csr_matrix(moveset))
 
         # If encoder is provided, obtain a representation of the pokemon comprising
         # the team from the encoder and prepend it to the team representation (e.g. a one-hot
