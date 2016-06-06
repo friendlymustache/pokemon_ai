@@ -1,6 +1,12 @@
 *.pyc
 ./logs
-log_scraper/
+*.csv
+*.mtx
+*.bst
+*.clf
+*.tar
+*.tgz
+*.pickle
 ghostdriver.log
 __pycache__
 showdownai.egg-info
