@@ -5,6 +5,7 @@ from data import MOVES
 import logging
 import sys
 from compiler.ast import flatten
+from feature_encoders import GamestateEncoder
 import scipy.sparse as sp
 logging.basicConfig()
 
@@ -41,8 +42,19 @@ class GameState():
 
     def validate_teams(self):
         return len(self.teams[0].poke_list) == 6 and len(self.teams[1].poke_list) == 6
+    
+    def to_encoded_list(self, label_encoders, cats):
+        dense_data, sparse_data = self.to_list()
+        dense_data = [0 if elm is None else elm for elm in dense_data]
+        for i in range(len(label_encoders)):
+            dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])
+        return sp.hstack((dense_data, sparse_data))
 
     def to_list(self, encoder=None):
+
+        if encoder==None:
+            encoder = GamestateEncoder()
+        
         if not self.validate_teams():
             return False
 
