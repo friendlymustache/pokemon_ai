@@ -235,8 +235,6 @@ if __name__ == "__main__":
     encoder = GamestateEncoder()    
     # For each replay (battle log)...
     for idx, log_attributes in enumerate(db.get_replay_attributes("battle_log", "username", "replay_id")):
-            if idx > 100:
-                break
             simulator = Simulator(pokedata)
             log, user, replay_id = log_attributes
             try:

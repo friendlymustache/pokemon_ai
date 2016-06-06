@@ -44,7 +44,7 @@ def main(X_fname, Y_fname, result_fname=None):
 
     bst.save_model("%s.bst"%result_fname)
 
-if __name__ == __main__:
+if __name__ == "__main__":
 
     if len(sys.argv) < 4:
         print "usage: python model_xgb.py prefix [result_fname]"
