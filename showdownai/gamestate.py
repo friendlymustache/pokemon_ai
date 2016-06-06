@@ -52,9 +52,9 @@ class GameState():
         opp_team = self.get_team(1 - who)
         if self.is_over():
             if my_team.alive():
-                win_bonus = 10000
+                win_bonus = 10
             else:
-                win_bonus = -10000
+                win_bonus = 0
         my_team_health = sum([x.health/x.final_stats['hp'] for x in my_team.poke_list])
         opp_team_health = sum([x.health/x.final_stats['hp'] for x in opp_team.poke_list])
         my_team_death = len([x for x in my_team.poke_list if not x.alive])

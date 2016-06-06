@@ -66,7 +66,7 @@ class Server():
                 team_text = (self.teamdir / args['teamfile']).text()
 
             # constructor_param = PessimisticMinimaxAgent(4, self.pokedata)
-            constructor_param = MonteCarloAgent(10, self.pokedata)
+            constructor_param = MonteCarloAgent(15, self.pokedata)
 
             print "about to initialize showdown object"
             showdown = Showdown(

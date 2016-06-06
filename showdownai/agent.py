@@ -211,6 +211,8 @@ class MonteCarloAgent(Agent):
                 for i in range(num_times):
                     outcome += self.rollout(new_state.deep_copy())
                 outcome /= num_times
+                val = new_state.evaluate(0)
+                outcome = outcome*0.5 + val/15.0
                 self.tree.back_propogate(leaf, outcome)
             count += 1
 
