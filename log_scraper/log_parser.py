@@ -26,6 +26,7 @@ from compiler.ast import flatten
 import scipy.sparse as sp
 from scipy import io
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+import numpy
 import pickler
 import time
 
@@ -249,6 +250,7 @@ if __name__ == "__main__":
 
             if idx % 100 == 0:
                 sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
+                break
     sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
 
     # Combine all sparse data into one sparse matrix
@@ -270,9 +272,11 @@ if __name__ == "__main__":
             label_encoders.append(le)
             cats.append(i)
     dense_data = dense_data.values
+    cats = numpy.array(cats)
 
     # Save label encoders to disk
     path_prefix = "%s/%s"%(RESULT_LOC, sys.argv[1])
+    pickler.dump_object(cats, "%s_cats.pickle"%path_prefix)
     pickler.dump_object(label_encoders, "%s_X_encoders.pickle"%path_prefix)
 
     # Label-encode our supervised training examples' labels (Y) and save the
