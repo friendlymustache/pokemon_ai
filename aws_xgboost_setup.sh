@@ -9,6 +9,8 @@ sudo apt-get install -y python-dev
 sudo apt-get install -y libblas-dev
 sudo apt-get install -y liblapack-dev
 sudo apt-get install -y gfortran
+sudo apt-get install -y libfreetype6-dev libxft-dev
+
 sudo pip install numpy
 sudo pip install matplotlib
 

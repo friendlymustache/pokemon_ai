@@ -98,6 +98,14 @@ class GameState():
 
     def is_over(self):
         return not (self.teams[0].alive() and self.teams[1].alive())
+    
+    def get_winner(self):
+        if not self.is_over():
+            return 0
+        if self.teams[0].alive():
+            return 1
+        else:
+            return 2
 
     def switch_pokemon(self, switch_index, who, log=False, hazards=True):
         my_team = self.get_team(who)

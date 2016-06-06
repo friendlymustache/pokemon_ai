@@ -1,7 +1,10 @@
 from simulator import Simulator, Action
+from monte_carlo import MonteCarloTree
 
 import logging
 import time
+import random
+
 logging.basicConfig()
 
 class Agent():
@@ -141,23 +144,76 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 
 class MonteCarloAgent(Agent):
-    def __init__(self, maxtime, pokedata):
+    def __init__(self, maxtime, pokedata, sl_policy=None):
         self.maxtime = maxtime
         self.simulator = Simulator(pokedata)
         self.tree = MonteCarloTree()
-
+        self.sl_policy = sl_policy
+        print "Monte Carlo tree created"
 
     def get_action(self, state, who, log=True):
+        print "Getting action"
         start = time.time()
         best_action, value, opp_action = self.search(state, who, start, log=log)
 
+        if best_action:
+            if best_action.is_move():
+                my_move_name = state.get_team(who).primary().moveset.moves[best_action.move_index]
+            if opp_action.is_move():
+                opp_move_name = state.get_team(1 - who).primary().moveset.moves[opp_action.move_index]
+            if best_action.is_switch():
+                my_move_name = "Switch[%s]" % state.get_team(who).poke_list[best_action.switch_index]
+            if opp_action.is_switch():
+                opp_move_name = "Switch[%s]" % state.get_team(1 - who).poke_list[opp_action.switch_index]
+            if log:
+                print "I think you are going to use %s(%s, %s, %s) and I will use %s(%s, %s, %s)." % (
+                    opp_move_name, opp_action.backup_switch, opp_action.mega, opp_action.volt_turn,
+                    my_move_name, best_action.backup_switch, best_action.mega, best_action.volt_turn,
+                )
+
+        return best_action
+
+    def rollout(self, state):
+        winner = state.get_winner()
+
+        while not winner:
+            my_actions = state.get_legal_actions(0)
+            opp_actions = state.get_legal_actions(1)
+            i = random.randrange(len(my_actions))
+            j = random.randrange(len(opp_actions))
+            state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0)
+            winner = state.get_winner()
+
+        return int(winner == 1)
 
     def search(self, state, who, start, log=False):
-        tree.re_root(state)
-        while (time.time() - start) < self.maxtime:
-            child = tree.select_child()
-            tree.expand(child)
-            outcome = child.simulate()
-            tree.back_propogate(child, outcome)
+        self.tree.re_root(state)
+        count = 0
 
-        return tree.best_move()
+        while (time.time() - start) < self.maxtime:
+            # select an action pair and get new actionpair node
+            child = self.tree.select_add_actionpair()
+
+            # run simulation given previous state and action chosen, return new state
+            parent_state = child.parent.state.deep_copy()
+            winner = parent_state.get_winner()
+            if winner != 0:
+                outcome = int(winner==1)
+                self.tree.back_propogate(child.parent, outcome)
+            else:
+                new_state = self.simulator.simulate(parent_state, child.action_pair, who)
+                
+                # add new gamestate node to tree
+                leaf = self.tree.add_gamestate(child, new_state)
+                
+                # run rollout policy and backpropogate outcome
+                num_times = 2
+                outcome = 0.0
+                for i in range(num_times):
+                    outcome += self.rollout(new_state.deep_copy())
+                outcome /= num_times
+                self.tree.back_propogate(leaf, outcome)
+            count += 1
+
+        print "Searched", count, "Nodes"
+        return self.tree.best_move()

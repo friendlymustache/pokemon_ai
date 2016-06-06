@@ -576,6 +576,10 @@ class SimulatorLog():
             self.detected_team = (True, username)
             return SimulatorEvent.from_dict(event)
 
+    def add_events(self, lines, my_poke=None, opp_poke=None):
+        return [self.add_event(line, my_poke=my_poke, opp_poke=opp_poke) for line in lines]
+
+
     def add_event(self, line, my_poke=None, opp_poke=None):
         event = self.handle_line(line, my_poke=my_poke, opp_poke=opp_poke)
         if event:

@@ -255,6 +255,15 @@ class Team():
         team.primary_poke = self.primary_poke
         return team
 
+    def get_poke_index(self, poke_name):
+        '''
+        Given a pokemon name, returns the index of that pokemon within
+        the current team
+        '''
+        for idx, poke in enumerate(self.poke_list):
+            if poke.name == poke_name:
+                return idx
+
 
     def to_list(self, encoder=None):
         '''if encoder is not None:
