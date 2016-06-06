@@ -242,9 +242,15 @@ class Simulator():
             opp_poke = opp_team.primary()
 
         if my_action.is_move():
-            my_move = get_move(my_poke.moveset.moves[my_action.move_index])
+            if my_action.move_index == -1:
+                my_move = my_action.move_name
+            else:
+                my_move = get_move(my_poke.moveset.moves[my_action.move_index])
         if opp_action.is_move():
-            opp_move = get_move(opp_poke.moveset.moves[opp_action.move_index])
+            if opp_action.move_index == -1:
+                opp_move = opp_action.move_name
+            else:
+                opp_move = get_move(opp_poke.moveset.moves[opp_action.move_index])
 
         moves = [None, None]
         moves[who] = my_move
@@ -300,13 +306,14 @@ class Simulator():
                 break
 
 class Action():
-    def __init__(self, type, move_index=None, switch_index=None, mega=False, backup_switch=None, volt_turn=None):
+    def __init__(self, type, move_index=None, switch_index=None, mega=False, backup_switch=None, volt_turn=None, move_name=None):
         self.type = type
         self.move_index = move_index
         self.switch_index = switch_index
         self.backup_switch = backup_switch
         self.mega = mega
         self.volt_turn = volt_turn
+        self.move_name = move_name
 
     def is_move(self):
         return self.type == "move"
@@ -317,14 +324,14 @@ class Action():
         if self.type != other.type:
             return False
         if self.type == "move":
-            return (self.move_index == other.move_index and self.backup_switch == other.backup_switch and self.mega == other.mega and self.volt_turn == other.volt_turn)
+            return (self.move_index == other.move_index and self.backup_switch == other.backup_switch and self.mega == other.mega and self.volt_turn == other.volt_turn and self.move_name == other.move_name)
         if self.type == "switch":
             return (self.switch_index == other.switch_index and self.backup_switch == other.backup_switch)
         return False
 
     def __hash__(self):
         if self.type == "move":
-            return hash((self.type, self.move_index, self.backup_switch, self.mega))
+            return hash((self.type, self.move_index, self.backup_switch, self.mega, self.move_name))
         if self.type == "switch":
             return hash((self.type, self.switch_index, self.backup_switch))
 

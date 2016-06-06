@@ -4,8 +4,8 @@ from scipy.sparse import csr_matrix
 import numpy
 from classifier import Classifier
 
+c = Classifier('../data/sl_data/two_tree.bst', '../data/sl_data/first_run_X_encoders.pickle', '../data/sl_data/first_run_Y_encoder.pickle', '../data/sl_data/first_run_cats.pickle')
 X = io.mmread('../data/sl_data/first_run_features.csv.mtx')
 X = X.tocsc()
-c = Classifier('../data/sl_data/two_tree.bst', '../data/sl_data/first_run_X_encoders.pickle', '../data/sl_data/first_run_Y_encoder.pickle', '../data/sl_data/first_run_cats.pickle')
 print c.predict(X[0:10, :])
 print c.target_label_encoder.inverse_transform(numpy.argmax(c.predict(X[0:10, :]), axis=1))

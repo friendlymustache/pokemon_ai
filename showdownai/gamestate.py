@@ -6,6 +6,7 @@ import logging
 import sys
 from compiler.ast import flatten
 from feature_encoders import GamestateEncoder
+import numpy
 import scipy.sparse as sp
 logging.basicConfig()
 
@@ -46,8 +47,11 @@ class GameState():
     def to_encoded_list(self, label_encoders, cats):
         dense_data, sparse_data = self.to_list()
         dense_data = [0 if elm is None else elm for elm in dense_data]
-        for i in range(len(label_encoders)):
-            dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])
+        for i in range(len(cats)):
+            try:
+                dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])[0]
+            except:
+                dense_data[cats[i]] = 0
         return sp.hstack((dense_data, sparse_data))
 
     def to_list(self, encoder=None):
@@ -163,6 +167,82 @@ class GameState():
                     # print "%s was damaged %f due to spikes!" % (my_poke, d)
 
 
+    def get_legal_actions_probs(self, who, classifier, log=False):
+        my_team = self.get_team(who)
+        my_poke = my_team.primary()
+        opp_team = self.get_team(1 - who)
+        opp_poke = opp_team.primary()
+        mega = my_poke.can_evolve()
+
+        pokemon = range(len(my_team.poke_list))
+        valid_switches = [i for i in pokemon if my_team.poke_list[i].alive and i != my_team.primary_poke]
+        valid_backup_switches = valid_switches + [my_team.primary_poke]
+        if len(valid_switches) == 0:
+            valid_switches = [None]
+
+        move_names = []
+        move_probs = []
+        classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices))[0, :]
+        if my_poke.choiced:
+            move_names = [my_poke.move_choice]
+            move_probs = numpy.ones(1)
+        elif len(my_poke.moveset.known_moves) < 4:
+            move_names = classifier.move_names
+            move_probs = classifier_probs[classifier.move_indices]
+        else:
+            move_names = my_poke.moveset.known_moves
+            my_move_indices = numpy.array([classifier.move_dict[move] for move in move_names if move in classifier.move_dict])
+            move_probs = classifier_probs[my_move_indices]
+
+        move_probs = numpy.repeat(move_probs, len(valid_switches))
+        moves = []
+        for i in range(len(move_names)):
+            move_name = move_names[i]
+            if move_name in my_poke.moveset.known_moves:
+                move_index = my_poke.moveset.known_moves.index(move_name)
+            else:
+                move_index = -1
+            if move_name == "U-turn" or move_name == "Volt Switch":
+                moves.extend([
+                    Action("move", move_index=move_index, mega=mega, volt_turn=j, backup_switch=j, move_name=move_name)
+                    for j in valid_switches
+                ])
+            else:
+                moves.extend([
+                    Action("move", move_index=move_index, mega=mega, backup_switch=j, move_name=move_name)
+                    for j in valid_switches
+                ])
+
+        if valid_switches == [None]:
+            switch_probs = []
+        else:
+            switch_indices = numpy.array([classifier.pokemon_dict[my_team.poke_list[i].name] for i in valid_switches])
+            switch_probs = numpy.repeat(classifier_probs[switch_indices], len(valid_backup_switches)-1)
+        switches = [Action("switch", switch_index=i, backup_switch=j) for i in valid_switches for j in valid_backup_switches if j != i and i is not None]
+
+        if opp_poke.ability == "Magnet Pull" and "Steel" in my_poke.typing and "Ghost" not in my_poke.typing:
+            switches = []
+            switch_probs = []
+        elif opp_poke.ability == "Shadow Tag" and "Ghost" not in my_poke.typing:
+            switches = []
+            switch_probs = []
+        elif opp_poke.ability == "Arena Trap" and "Ghost" not in my_poke.typing and "Flying" not in my_poke.typing:
+            switches = []
+        if my_poke.taunt:
+            moves = [move for move in moves if MOVES[my_poke.moveset.moves[move.move_index]].category != "Non-Damaging"]
+            indices = numpy.array([i for i in range(len(moves)) if MOVES[my_poke.moveset.moves[moves[i].move_index]].category != "Non-Damaging"])
+            move_probs = move_probs[indices]
+        if my_poke.disabled is not None:
+            moves = [move for move in moves if my_poke.moveset.moves[move.move_index] != my_poke.disabled]
+            indices = [i for i in range(len(moves)) if my_poke.moveset.moves[moves[i].move_index] != my_poke.disabled]
+            move_probs = move_probs[indices]
+        if my_poke.encore:
+            moves = [move for move in moves if my_poke.moveset.moves[move.move_index] == my_poke.last_move]
+            indices = [i for i in range(len(moves)) if my_poke.moveset.moves[moves[i].move_index] == my_poke.last_move]
+
+        total = moves+switches
+        total_probs = numpy.hstack((move_probs, switch_probs))
+        return (total, total_probs)
 
     def get_legal_actions(self, who, log=False):
         my_team = self.get_team(who)
