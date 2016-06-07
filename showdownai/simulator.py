@@ -351,8 +351,8 @@ class Action():
     def __repr__(self):
         if self.type == "move":
             if self.volt_turn is None:
-                return "%s(%u, %s, %s)" % (self.type, self.move_index, self.backup_switch, self.mega)
+                return "%s(%u, %s, %s, %s)" % (self.type, self.move_index, self.backup_switch, self.mega, self.move_name)
             else:
-                return "%s(%u, %s, %s, %u)" % (self.type, self.move_index, self.backup_switch, self.mega, self.volt_turn)
+                return "%s(%u, %s, %s, %u, %s)" % (self.type, self.move_index, self.backup_switch, self.mega, self.volt_turn, self.move_name)
         elif self.type == "switch":
             return "%s(%s, %s)" % (self.type, self.switch_index, self.backup_switch)

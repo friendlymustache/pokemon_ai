@@ -242,6 +242,7 @@ class GameState():
 
         total = moves+switches
         total_probs = numpy.hstack((move_probs, switch_probs))
+        total_probs /= numpy.sum(total_probs)
         return (total, total_probs)
 
     def get_legal_actions(self, who, log=False):
