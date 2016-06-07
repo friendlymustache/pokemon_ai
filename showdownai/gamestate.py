@@ -77,6 +77,10 @@ class GameState():
     def from_tuple(tupl):
         return GameState([team.from_tuple() for team in tupl[0]])
 
+    def value_function(self, classifier, who):
+        classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices))[0, :]
+        return classifier_probs[who]
+
     def evaluate(self, who):
         win_bonus = 0
         my_team = self.get_team(who)
