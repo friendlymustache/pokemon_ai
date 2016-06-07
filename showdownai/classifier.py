@@ -4,6 +4,7 @@ from all_pokes_and_moves import ALL_POKEMON, ALL_MOVES
 
 class Classifier():
 
+    # Include target_label_file for supervised network, leave as none for value_function.
     def __init__(self, model_file, feature_labels_file, cats_file, target_label_file=None):
         self.xgb = xgboost.Booster(model_file=model_file)
         self.feature_label_encoders = pickle.load(open(feature_labels_file, 'rb'))
