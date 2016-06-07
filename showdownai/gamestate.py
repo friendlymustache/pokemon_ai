@@ -79,7 +79,7 @@ class GameState():
 
     def value_function(self, classifier, who):
         prob = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices))[0]
-        if who == 1:
+        if who == 0:
             prob = 1.0-prob
         return prob
 
