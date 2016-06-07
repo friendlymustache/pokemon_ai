@@ -137,7 +137,7 @@ def create_initial_gamestate(first_turn_lines):
 
     return GameState(teams)
 
-def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
+def update_latest_turn(gamestate, turn, dense_buff, sparse_buff, turn_num=0, encoder=None):
     simulator.latest_turn = []
     for line in turn:
         event = simulator.log.add_event(line)
@@ -151,13 +151,16 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             if 'Struggle' in dense_line_data or 'Struggle' in event.details['move']:
                 return False
 
-            # Use when doing switches vs all classification
-            # Y.append(-1)
-            Y.append(event.details['move'])     
+            # NOTE: Changed to allow us to build up Y in chunks
+            # (i.e. only after we successfully parse a match)
+            # Y.append(event.details['move'])     
 
-            # TODO uncomment to build + save dense data           
-            dense_data.append(dense_line_data)
-            sparse_data.append(sparse_line_data)
+            # NOTE: change dense_buff and sparse_buff
+            # to dense_data and sparse_data to include feature
+            # representations from all gamestates (not just those gamestates
+            # coming from match logs that we can parse without errors)           
+            dense_buff.append(dense_line_data)
+            sparse_buff.append(sparse_line_data)
 
             if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
                 raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, len(sparse_line_data)))
@@ -172,6 +175,8 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             if 'Struggle' in dense_line_data:
                 return False
 
+            # NOTE: Changed to allow us to build up Y in chunks
+            # (i.e. only after we successfully parse a match)
             # Use when doing moves vs all classification
             # Y.append(-1)
 
@@ -179,12 +184,15 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
             # with respect to its corresponding team object (
             # curr_player_team = gamestate.teams[event.player]
             # Y.append(curr_player_team.get_poke_index(event.poke))
-            Y.append(event.poke)
+            # Y.append(event.poke)
 
 
-            # TODO uncomment to build + save dense data
-            dense_data.append(dense_line_data)
-            sparse_data.append(sparse_line_data)
+            # NOTE: change dense_buff and sparse_buff
+            # to dense_data and sparse_data to include feature
+            # representations from all gamestates (not just those gamestates
+            # coming from match logs that we can parse without errors)                       
+            dense_buff.append(dense_line_data)
+            sparse_buff.append(sparse_line_data)
 
             if len(dense_line_data) != DENSE_DATA_LINE_LENGTH:
                 raise InvalidDataFormat("Line length: %s, expected: %s. Sparse data length: %s"%(len(dense_line_data), DENSE_DATA_LINE_LENGTH, sparse_line_data.shape[1]))
@@ -194,7 +202,13 @@ def update_latest_turn(gamestate, turn, turn_num=0, encoder=None):
         simulator.handle_event(gamestate, event)
     return gamestate
 
-def parse_lines(lines, encoder=None):
+def parse_lines(lines, encoder=None, ignore_failures=True):
+    '''
+    Parses the passed-in list of lines representing the text of a game
+    log, adding the sparse/dense portions of the feature representations
+    of each intermediate gamestate to the global sparse_data and dense_data
+    lists. Training data labels are added to the global Y list.
+    '''
     turns = []
     buff = []
     for line in lines:
@@ -204,12 +218,34 @@ def parse_lines(lines, encoder=None):
         else:
             buff.append(line)
     turns.append(buff)
+
+    dense_buff = []
+    sparse_buff = []
+
     gamestate = create_initial_gamestate(turns[0])
-    gamestate = update_latest_turn(gamestate, turns[0], encoder=encoder)
+    gamestate = update_latest_turn(gamestate, turns[0], dense_buff, sparse_buff, encoder=encoder)
     for i in range(1, len(turns)):
-        gamestate = update_latest_turn(gamestate, turns[i], turn_num=i, encoder=encoder)
+        gamestate = update_latest_turn(gamestate, turns[i], dense_buff, sparse_buff, turn_num=i, encoder=encoder)
+        # Can occur e.g. if "Struggle" was used in a match
         if not gamestate:
             break
+        # If match has finished, we've successfully parsed the entire log
+        # so label its gamestates with the match's outcome + add the match's
+        # gamestates to our training data matrix
+        if gamestate.is_over():
+            # Each of the gamestates in the match should be labeled with 
+            # the match's winner
+            winner = gamestate.get_winner()
+            Y.extend([winner] * len(dense_buff))
+
+            # Now that we've successfully parsed a full match, extend the
+            # dense/sparse data arrays with the dense/sparse training data parsed
+            # during the match
+            dense_data.extend(dense_buff)
+            sparse_data.extend(sparse_buff)
+            dense_buff = []
+            sparse_buff = []
+            assert(len(Y) == len(dense_data))
 
 
 if __name__ == "__main__":
@@ -250,7 +286,6 @@ if __name__ == "__main__":
 
             if idx % 100 == 0:
                 sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
-                break
     sys.stderr.write("Successes: %s, failures: %s, percent success: %s\n"%(successes, failures, successes / (successes + failures)))
 
     # Combine all sparse data into one sparse matrix

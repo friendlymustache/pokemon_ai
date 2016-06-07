@@ -18,6 +18,7 @@ def main(prefix, result_fname):
 
     X_fname = "%s_features.csv.mtx"%(path_prefix)
     Y_fname = "%s_labels.csv"%(path_prefix)
+    result_fname = "%s/%s"
 
     moves = pandas.read_csv(Y_fname, index_col=0)
     Y = moves.values.ravel()
@@ -33,17 +34,23 @@ def main(prefix, result_fname):
     param = {}
     # use softmax multi-class classification
     param['objective'] = 'multi:softprob'
-    param['eta'] = 0.002
-    param['max_depth'] = 7
-    param['nthread'] = 7
-    param['num_class'] = len(set(Y))
     param['eval_metric'] = 'merror'
+
+    # use binary logistic classification with a default error function
+    # (used for value function)
+    # param['objective'] = 'binary:logistic'    
+
+    param['eta'] = 0.001
+    param['max_depth'] = 7
+    param['nthread'] = 36
+    param['num_class'] = len(set(Y))
+
     evals = [ (xg_train, 'train'), (xg_test, 'eval') ]
 
     # Train xgboost
     print "Training"
     t1 = time.time()
-    bst = xgboost.train(param, xg_train, 500, evals, early_stopping_rounds=3)
+    bst = xgboost.train(param, xg_train, 500, evals, early_stopping_rounds=10)
     t2 = time.time()
     print t2-t1
 
