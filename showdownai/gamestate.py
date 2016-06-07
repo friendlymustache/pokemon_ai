@@ -44,9 +44,11 @@ class GameState():
     def validate_teams(self):
         return len(self.teams[0].poke_list) == 6 and len(self.teams[1].poke_list) == 6
     
-    def to_encoded_list(self, label_encoders, cats):
+    def to_encoded_list(self, label_encoders, cats, turn_num, player_num):
         dense_data, sparse_data = self.to_list()
         dense_data = [0 if elm is None else elm for elm in dense_data]
+        dense_data.append(turn_num)
+        dense_data.append(player_num)
         for i in range(len(cats)):
             try:
                 dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])[0]
@@ -77,9 +79,9 @@ class GameState():
     def from_tuple(tupl):
         return GameState([team.from_tuple() for team in tupl[0]])
 
-    def value_function(self, classifier, who):
-        prob = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices))[0]
-        if who == 0:
+    def value_function(self, classifier, turn_num, player_num):
+        prob = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0]
+        if player_num == 0:
             prob = 1.0-prob
         return prob
 
@@ -173,10 +175,10 @@ class GameState():
                     # print "%s was damaged %f due to spikes!" % (my_poke, d)
 
 
-    def get_legal_actions_probs(self, who, classifier, log=False):
-        my_team = self.get_team(who)
+    def get_legal_actions_probs(self, classifier, turn_num, player_num, log=False):
+        my_team = self.get_team(player_num)
         my_poke = my_team.primary()
-        opp_team = self.get_team(1 - who)
+        opp_team = self.get_team(1 - player_num)
         opp_poke = opp_team.primary()
         mega = my_poke.can_evolve()
 
@@ -188,7 +190,7 @@ class GameState():
 
         move_names = []
         move_probs = []
-        classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices))[0, :]
+        classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0, :]
         if my_poke.choiced:
             move_names = [my_poke.move_choice]
             move_probs = numpy.ones(1)
