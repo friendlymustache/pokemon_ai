@@ -145,9 +145,14 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 class MonteCarloAgent(Agent):
     def __init__(self, maxtime, pokedata, sl_policy=None):
+        model_file = 'models/sl/sl.bst'
+        feature_labels_file = 'models/sl/sl_X_encoders.pickle'
+        cats_file = 'models/sl/sl_cats.pickle'
+        target_label_file = 'models/sl/sl_Y_encoder.pickle'
+
         self.maxtime = maxtime
         self.simulator = Simulator(pokedata)
-        self.tree = MonteCarloTree()
+        self.tree = MonteCarloTree(model_file, feature_labels_file, cats_file, target_label_file)
         self.sl_policy = sl_policy
         print "Monte Carlo tree created"
 

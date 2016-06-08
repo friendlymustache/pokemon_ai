@@ -1,21 +1,24 @@
 import itertools
+from copy import deepcopy
 import numpy as np
 from operator import itemgetter
+from classifier import Classifier
 
 class MonteCarloTree():
-    def __init__(self):
+    def __init__(self, model_file, feature_labels_file, cats_file, target_label_file):
         self.root = None
+        self.my_classifier = Classifier(model_file, feature_labels_file, cats_file, target_label_file)
 
     def re_root(self, state):
         if (self.root == None):
             print "Created initial MCTS"
-            self.root = GameStateNode(state)
+            self.root = GameStateNode(state, self.my_classifier, 0)
         elif (state.to_tuple() in self.root.children_gamestates):
             print "Found gamestate"
             self.root = self.root.children_gamestates[state.to_tuple()]
         else:
             print "Created new gamestate"
-            self.root = GameStateNode(state)
+            self.root = GameStateNode(state, self.my_classifier, self.root.turn_num + 1)
 
     def select_add_actionpair(self):
         current = self.root
@@ -48,7 +51,7 @@ class MonteCarloTree():
         return new_actionpair
 
     def add_gamestate(self, actionpair_node, new_state): 
-        new_gamestate = GameStateNode(new_state, actionpair_node)
+        new_gamestate = GameStateNode(new_state, self.my_classifier, actionpair_node.parent.turn_num + 1, actionpair_node)
         actionpair_node.children_gamestates.append(new_gamestate)
         return new_gamestate
 
@@ -87,20 +90,30 @@ class Node(object):
 
 
 class GameStateNode(Node):
-    def __init__(self, state, parent=None):
+    def __init__(self, state, my_classifier, turn_num, parent=None):
         super(GameStateNode, self).__init__(parent)
 
         self.state = state
 
+        self.turn_num = turn_num
+
+        self.my_legal_actions_probs = state.get_legal_actions_probs(my_classifier, turn_num, 0)
+        self.opp_legal_actions_probs = state.get_legal_actions_probs(my_classifier, turn_num, 1)
+
         # Wins and number of times visited for all actions
         # {action : [wins, num_visited]}
-        self.my_actions_n = {a: [0.0, 0.0] for a in state.get_legal_actions(0)}
-        self.opp_actions_n = {b: [0.0, 0.0] for b in state.get_legal_actions(1)}
+        self.my_actions_n = {a: [0.0, 0.0] for a in self.my_legal_actions_probs[0]}
+        self.opp_actions_n = {b: [0.0, 0.0] for b in self.opp_legal_actions_probs[0]}
+
+        # Probabilities for each action
+        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]))
+        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]))
 
         # Our and our opponent's actions
         # {action : uct_score}
-        self.my_actions = {a : float("inf") for a in state.get_legal_actions(0)}
-        self.opp_actions = {b : float("inf") for b in state.get_legal_actions(1)}
+        # Initially the same my/opp_actions_p
+        self.my_actions = deepcopy(self.my_actions_p)
+        self.opp_actions = deepcopy(self.opp_actions_p)
 
         # Our (immediate) action pair children
         # {(my_action, opp_action) : action pair node}
@@ -132,14 +145,16 @@ class GameStateNode(Node):
             if my_n > 0:
                 my_mean = self.my_actions_n[my_action][0] / my_n
                 my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
-                self.my_actions[my_action] = my_mean + my_explore
+                my_prob = self.my_actions_p[my_action]
+                self.my_actions[my_action] = my_mean + my_explore + my_prob
 
         if opp_action:
             opp_n = self.opp_actions_n[opp_action][1]
             if opp_n > 0:
                 opp_mean = self.opp_actions_n[opp_action][0] / opp_n
                 opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
-                self.opp_actions[opp_action] = opp_mean + opp_explore
+                opp_prob = self.opp_actions_p[my_action]
+                self.opp_actions[opp_action] = opp_mean + opp_explore + opp_prob
 
 
 class ActionPairNode(Node):
