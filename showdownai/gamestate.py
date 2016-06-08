@@ -8,6 +8,7 @@ from compiler.ast import flatten
 from feature_encoders import GamestateEncoder
 import numpy
 import scipy.sparse as sp
+import random
 logging.basicConfig()
 
 class GameState():
@@ -211,10 +212,25 @@ class GameState():
             else:
                 move_index = -1
             if move_name == "U-turn" or move_name == "Volt Switch":
-                moves.extend([
-                    Action("move", move_index=move_index, mega=mega, volt_turn=j, backup_switch=j, move_name=move_name)
-                    for j in valid_switches
-                ])
+                if valid_switches[0] == None:
+                    moves.append(
+                        Action(
+                            "move",
+                            move_index=move_index,
+                            mega=mega,
+                            volt_turn=None,
+                            backup_switch=None
+                        )
+                    )
+                else:
+                    switches = valid_backup_switches[:]
+                    for a in xrange(1, len(switches)):
+                            b = random.choice(xrange(0, a))
+                            switches[a], switches[b] = switches[b], switches[a]
+                    moves.extend([
+                        Action("move", move_index=move_index, mega=mega, volt_turn=valid_switches[j], backup_switch=switches[j], move_name=move_name)
+                        for j in range(len(valid_switches))
+                    ])
             else:
                 moves.extend([
                     Action("move", move_index=move_index, mega=mega, backup_switch=j, move_name=move_name)
