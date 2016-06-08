@@ -243,12 +243,12 @@ class Simulator():
 
         if my_action.is_move():
             if my_action.move_index == -1:
-                my_move = my_action.move_name
+                my_move = get_move(my_action.move_name)
             else:
                 my_move = get_move(my_poke.moveset.moves[my_action.move_index])
         if opp_action.is_move():
             if opp_action.move_index == -1:
-                opp_move = opp_action.move_name
+                opp_move = get_move(opp_action.move_name)
             else:
                 opp_move = get_move(opp_poke.moveset.moves[opp_action.move_index])
 
