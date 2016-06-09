@@ -35,7 +35,7 @@ class GamestateEncoder:
 
     def encode_list_helper(self, dictionary, lst, index=False):
         # Get the non-zero indices of the output
-        lst_indices = [dictionary[elem] for elem in lst]
+        lst_indices = [dictionary[elem] if elem in dictionary else 0 for elem in lst]
         result = [0] * len(dictionary)        
         for i in range(len(lst_indices)):
             if index:
