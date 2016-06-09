@@ -134,11 +134,14 @@ class SmogonMoveset():
         self.known_moves = known_moves
         self.tag = tag
     def to_dict(self):
-        dictionary = {'name': self.name, 'item': self.item, 'ability': self.ability, 'evs': self.evs, 'nature': self.nature, 'moves': self.moves, 'tag': self.tag}
+        dictionary = {'name': self.name, 'item': self.item, 'ability': self.ability, 'evs': self.evs, 'nature': self.nature, 'moves': self.moves[:], 'tag': self.tag, 'known_moves':self.known_moves[:]}
         return dictionary
     @staticmethod
     def from_dict(dictionary):
-        return SmogonMoveset(dictionary['name'], dictionary['item'], dictionary['ability'], dictionary['evs'], dictionary['nature'], dictionary['moves'], dictionary['tag'])
+        known_moves = []
+        if 'known_moves' in dictionary:
+            known_moves = dictionary['known_moves']
+        return SmogonMoveset(dictionary['name'], dictionary['item'], dictionary['ability'], dictionary['evs'], dictionary['nature'], dictionary['moves'], dictionary['tag'], known_moves=known_moves)
     def set_name(self, name):
         self.name = name
     def set_item(self, item):

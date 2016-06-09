@@ -43,6 +43,8 @@ class GameState():
         return self.teams[team]
 
     def validate_teams(self):
+        while len(self.teams[1].poke_list) < 6:
+            self.teams[1].poke_list.append(self.teams[1].poke_list[-1])
         return len(self.teams[0].poke_list) == 6 and len(self.teams[1].poke_list) == 6
     
     def to_encoded_list(self, label_encoders, cats, turn_num, player_num):
@@ -55,7 +57,7 @@ class GameState():
                 dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])[0]
             except:
                 dense_data[cats[i]] = 0
-        return sp.hstack((dense_data, sparse_data))
+        return sp.hstack((dense_data, sparse_data), format='csc')
 
     def to_list(self, encoder=None):
 
@@ -240,12 +242,15 @@ class GameState():
                     for j in valid_switches
                 ])
 
+        switches = [Action("switch", switch_index=i, backup_switch=j) for i in valid_switches for j in valid_backup_switches if j != i and i is not None]
         if valid_switches == [None]:
             switch_probs = []
-        else:
+        elif probs:
             switch_indices = numpy.array([classifier.pokemon_dict[my_team.poke_list[i].name] if my_team.poke_list[i].name in classifier.pokemon_dict else 0 for i in valid_switches])
             switch_probs = numpy.repeat(classifier_probs[switch_indices], len(valid_backup_switches)-1)
-        switches = [Action("switch", switch_index=i, backup_switch=j) for i in valid_switches for j in valid_backup_switches if j != i and i is not None]
+        else:
+            switch_probs = numpy.ones(len(switches))
+
 
         if opp_poke.ability == "Magnet Pull" and "Steel" in my_poke.typing and "Ghost" not in my_poke.typing:
             switches = []
@@ -256,16 +261,16 @@ class GameState():
         elif opp_poke.ability == "Arena Trap" and "Ghost" not in my_poke.typing and "Flying" not in my_poke.typing:
             switches = []
         if my_poke.taunt:
-            moves = [move for move in moves if MOVES[my_poke.moveset.moves[move.move_index]].category != "Non-Damaging"]
-            indices = numpy.array([i for i in range(len(moves)) if MOVES[my_poke.moveset.moves[moves[i].move_index]].category != "Non-Damaging"])
+            moves = [move for move in moves if MOVES[my_poke.moveset.known_moves[move.move_index]].category != "Non-Damaging"]
+            indices = numpy.array([i for i in range(len(moves)) if MOVES[my_poke.moveset.known_moves[moves[i].move_index]].category != "Non-Damaging"])
             move_probs = move_probs[indices]
         if my_poke.disabled is not None:
-            moves = [move for move in moves if my_poke.moveset.moves[move.move_index] != my_poke.disabled]
-            indices = [i for i in range(len(moves)) if my_poke.moveset.moves[moves[i].move_index] != my_poke.disabled]
+            moves = [move for move in moves if my_poke.moveset.known_moves[move.move_index] != my_poke.disabled]
+            indices = [i for i in range(len(moves)) if my_poke.moveset.known_moves[moves[i].move_index] != my_poke.disabled]
             move_probs = move_probs[indices]
         if my_poke.encore:
-            moves = [move for move in moves if my_poke.moveset.moves[move.move_index] == my_poke.last_move]
-            indices = [i for i in range(len(moves)) if my_poke.moveset.moves[moves[i].move_index] == my_poke.last_move]
+            moves = [move for move in moves if my_poke.moveset.known_moves[move.move_index] == my_poke.last_move]
+            indices = [i for i in range(len(moves)) if my_poke.moveset.known_moves[moves[i].move_index] == my_poke.last_move]
 
         total = moves+switches
         total_probs = numpy.hstack((move_probs, switch_probs))

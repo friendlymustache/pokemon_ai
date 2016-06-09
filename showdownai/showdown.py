@@ -99,7 +99,7 @@ class Showdown():
                 moveset = SmogonMoveset.from_dict(moveset[0])
             else:
                 moveset = SmogonMoveset(None, None, None, {'hp': 88, 'patk': 84, 'pdef': 84, 'spatk': 84, 'spdef': 84, 'spe': 84}, {'hp': 1.0, 'patk': 1.0, 'pdef': 1.0, 'spatk': 1.0, 'spdef': 1.0, 'spe': 1.0}, None, 'ou')
-            moveset.moves = None
+            moveset.moves = []
             if poke_name in self.smogon_data:
                 typing = self.smogon_data[poke_name].typing
                 stats = self.smogon_data[poke_name].stats
@@ -111,8 +111,8 @@ class Showdown():
                 stats = {'hp': 80, 'patk': 80, 'pdef': 80, 'spatk': 80, 'spdef': 80, 'spe': 80}
             predictor = create_predictor(self.predictor_name, name, self.pokedata)
             poke = Pokemon(name, typing, stats, moveset, predictor, calculate=True)
-            moves = [x[0] for x in poke.predict_moves([])]
-            poke.moveset.moves = moves[:4]
+            #moves = [x[0] for x in poke.predict_moves([])]
+            #poke.moveset.moves = moves[:4]
             poke.health = poke.final_stats['hp']
             poke.alive = True
             opp_poke_list.append(poke)
@@ -259,7 +259,7 @@ class Showdown():
                 print "=========================================================================================="
                 print "My primary:", gamestate.get_team(0).primary()
                 print "Their primary:", gamestate.get_team(1).primary()
-                print "Their moves: ", gamestate.get_team(1).primary().moveset.moves
+                print "Their moves: ", gamestate.get_team(1).primary().moveset.known_moves
                 print "Their item: ", gamestate.get_team(1).primary().item
                 print "Their ability: ", gamestate.get_team(1).primary().ability
                 print "My move:",

@@ -111,8 +111,8 @@ class GameStateNode(Node):
         # print "Num opp actions:", len(self.opp_legal_actions_probs[0])
 
         # Probabilities for each action
-        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]*len(self.my_legal_actions_probs[0])/2.0))
-        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]*len(self.opp_legal_actions_probs[0])/2.0))
+        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]*len(self.my_legal_actions_probs[0])))
+        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]*len(self.opp_legal_actions_probs[0])))
 
         # Our and our opponent's actions
         # {action : uct_score}

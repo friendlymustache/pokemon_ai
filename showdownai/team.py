@@ -4,6 +4,7 @@ import re
 from mega_items import mega_items
 from math import floor
 from operator import itemgetter
+import math
 import sys
 from compiler.ast import flatten
 import scipy.sparse as sp
@@ -88,29 +89,29 @@ class Pokemon():
             logging.debug("%s has Competitive and sharply increased special attack." % self)
 
     def meloetta_evolve(self):
-        assert self.name == "Meloetta"
-        if "Psychic" in self.typing:
-            stats = {
-                "hp": 100,
-                "patk": 128,
-                "pdef": 90,
-                "spatk": 77,
-                "spdef": 77,
-                "spe": 128
-            }
-            typing = ['Normal', 'Fighting']
-        elif "Fighting" in self.typing:
-            stats = {
-                "hp": 100,
-                "patk": 77,
-                "pdef": 77,
-                "spatk": 128,
-                "spdef": 128,
-                "spe": 90
-            }
-            typing = ['Normal', 'Psychic']
-        self.set_stats(stats)
-        self.typing = typing
+        if self.name == "Meloetta":
+            if "Psychic" in self.typing:
+                stats = {
+                    "hp": 100,
+                    "patk": 128,
+                    "pdef": 90,
+                    "spatk": 77,
+                    "spdef": 77,
+                    "spe": 128
+                }
+                typing = ['Normal', 'Fighting']
+            elif "Fighting" in self.typing:
+                stats = {
+                    "hp": 100,
+                    "patk": 77,
+                    "pdef": 77,
+                    "spatk": 128,
+                    "spdef": 128,
+                    "spe": 90
+                }
+                typing = ['Normal', 'Psychic']
+            self.set_stats(stats)
+            self.typing = typing
 
     def meloetta_reset(self):
         stats = {
@@ -204,8 +205,9 @@ class Pokemon():
         return self.predictor(known_moves)
 
     def copy(self):
+        moveset = smogon.SmogonMoveset.from_dict(self.moveset.to_dict())
         poke = Pokemon(self.name, self.typing[:],
-                       self.stats, self.moveset, self.predictor,
+                       self.stats, moveset, self.predictor,
                        status=self.status, taunt=self.taunt, disabled=self.disabled, last_move=self.last_move, encore=self.encore, alive=self.alive,
                        calculate=False, old_typing=self.old_typing)
         poke.final_stats = self.final_stats
@@ -224,7 +226,7 @@ class Pokemon():
             self.typing, [None] * (2 - len(self.typing)), 
             [self.status, self.taunt, self.disabled, self.last_move, self.encore]])
 
-        moveset = flatten([self.moveset.moves, self.moveset.known_moves])
+        #moveset = flatten([self.moveset.moves, self.moveset.known_moves])
 
         # other_info = (map(itemgetter(1), sorted(self.stats.items())) 
         #     + map(itemgetter(1), sorted(self.stages.items())))
@@ -240,7 +242,7 @@ class Pokemon():
         return (flatten([basic_info, other_info]), moveset)
 
     def to_tuple(self):
-        return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.last_move, self.encore, tuple(self.stages.values()))
+        return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.encore, tuple(self.stages.values()))
 
     def __repr__(self):
         return "%s(%u)" % (self.name, self.health)
@@ -299,7 +301,7 @@ class Team():
         return (dense_data, sp.hstack(sparse_data))
 
     def to_tuple(self):
-        return (self.primary_poke, tuple(x.to_tuple() for x in self.poke_list))
+        return (self.primary().name, tuple(x.to_tuple() for x in self.poke_list))
 
     @staticmethod
     def from_tuple(tupl):
@@ -435,7 +437,7 @@ class Team():
                     evs['spe'] = spe
             nature = line[3][:-7]
             nature = Team.convert_nature(nature)
-            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, moves, tag=None, known_moves=moves)
+            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, [], tag=None, known_moves=moves)
             typing = data[name].typing
             stats = data[name].stats
             poke = Pokemon(name, typing, stats, moveset, None, calculate=True)

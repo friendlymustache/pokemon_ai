@@ -70,18 +70,17 @@ class Simulator():
                     move = hidden_power
                 else:
                     return
-            known_moves = poke.moveset.known_moves
-            if poke.predictor and move not in known_moves:
-                self.total += 1
-                old_guess_moves = [x[0] for x in poke.predict_moves(known_moves)][:4 - len(known_moves)]
-                if move in old_guess_moves:
-                    self.score += 1
-                known_moves.append(move)
-                guess_moves = [x[0] for x in poke.predict_moves(known_moves) if x[0] not in known_moves][:4 - len(known_moves)]
-                poke.moveset.moves = poke.moveset.known_moves + guess_moves
+            if move != None and move not in poke.moveset.known_moves:
+                #self.total += 1
+                #old_guess_moves = [x[0] for x in poke.predict_moves(poke.moveset.known_moves)][:4 - len(poke.moveset.known_moves)]
+                #if move in old_guess_moves:
+                #    self.score += 1
+                poke.moveset.known_moves.append(move)
+                #guess_moves = [x[0] for x in poke.predict_moves(poke.moveset.known_moves) if x[0] not in poke.moveset.known_moves][:4 - len(poke.moveset.known_moves)]
+                # poke.moveset.moves = poke.moveset.known_moves + guess_moves
 
             if poke.item in ["Choice Scarf", "Choice Specs", "Choice Band"]:
-                moves = poke.moveset.moves
+                moves = poke.moveset.known_moves
                 try:
                     moves.index(event.details['move'])
                     poke.choiced = True
@@ -222,13 +221,14 @@ class Simulator():
                 first = 1
         return first
 
-    def simulate(self, gamestate, actions, who, log=False, add_action=False):
+    def simulate(self, gamestate, actions, who, log=False, add_action=False, deep_copy=True):
         assert not gamestate.is_over()
         my_team = gamestate.get_team(who)
         opp_team = gamestate.get_team(1 - who)
         my_poke = my_team.primary()
         opp_poke = opp_team.primary()
-        gamestate = gamestate.deep_copy()
+        if deep_copy:
+            gamestate = gamestate.deep_copy()
         my_action = actions[who]
         opp_action = actions[1 - who]
 

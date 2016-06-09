@@ -192,18 +192,24 @@ class MonteCarloAgent(Agent):
         return best_action
 
     def rollout(self, state, turn_num):
-        winner = state.get_winner()
- 
-        while not winner:
-            my_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 0, probs=False)
-            opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=False)
-            my_action = numpy.random.choice(my_action_probs[0], p=my_action_probs[1])
-            opp_action = numpy.random.choice(opp_action_probs[0], p=opp_action_probs[1])
-            state = self.simulator.simulate(state, (my_action, opp_action), 0, add_action=True)
+        try:
             winner = state.get_winner()
-            turn_num += 1
- 
-        return int(winner == 1)
+            while not winner:
+                my_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 0, probs=False)
+                if random.random() < 0.1:
+                    opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=True)
+                else:
+                    opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=False)
+                my_action = numpy.random.choice(my_action_probs[0], p=my_action_probs[1])
+                opp_action = numpy.random.choice(opp_action_probs[0], p=opp_action_probs[1])
+                state = self.simulator.simulate(state, (my_action, opp_action), 0, add_action=True, deep_copy=False)
+                winner = state.get_winner()
+                turn_num += 1
+            return int(winner == 1)
+        except:
+            print "Error in rollout"
+            return 0.5
+
 
     def search(self, state, who, start, log=False):
         self.tree.re_root(state)
@@ -220,7 +226,7 @@ class MonteCarloAgent(Agent):
                 outcome = int(winner==1)
                 self.tree.back_propogate(child.parent, outcome)
             else:
-                new_state = self.simulator.simulate(parent_state, child.action_pair, who, add_action=True)
+                new_state = self.simulator.simulate(parent_state, child.action_pair, who, add_action=True, deep_copy=False)
                 
                 # add new gamestate node to tree
                 leaf = self.tree.add_gamestate(child, new_state)
