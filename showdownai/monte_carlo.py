@@ -105,8 +105,8 @@ class GameStateNode(Node):
         self.my_actions_n = {a: [0.0, 1.0] for a in self.my_legal_actions_probs[0]}
         self.opp_actions_n = {b: [0.0, 1.0] for b in self.opp_legal_actions_probs[0]}
 
-        print "Num my actions:", len(self.my_legal_actions_probs[0])
-        print "Num opp actions:", len(self.opp_legal_actions_probs[0])
+        # print "Num my actions:", len(self.my_legal_actions_probs[0])
+        # print "Num opp actions:", len(self.opp_legal_actions_probs[0])
 
         # Probabilities for each action
         self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]))

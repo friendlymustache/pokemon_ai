@@ -186,7 +186,7 @@ class MonteCarloAgent(Agent):
             opp_actions = state.get_legal_actions(1)
             i = random.randrange(len(my_actions))
             j = random.randrange(len(opp_actions))
-            state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0)
+            state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0, add_action=True)
             winner = state.get_winner()
 
         return int(winner == 1)
@@ -206,7 +206,7 @@ class MonteCarloAgent(Agent):
                 outcome = int(winner==1)
                 self.tree.back_propogate(child.parent, outcome)
             else:
-                new_state = self.simulator.simulate(parent_state, child.action_pair, who)
+                new_state = self.simulator.simulate(parent_state, child.action_pair, who, add_action=True)
                 
                 # add new gamestate node to tree
                 leaf = self.tree.add_gamestate(child, new_state)

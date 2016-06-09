@@ -222,7 +222,7 @@ class Simulator():
                 first = 1
         return first
 
-    def simulate(self, gamestate, actions, who, log=False):
+    def simulate(self, gamestate, actions, who, log=False, add_action=False):
         assert not gamestate.is_over()
         my_team = gamestate.get_team(who)
         opp_team = gamestate.get_team(1 - who)
@@ -243,14 +243,20 @@ class Simulator():
 
         if my_action.is_move():
             if my_action.move_index == -1:
-                my_move = get_move(my_action.move_name)
+                move_name = my_action.move_name
             else:
-                my_move = get_move(my_poke.moveset.moves[my_action.move_index])
+                move_name = my_poke.moveset.moves[my_action.move_index]
+            if add_action and not move_name in my_poke.moveset.known_moves:
+                my_poke.moveset.known_moves.append(move_name)
+            my_move = get_move(move_name)
         if opp_action.is_move():
             if opp_action.move_index == -1:
-                opp_move = get_move(opp_action.move_name)
+                move_name = opp_action.move_name
             else:
-                opp_move = get_move(opp_poke.moveset.moves[opp_action.move_index])
+                move_name = opp_poke.moveset.moves[opp_action.move_index]
+            if add_action and not move_name in opp_poke.moveset.known_moves:
+                opp_poke.moveset.known_moves.append(move_name)
+            opp_move = get_move(move_name)
 
         moves = [None, None]
         moves[who] = my_move
