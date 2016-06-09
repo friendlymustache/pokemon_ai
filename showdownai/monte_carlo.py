@@ -153,7 +153,7 @@ class GameStateNode(Node):
             if opp_n > 0:
                 opp_mean = self.opp_actions_n[opp_action][0] / opp_n
                 opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
-                opp_prob = self.opp_actions_p[my_action]
+                opp_prob = self.opp_actions_p[opp_action]
                 self.opp_actions[opp_action] = opp_mean + opp_explore + opp_prob
 
 
