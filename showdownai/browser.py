@@ -248,7 +248,7 @@ class Selenium():
             if mega:
                 mega_button = self.driver.find_element_by_name('megaevo')
                 mega_button.click()
-            moves = self.driver.find_elements_by_css_selector(".movemenu button")
+            moves = self.driver.find_elements_by_name("chooseMove")
             move = moves[index]
             move.click()
             if volt_turn is not None:

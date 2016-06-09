@@ -240,7 +240,7 @@ class GameState():
         if valid_switches == [None]:
             switch_probs = []
         else:
-            switch_indices = numpy.array([classifier.pokemon_dict[my_team.poke_list[i].name] for i in valid_switches])
+            switch_indices = numpy.array([classifier.pokemon_dict[my_team.poke_list[i].name] if my_team.poke_list[i].name in classifier.pokemon_dict else 0 for i in valid_switches])
             switch_probs = numpy.repeat(classifier_probs[switch_indices], len(valid_backup_switches)-1)
         switches = [Action("switch", switch_index=i, backup_switch=j) for i in valid_switches for j in valid_backup_switches if j != i and i is not None]
 
