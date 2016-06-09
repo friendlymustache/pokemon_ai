@@ -234,10 +234,13 @@ class Selenium():
             elems = self.driver.find_elements_by_css_selector(".battle img")
             time.sleep(1)
             count += 1
-        img = elems[6]
-        text = img.get_attribute('src')
-        poke = text.split("/")[-1]
-        poke = poke[:-4]
+        try:
+            img = elems[6]
+            text = img.get_attribute('src')
+            poke = text.split("/")[-1]
+            poke = poke[:-4]
+        except:
+            poke = None
         return poke
 
     def get_opp_primary(self):
@@ -247,10 +250,13 @@ class Selenium():
             elems = self.driver.find_elements_by_css_selector(".battle img")
             time.sleep(1)
             count += 1
-        img = elems[5]
-        text = img.get_attribute('src')
-        poke = text.split("/")[-1]
-        poke = poke[:-4]
+        try:
+            img = elems[5]
+            text = img.get_attribute('src')
+            poke = text.split("/")[-1]
+            poke = poke[:-4]
+        except:
+            poke = None
         return poke
 
     def move(self, index, backup_switch, mega=False, volt_turn=None):
