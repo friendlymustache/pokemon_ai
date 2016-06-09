@@ -124,14 +124,14 @@ class SmogonPokemon():
         return SmogonPokemon(dictionary['name'], dictionary['typing'], dictionary['stats'], dictionary['movesets'])
 
 class SmogonMoveset():
-    def __init__(self, name, item, ability, evs, nature, moves, tag):
+    def __init__(self, name, item, ability, evs, nature, moves, tag, known_moves=[]):
         self.name = name
         self.item = item
         self.ability = ability
         self.evs = evs
         self.nature = nature
         self.moves = moves
-        self.known_moves = []
+        self.known_moves = known_moves
         self.tag = tag
     def to_dict(self):
         dictionary = {'name': self.name, 'item': self.item, 'ability': self.ability, 'evs': self.evs, 'nature': self.nature, 'moves': self.moves, 'tag': self.tag}

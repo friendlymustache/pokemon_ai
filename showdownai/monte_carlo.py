@@ -5,9 +5,10 @@ from operator import itemgetter
 from classifier import Classifier
 
 class MonteCarloTree():
-    def __init__(self, sl_files, value_files):
+    def __init__(self, sl_files, rollout_files, value_files):
         self.root = None
         self.sl_classifier = Classifier(sl_files[0], sl_files[1], sl_files[2], sl_files[3])
+        self.rollout_classifier = Classifier(rollout_files[0], rollout_files[1], rollout_files[2], rollout_files[3])
         self.value_function = Classifier(value_files[0], value_files[1], value_files[2], value_files[3], True)
 
     def re_root(self, state):
@@ -110,8 +111,8 @@ class GameStateNode(Node):
         # print "Num opp actions:", len(self.opp_legal_actions_probs[0])
 
         # Probabilities for each action
-        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]))
-        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]))
+        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]*len(self.my_legal_actions_probs[0])/2.0))
+        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]*len(self.opp_legal_actions_probs[0])/2.0))
 
         # Our and our opponent's actions
         # {action : uct_score}

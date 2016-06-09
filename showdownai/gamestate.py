@@ -176,7 +176,7 @@ class GameState():
                     # print "%s was damaged %f due to spikes!" % (my_poke, d)
 
 
-    def get_legal_actions_probs(self, classifier, turn_num, player_num, log=False):
+    def get_legal_actions_probs(self, classifier, turn_num, player_num, log=False, probs=True):
         my_team = self.get_team(player_num)
         my_poke = my_team.primary()
         opp_team = self.get_team(1 - player_num)
@@ -191,7 +191,10 @@ class GameState():
 
         move_names = []
         move_probs = []
-        classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0, :]
+        if probs:
+            classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0, :]
+        else:
+            classifier_probs = numpy.ones(681)
         if my_poke.choiced:
             move_names = [my_poke.move_choice]
             move_probs = numpy.ones(1)

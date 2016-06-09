@@ -435,7 +435,7 @@ class Team():
                     evs['spe'] = spe
             nature = line[3][:-7]
             nature = Team.convert_nature(nature)
-            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, moves, tag=None)
+            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, moves, tag=None, known_moves=moves)
             typing = data[name].typing
             stats = data[name].stats
             poke = Pokemon(name, typing, stats, moveset, None, calculate=True)

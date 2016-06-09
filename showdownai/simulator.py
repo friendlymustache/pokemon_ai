@@ -245,7 +245,7 @@ class Simulator():
             if my_action.move_index == -1:
                 move_name = my_action.move_name
             else:
-                move_name = my_poke.moveset.moves[my_action.move_index]
+                move_name = my_poke.moveset.known_moves[my_action.move_index]
             if add_action and not move_name in my_poke.moveset.known_moves:
                 my_poke.moveset.known_moves.append(move_name)
             my_move = get_move(move_name)
@@ -253,7 +253,7 @@ class Simulator():
             if opp_action.move_index == -1:
                 move_name = opp_action.move_name
             else:
-                move_name = opp_poke.moveset.moves[opp_action.move_index]
+                move_name = opp_poke.moveset.known_moves[opp_action.move_index]
             if add_action and not move_name in opp_poke.moveset.known_moves:
                 opp_poke.moveset.known_moves.append(move_name)
             opp_move = get_move(move_name)
