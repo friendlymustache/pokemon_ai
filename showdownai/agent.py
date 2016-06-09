@@ -145,7 +145,7 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 class MonteCarloAgent(Agent):
     def __init__(self, maxtime, pokedata, sl_policy=None):
-        model_file = 'models/sl/sl.bst'
+        model_file = 'models/sl/sl_simple.bst'
         feature_labels_file = 'models/sl/sl_X_encoders.pickle'
         cats_file = 'models/sl/sl_cats.pickle'
         target_label_file = 'models/sl/sl_Y_encoder.pickle'

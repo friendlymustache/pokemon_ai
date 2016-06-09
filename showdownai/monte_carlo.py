@@ -102,8 +102,11 @@ class GameStateNode(Node):
 
         # Wins and number of times visited for all actions
         # {action : [wins, num_visited]}
-        self.my_actions_n = {a: [0.0, 0.0] for a in self.my_legal_actions_probs[0]}
-        self.opp_actions_n = {b: [0.0, 0.0] for b in self.opp_legal_actions_probs[0]}
+        self.my_actions_n = {a: [0.0, 1.0] for a in self.my_legal_actions_probs[0]}
+        self.opp_actions_n = {b: [0.0, 1.0] for b in self.opp_legal_actions_probs[0]}
+
+        print "Num my actions:", len(self.my_legal_actions_probs[0])
+        print "Num opp actions:", len(self.opp_legal_actions_probs[0])
 
         # Probabilities for each action
         self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]))
@@ -142,19 +145,17 @@ class GameStateNode(Node):
         
         if my_action:
             my_n = self.my_actions_n[my_action][1]
-            if my_n > 0:
-                my_mean = self.my_actions_n[my_action][0] / my_n
-                my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
-                my_prob = self.my_actions_p[my_action]
-                self.my_actions[my_action] = my_mean + my_explore + my_prob
+            my_mean = self.my_actions_n[my_action][0] / my_n
+            my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
+            my_prob = self.my_actions_p[my_action]
+            self.my_actions[my_action] = my_mean + my_prob/my_n
 
         if opp_action:
             opp_n = self.opp_actions_n[opp_action][1]
-            if opp_n > 0:
-                opp_mean = self.opp_actions_n[opp_action][0] / opp_n
-                opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
-                opp_prob = self.opp_actions_p[opp_action]
-                self.opp_actions[opp_action] = opp_mean + opp_explore + opp_prob
+            opp_mean = self.opp_actions_n[opp_action][0] / opp_n
+            opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
+            opp_prob = self.opp_actions_p[opp_action]
+            self.opp_actions[opp_action] = opp_mean + opp_prob/opp_n
 
 
 class ActionPairNode(Node):
