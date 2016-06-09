@@ -200,7 +200,7 @@ class GameState():
             move_probs = classifier_probs[classifier.move_indices]
         else:
             move_names = my_poke.moveset.known_moves
-            my_move_indices = numpy.array([classifier.move_dict[move] for move in move_names if move in classifier.move_dict])
+            my_move_indices = numpy.array([classifier.move_dict[move] if move in classifier.move_dict else 0 for move in move_names])
             move_probs = classifier_probs[my_move_indices]
 
         move_probs = numpy.repeat(move_probs, len(valid_switches))
