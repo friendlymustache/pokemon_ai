@@ -229,8 +229,11 @@ class Selenium():
 
     def get_my_primary(self):
         elems = self.driver.find_elements_by_css_selector(".battle img")
-        while len(elems) < 7:
+        count = 0
+        while len(elems) < 7 and count < 40:
             elems = self.driver.find_elements_by_css_selector(".battle img")
+            time.sleep(1)
+            count += 1
         img = elems[6]
         text = img.get_attribute('src')
         poke = text.split("/")[-1]
@@ -239,8 +242,11 @@ class Selenium():
 
     def get_opp_primary(self):
         elems = self.driver.find_elements_by_css_selector(".battle img")
-        while len(elems) < 7:
+        count = 0
+        while len(elems) < 7 and count < 40:
             elems = self.driver.find_elements_by_css_selector(".battle img")
+            time.sleep(1)
+            count += 1
         img = elems[5]
         text = img.get_attribute('src')
         poke = text.split("/")[-1]
@@ -255,9 +261,12 @@ class Selenium():
                 mega_button = self.driver.find_element_by_name('megaevo')
                 mega_button.click()
             moves = []
-            while moves == []:
+            count = 0
+            while moves == [] and count < 40:
                 print "Trying to find move buttons"
                 moves = self.driver.find_elements_by_name("chooseMove")
+                time.sleep(1)
+                count+=1
             if index < 0 or index > len(moves) - 1:
                 print "Index out of bounds", index
                 index = 0
