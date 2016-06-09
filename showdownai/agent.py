@@ -145,14 +145,23 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 class MonteCarloAgent(Agent):
     def __init__(self, maxtime, pokedata, sl_policy=None):
-        model_file = 'models/sl/sl_simple.bst'
-        feature_labels_file = 'models/sl/sl_X_encoders.pickle'
-        cats_file = 'models/sl/sl_cats.pickle'
-        target_label_file = 'models/sl/sl_Y_encoder.pickle'
+        self.lmbda = 0.5
+
+        sl_model_file = 'models/sl/sl_simple.bst'
+        sl_feature_labels_file = 'models/sl/sl_X_encoders.pickle'
+        sl_cats_file = 'models/sl/sl_cats.pickle'
+        sl_target_label_file = 'models/sl/sl_Y_encoder.pickle'
+        sl_files = [sl_model_file, sl_feature_labels_file, sl_cats_file, sl_target_label_file]
+
+        value_model_file = 'models/value/value_func.bst'
+        value_feature_labels_file = 'models/value/value_func_X_encoders.pickle'
+        value_cats_file = 'models/value/value_func_cats.pickle'
+        value_target_label_file = 'models/value/value_func_Y_encoder.pickle'
+        value_files = [value_model_file, value_feature_labels_file, value_cats_file, value_target_label_file]
 
         self.maxtime = maxtime
         self.simulator = Simulator(pokedata)
-        self.tree = MonteCarloTree(model_file, feature_labels_file, cats_file, target_label_file)
+        self.tree = MonteCarloTree(sl_files, value_files)
         self.sl_policy = sl_policy
         print "Monte Carlo tree created"
 
@@ -217,6 +226,8 @@ class MonteCarloAgent(Agent):
                 for i in range(num_times):
                     outcome += self.rollout(new_state.deep_copy())
                 outcome /= num_times
+
+                outcome = (1-self.lmbda)*outcome + self.lmbda*new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
                 self.tree.back_propogate(leaf, outcome)
             count += 1
 
