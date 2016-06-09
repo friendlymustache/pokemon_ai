@@ -194,7 +194,8 @@ class MonteCarloAgent(Agent):
     def rollout(self, state, turn_num):
         try:
             winner = state.get_winner()
-            while not winner:
+            start = time.time()
+            while not winner and (time.time() - start) < self.maxtime:
                 my_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 0, probs=False)
                 if random.random() < 0.05:
                     opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=True)
@@ -205,10 +206,13 @@ class MonteCarloAgent(Agent):
                 state = self.simulator.simulate(state, (my_action, opp_action), 0, add_action=True, deep_copy=False)
                 winner = state.get_winner()
                 turn_num += 1
-            return int(winner == 1)
+            if winner == 0:
+                return 0.5
+            else: 
+                return int(winner == 1)
         except:
             print "Error in rollout"
-            return 0.5
+        return 0.5
 
 
     def search(self, state, who, start, log=False):
