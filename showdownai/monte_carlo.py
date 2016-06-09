@@ -5,20 +5,21 @@ from operator import itemgetter
 from classifier import Classifier
 
 class MonteCarloTree():
-    def __init__(self, model_file, feature_labels_file, cats_file, target_label_file):
+    def __init__(self, sl_files, value_files):
         self.root = None
-        self.my_classifier = Classifier(model_file, feature_labels_file, cats_file, target_label_file)
+        self.sl_classifier = Classifier(sl_files[0], sl_files[1], sl_files[2], sl_files[3])
+        self.value_function = Classifier(value_files[0], value_files[1], value_files[2], value_files[3], True)
 
     def re_root(self, state):
         if (self.root == None):
             print "Created initial MCTS"
-            self.root = GameStateNode(state, self.my_classifier, 0)
+            self.root = GameStateNode(state, self.sl_classifier, 0)
         elif (state.to_tuple() in self.root.children_gamestates):
             print "Found gamestate"
             self.root = self.root.children_gamestates[state.to_tuple()]
         else:
             print "Created new gamestate"
-            self.root = GameStateNode(state, self.my_classifier, self.root.turn_num + 1)
+            self.root = GameStateNode(state, self.sl_classifier, self.root.turn_num + 1)
 
     def select_add_actionpair(self):
         current = self.root
@@ -51,7 +52,7 @@ class MonteCarloTree():
         return new_actionpair
 
     def add_gamestate(self, actionpair_node, new_state): 
-        new_gamestate = GameStateNode(new_state, self.my_classifier, actionpair_node.parent.turn_num + 1, actionpair_node)
+        new_gamestate = GameStateNode(new_state, self.sl_classifier, actionpair_node.parent.turn_num + 1, actionpair_node)
         actionpair_node.children_gamestates.append(new_gamestate)
         return new_gamestate
 
@@ -90,15 +91,15 @@ class Node(object):
 
 
 class GameStateNode(Node):
-    def __init__(self, state, my_classifier, turn_num, parent=None):
+    def __init__(self, state, sl_classifier, turn_num, parent=None):
         super(GameStateNode, self).__init__(parent)
 
         self.state = state
 
         self.turn_num = turn_num
 
-        self.my_legal_actions_probs = state.get_legal_actions_probs(my_classifier, turn_num, 0)
-        self.opp_legal_actions_probs = state.get_legal_actions_probs(my_classifier, turn_num, 1)
+        self.my_legal_actions_probs = state.get_legal_actions_probs(sl_classifier, turn_num, 0)
+        self.opp_legal_actions_probs = state.get_legal_actions_probs(sl_classifier, turn_num, 1)
 
         # Wins and number of times visited for all actions
         # {action : [wins, num_visited]}
