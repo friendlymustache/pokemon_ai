@@ -1,14 +1,17 @@
+import sys
+import os
+sys.path.append(os.path.abspath('./'))
 from smogon import SmogonMoveset
 from team import Team, Pokemon
 from browser import Selenium
 from log import SimulatorLog
+from agent import MonteCarloAgent
 from simulator import Simulator
 from gamestate import GameState
-from agent import PessimisticMinimaxAgent
 from data import NAME_CORRECTIONS, MOVE_CORRECTIONS, load_data, get_move, correct_name, get_hidden_power
 from move_predict import create_predictor
 from path import Path
-from exceptions import *
+from showdownai.exceptions import GameOverException, TierException, UserNotOnlineException
 from state import KernelState
 import time
 
@@ -397,21 +400,16 @@ def main():
 
 
     pokedata = load_data(args.data_dir)
-
+    print "Hello"
     showdown = Showdown(
         team_text,
-        OptimisticMinimax(2, pokedata),
+        MonteCarloAgent(10, pokedata),
         args.username,
         pokedata,
-        password=args.password,
-        proxy=args.proxy,
         browser=args.browser,
-        monitor_url=args.monitor_url,
-        predictor_name=args.predictor,
-        verbose=args.verbose,
-        data_dir=args.data_dir,
-        lib_dir=args.lib_dir,
-        kernel_dir=args.kernel_dir,
-        kernel=args.kernel
+        password=args.password,
     )
     showdown.run(args.iterations, challenge=args.challenge)
+
+
+main()

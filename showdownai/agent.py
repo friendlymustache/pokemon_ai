@@ -146,7 +146,7 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 class MonteCarloAgent(Agent):
     def __init__(self, maxtime, pokedata, sl_policy=None):
-        self.lmbda = 0.3
+        self.lmbda = 0.9
  
         sl_model_file = 'models/sl/sl_simple.bst'
         sl_feature_labels_file = 'models/sl/sl_X_encoders.pickle'
@@ -191,12 +191,12 @@ class MonteCarloAgent(Agent):
 
         return best_action
 
-    def rollout(self, state, turn_num):
+    def rollout(self, state, turn_num, rollout_classifier, simulator):
         try:
             winner = state.get_winner()
             while not winner:
                 my_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 0, probs=False)
-                if random.random() < 0.1:
+                if random.random() < 0.05:
                     opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=True)
                 else:
                     opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=False)
@@ -234,11 +234,14 @@ class MonteCarloAgent(Agent):
                 # run rollout policy and backpropogate outcome
                 num_times = 2
                 outcome = 0.0
-                for i in range(num_times):
-                    outcome += self.rollout(new_state.deep_copy(), child.parent.turn_num + 1)
-                outcome /= num_times
-
-                outcome = (1-self.lmbda)*outcome + self.lmbda*new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
+                outcomes = (self.rollout(new_state.deep_copy(), child.parent.turn_num + 1, self.tree.rollout_classifier, self.simulator) for i in range(num_times))
+                #for i in range(num_times):
+                #    outcome += self.rollout(new_state.deep_copy(), child.parent.turn_num + 1)
+                outcome = sum(outcomes)/num_times
+                #value = new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
+                #print value
+                #value = 0
+                #outcome = (1-self.lmbda)*outcome + self.lmbda*value
                 self.tree.back_propogate(leaf, outcome)
             count += 1
 

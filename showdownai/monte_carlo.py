@@ -68,10 +68,11 @@ class MonteCarloTree():
             # Update corresponding UCT score in previous GS node
             node = node.parent
             node.increment(outcome, ap)
-            for a in node.my_actions:
+            node.update_uct_scores((ap))
+            '''for a in node.my_actions:
                 node.update_uct_scores((a, None))
             for b in node.opp_actions:
-                node.update_uct_scores((None, b))
+                node.update_uct_scores((None, b))'''
 
     def best_move(self):
         best_action = max(self.root.my_actions, key=lambda i: self.root.my_actions_n[i][0] / self.root.my_actions_n[i][1])
