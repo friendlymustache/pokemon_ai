@@ -197,7 +197,7 @@ class GameState():
             classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0, :]
         else:
             classifier_probs = numpy.ones(681)
-        if my_poke.choiced:
+        if my_poke.choiced and my_poke.move_choice != None:
             move_names = [my_poke.move_choice]
             move_probs = numpy.ones(1)
         elif len(my_poke.moveset.known_moves) < 4:
@@ -224,7 +224,8 @@ class GameState():
                             move_index=move_index,
                             mega=mega,
                             volt_turn=None,
-                            backup_switch=None
+                            backup_switch=None,
+                            move_name=move_name
                         )
                     )
                 else:
@@ -261,16 +262,16 @@ class GameState():
         elif opp_poke.ability == "Arena Trap" and "Ghost" not in my_poke.typing and "Flying" not in my_poke.typing:
             switches = []
         if my_poke.taunt:
-            moves = [move for move in moves if MOVES[my_poke.moveset.known_moves[move.move_index]].category != "Non-Damaging"]
-            indices = numpy.array([i for i in range(len(moves)) if MOVES[my_poke.moveset.known_moves[moves[i].move_index]].category != "Non-Damaging"])
+            moves = [move for move in moves if MOVES[move.move_name].category != "Non-Damaging"]
+            indices = numpy.array([i for i in range(len(moves)) if MOVES[move.move_name].category != "Non-Damaging"])
             move_probs = move_probs[indices]
         if my_poke.disabled is not None:
-            moves = [move for move in moves if my_poke.moveset.known_moves[move.move_index] != my_poke.disabled]
-            indices = [i for i in range(len(moves)) if my_poke.moveset.known_moves[moves[i].move_index] != my_poke.disabled]
+            moves = [move for move in moves if move.move_name != my_poke.disabled]
+            indices = [i for i in range(len(moves)) if move.move_name != my_poke.disabled]
             move_probs = move_probs[indices]
         if my_poke.encore:
-            moves = [move for move in moves if my_poke.moveset.known_moves[move.move_index] == my_poke.last_move]
-            indices = [i for i in range(len(moves)) if my_poke.moveset.known_moves[moves[i].move_index] == my_poke.last_move]
+            moves = [move for move in moves if move.move_name == my_poke.last_move]
+            indices = [i for i in range(len(moves)) if move.move_name == my_poke.last_move]
 
         total = moves+switches
         total_probs = numpy.hstack((move_probs, switch_probs))

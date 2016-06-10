@@ -146,7 +146,7 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 class MonteCarloAgent(Agent):
     def __init__(self, maxtime, pokedata, sl_policy=None):
-        self.lmbda = 1.0
+        self.lmbda = 0.8
  
         sl_model_file = 'models/sl/sl_simple.bst'
         sl_feature_labels_file = 'models/sl/sl_X_encoders.pickle'
@@ -211,7 +211,8 @@ class MonteCarloAgent(Agent):
             else: 
                 return int(winner == 1)
         except:
-            print "Error in rollout"
+            # print "Error in rollout"
+            pass
         return 0.5
 
 
@@ -236,16 +237,14 @@ class MonteCarloAgent(Agent):
                 leaf = self.tree.add_gamestate(child, new_state)
                 
                 # run rollout policy and backpropogate outcome
-                num_times = 2
+                num_times = 1
                 outcome = 0.0
                 outcomes = (self.rollout(new_state.deep_copy(), child.parent.turn_num + 1) for i in range(num_times))
                 #for i in range(num_times):
                 #    outcome += self.rollout(new_state.deep_copy(), child.parent.turn_num + 1)
                 outcome = sum(outcomes)/num_times
-                #value = new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
-                #print value
-                #value = 0
-                #outcome = (1-self.lmbda)*outcome + self.lmbda*value
+                value = new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
+                outcome = (1-self.lmbda)*outcome + self.lmbda*value
                 self.tree.back_propogate(leaf, outcome)
             count += 1
 

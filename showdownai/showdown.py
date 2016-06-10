@@ -406,7 +406,7 @@ def main():
     pokedata = load_data(args.data_dir)
     showdown = Showdown(
         team_text,
-        MonteCarloAgent(10, pokedata),
+        MonteCarloAgent(20, pokedata),
         args.username,
         pokedata,
         browser=args.browser,
