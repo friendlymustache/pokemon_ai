@@ -166,10 +166,10 @@ class Showdown():
                 buffer.append(line)
         my_poke_name = self.selenium.get_my_primary()
         if my_poke_name == None:
-            my_poke_name = gamestate.get_team(0).primary().name()
+            my_poke_name = gamestate.get_team(0).primary().name
         opp_poke_name = self.selenium.get_opp_primary()
         if opp_poke_name == None:
-            opp_poke_name = gamestate.get_team(1).primary().name()
+            opp_poke_name = gamestate.get_team(1).primary().name
 
         old_gamestate = gamestate
         gamestate = gamestate.deep_copy()
