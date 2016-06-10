@@ -237,7 +237,7 @@ class MonteCarloAgent(Agent):
                 leaf = self.tree.add_gamestate(child, new_state)
                 
                 # run rollout policy and backpropogate outcome
-                num_times = 1
+                num_times = 2
                 outcome = 0.0
                 outcomes = (self.rollout(new_state.deep_copy(), child.parent.turn_num + 1) for i in range(num_times))
                 #for i in range(num_times):
