@@ -1,16 +1,7 @@
-# Building/setting up the project
-
-From the root project directory, untar the SL policy 
-(one of the models used in running the bot) via the command:
-
-tar -xzvf models/sl/sl.bst.tgz
-
-
 # Running the bot
 
 ## Using a GUI
 Run "python server/showdownbot.py" from the root project directory
-(note that the bot doesn't work when run from other folders)
 
 A GUI will pop up; populate the fields with the username and
 password for our bot, and click play to launch the bot.
