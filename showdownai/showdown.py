@@ -414,5 +414,5 @@ def main():
     )
     showdown.run(args.iterations, challenge=args.challenge)
 
-
-main()
+if __name__ == "__main__":
+    main()
