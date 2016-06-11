@@ -1,0 +1,9735 @@
+(lp0
+ccopy_reg
+_reconstructor
+p1
+(csklearn.preprocessing.label
+LabelEncoder
+p2
+c__builtin__
+object
+p3
+Ntp4
+Rp5
+(dp6
+S'classes_'
+p7
+cnumpy.core.multiarray
+_reconstruct
+p8
+(cnumpy
+ndarray
+p9
+(I0
+tp10
+S'b'
+p11
+tp12
+Rp13
+(I1
+(I18
+tp14
+cnumpy
+dtype
+p15
+(S'O8'
+p16
+I0
+I1
+tp17
+Rp18
+(I3
+S'|'
+p19
+NNNI-1
+I-1
+I63
+tp20
+bI00
+(lp21
+VBug
+p22
+aVDark
+p23
+aVDragon
+p24
+aVElectric
+p25
+aVFairy
+p26
+aVFighting
+p27
+aVFire
+p28
+aVFlying
+p29
+aVGhost
+p30
+aVGrass
+p31
+aVGround
+p32
+aVIce
+p33
+aVNormal
+p34
+aVPoison
+p35
+aVPsychic
+p36
+aVRock
+p37
+aVSteel
+p38
+aVWater
+p39
+atp40
+bsbag1
+(g2
+g3
+Ntp41
+Rp42
+(dp43
+g7
+g8
+(g9
+(I0
+tp44
+g11
+tp45
+Rp46
+(I1
+(I17
+tp47
+g18
+I00
+(lp48
+I0
+aVDragon
+p49
+aVElectric
+p50
+aVFairy
+p51
+aS'Fighting'
+p52
+aVFire
+p53
+aVFlying
+p54
+aVGhost
+p55
+aVGrass
+p56
+aVGround
+p57
+aVIce
+p58
+aVNormal
+p59
+aVPoison
+p60
+aVPsychic
+p61
+aVRock
+p62
+aVSteel
+p63
+aVWater
+p64
+atp65
+bsbag1
+(g2
+g3
+Ntp66
+Rp67
+(dp68
+g7
+g8
+(g9
+(I0
+tp69
+g11
+tp70
+Rp71
+(I1
+(I2
+tp72
+g18
+I00
+(lp73
+I0
+aS'burn'
+p74
+atp75
+bsbag1
+(g2
+g3
+Ntp76
+Rp77
+(dp78
+g7
+g8
+(g9
+(I0
+tp79
+g11
+tp80
+Rp81
+(I1
+(I2
+tp82
+g15
+(S'b1'
+p83
+I0
+I1
+tp84
+Rp85
+(I3
+S'|'
+p86
+NNNI-1
+I-1
+I0
+tp87
+bI00
+S'\x00\x01'
+p88
+tp89
+bsbag1
+(g2
+g3
+Ntp90
+Rp91
+(dp92
+g7
+g8
+(g9
+(I0
+tp93
+g11
+tp94
+Rp95
+(I1
+(I6
+tp96
+g18
+I00
+(lp97
+I0
+aVBrave Bird
+p98
+aVGiga Drain
+p99
+aVIron Head
+p100
+aVPursuit
+p101
+aVU-turn
+p102
+atp103
+bsbag1
+(g2
+g3
+Ntp104
+Rp105
+(dp106
+g7
+g8
+(g9
+(I0
+tp107
+g11
+tp108
+Rp109
+(I1
+(I294
+tp110
+g18
+I00
+(lp111
+I0
+aVAcid Spray
+p112
+aVAcrobatics
+p113
+aVAerial Ace
+p114
+aVAgility
+p115
+aVAir Slash
+p116
+aVAncient Power
+p117
+aVAqua Jet
+p118
+aVAqua Ring
+p119
+aVAqua Tail
+p120
+aVAromatherapy
+p121
+aVAura Sphere
+p122
+aVAutotomize
+p123
+aVAvalanche
+p124
+aVBarrier
+p125
+aVBaton Pass
+p126
+aVBelly Drum
+p127
+aVBite
+p128
+aVBlaze Kick
+p129
+aVBlizzard
+p130
+aVBlue Flare
+p131
+aVBody Slam
+p132
+aVBolt Strike
+p133
+aVBoomburst
+p134
+aVBounce
+p135
+aVBrave Bird
+p136
+aVBrick Break
+p137
+aVBug Bite
+p138
+aVBug Buzz
+p139
+aVBulk Up
+p140
+aVBulldoze
+p141
+aVBullet Punch
+p142
+aVBullet Seed
+p143
+aVCalm Mind
+p144
+aVCharge Beam
+p145
+aVCharm
+p146
+aVCircle Throw
+p147
+aVClear Smog
+p148
+aVClose Combat
+p149
+aVCoil
+p150
+aVConfuse Ray
+p151
+aVCosmic Power
+p152
+aVCotton Guard
+p153
+aVCounter
+p154
+aVCrabhammer
+p155
+aVCrunch
+p156
+aVCurse
+p157
+aVDark Pulse
+p158
+aVDark Void
+p159
+aVDazzling Gleam
+p160
+aVDefog
+p161
+aVDestiny Bond
+p162
+aVDiamond Storm
+p163
+aVDischarge
+p164
+aVDoom Desire
+p165
+aVDouble Hit
+p166
+aVDouble-Edge
+p167
+aVDraco Meteor
+p168
+aVDragon Breath
+p169
+aVDragon Claw
+p170
+aVDragon Dance
+p171
+aVDragon Pulse
+p172
+aVDragon Rush
+p173
+aVDragon Tail
+p174
+aVDrain Punch
+p175
+aVDraining Kiss
+p176
+aVDrill Run
+p177
+aVDual Chop
+p178
+aVDynamic Punch
+p179
+aVEarth Power
+p180
+aVEarthquake
+p181
+aVEchoed Voice
+p182
+aVEncore
+p183
+aVEndeavor
+p184
+aVEndure
+p185
+aVEnergy Ball
+p186
+aVEruption
+p187
+aVExplosion
+p188
+aVExtrasensory
+p189
+aVExtreme Speed
+p190
+aVFacade
+p191
+aVFairy Lock
+p192
+aVFake Out
+p193
+aVFeint
+p194
+aVFiery Dance
+p195
+aVFinal Gambit
+p196
+aVFire Blast
+p197
+aVFire Fang
+p198
+aVFire Punch
+p199
+aVFlame Charge
+p200
+aVFlamethrower
+p201
+aVFlare Blitz
+p202
+aVFlash
+p203
+aVFlash Cannon
+p204
+aVFling
+p205
+aVFly
+p206
+aVFocus Blast
+p207
+aVFocus Energy
+p208
+aVFocus Punch
+p209
+aVForce Palm
+p210
+aVForesight
+p211
+aVFoul Play
+p212
+aVFreeze Shock
+p213
+aVFreeze-Dry
+p214
+aVFrustration
+p215
+aVFusion Bolt
+p216
+aVFuture Sight
+p217
+aVGear Grind
+p218
+aVGeomancy
+p219
+aVGiga Drain
+p220
+aVGiga Impact
+p221
+aVGlaciate
+p222
+aVGlare
+p223
+aVGrass Knot
+p224
+aVGravity
+p225
+aVGrowth
+p226
+aVGunk Shot
+p227
+aVGyro Ball
+p228
+aVHammer Arm
+p229
+aVHaze
+p230
+aVHead Smash
+p231
+aVHeal Bell
+p232
+aVHeal Block
+p233
+aVHealing Wish
+p234
+aVHeart Stamp
+p235
+aVHeat Wave
+p236
+aVHeavy Slam
+p237
+aVHex
+p238
+aVHidden Power
+p239
+aVHigh Jump Kick
+p240
+aVHone Claws
+p241
+aVHorn Leech
+p242
+aVHowl
+p243
+aVHurricane
+p244
+aVHydro Pump
+p245
+aVHyper Voice
+p246
+aVHyperspace Fury
+p247
+aVHyperspace Hole
+p248
+aVHypnosis
+p249
+aVIce Beam
+p250
+aVIce Fang
+p251
+aVIce Punch
+p252
+aVIce Shard
+p253
+aVIcicle Crash
+p254
+aVIcicle Spear
+p255
+aVIcy Wind
+p256
+aVInfestation
+p257
+aVIron Defense
+p258
+aVIron Head
+p259
+aVIron Tail
+p260
+aVKnock Off
+p261
+aVLast Resort
+p262
+aVLava Plume
+p263
+aVLeaf Blade
+p264
+aVLeaf Storm
+p265
+aVLeech Seed
+p266
+aVLight Screen
+p267
+aVLovely Kiss
+p268
+aVLow Kick
+p269
+aVLow Sweep
+p270
+aVLunar Dance
+p271
+aVMach Punch
+p272
+aVMagic Coat
+p273
+aVMagic Room
+p274
+aVMagma Storm
+p275
+aVMagnet Rise
+p276
+aVMegahorn
+p277
+aVMemento
+p278
+aVMeteor Mash
+p279
+aVMilk Drink
+p280
+aVMirror Coat
+p281
+aVMoonblast
+p282
+aVMoonlight
+p283
+aVMorning Sun
+p284
+aVMud-Slap
+p285
+aVMuddy Water
+p286
+aVNasty Plot
+p287
+aVNatural Gift
+p288
+aVNight Shade
+p289
+aVNight Slash
+p290
+aVOutrage
+p291
+aVOverheat
+p292
+aVPain Split
+p293
+aVPerish Song
+p294
+aVPhantom Force
+p295
+aVPin Missile
+p296
+aVPlay Rough
+p297
+aVPoison Jab
+p298
+aVPower Whip
+p299
+aVPower-Up Punch
+p300
+aVProtect
+p301
+aVPsychic
+p302
+aVPsycho Cut
+p303
+aVPsyshock
+p304
+aVPsywave
+p305
+aVPursuit
+p306
+aVQuick Attack
+p307
+aVQuiver Dance
+p308
+aVRain Dance
+p309
+aVRapid Spin
+p310
+aVRazor Shell
+p311
+aVRecover
+p312
+aVReflect
+p313
+aVReflect Type
+p314
+aVRefresh
+p315
+aVRelic Song
+p316
+aVRest
+p317
+aVReturn
+p318
+aVReversal
+p319
+aVRoar
+p320
+aVRock Blast
+p321
+aVRock Polish
+p322
+aVRock Slide
+p323
+aVRock Tomb
+p324
+aVRoost
+p325
+aVSacred Fire
+p326
+aVSacred Sword
+p327
+aVSafeguard
+p328
+aVSand Tomb
+p329
+aVScald
+p330
+aVScreech
+p331
+aVSecret Power
+p332
+aVSecret Sword
+p333
+aVSeed Bomb
+p334
+aVSeed Flare
+p335
+aVSeismic Toss
+p336
+aVShadow Ball
+p337
+aVShadow Claw
+p338
+aVShadow Punch
+p339
+aVShadow Sneak
+p340
+aVShell Smash
+p341
+aVShift Gear
+p342
+aVSignal Beam
+p343
+aVSkill Swap
+p344
+aVSlack Off
+p345
+aVSleep Powder
+p346
+aVSleep Talk
+p347
+aVSludge Bomb
+p348
+aVSludge Wave
+p349
+aVSmack Down
+p350
+aVSnarl
+p351
+aVSoak
+p352
+aVSoft-Boiled
+p353
+aVSolar Beam
+p354
+aVSolarBeam
+p355
+aVSpikes
+p356
+aVSpiky Shield
+p357
+aVSpore
+p358
+aVStealth Rock
+p359
+aVSticky Web
+p360
+aVStone Edge
+p361
+aVStored Power
+p362
+aVStun Spore
+p363
+aVSubstitute
+p364
+aVSucker Punch
+p365
+aVSunny Day
+p366
+aVSuper Fang
+p367
+aVSuperpower
+p368
+aVSurf
+p369
+aVSwitcheroo
+p370
+aVSwords Dance
+p371
+aVSynthesis
+p372
+aVTail Glow
+p373
+aVTailwind
+p374
+aVTaunt
+p375
+aVThunder
+p376
+aVThunder Punch
+p377
+aVThunder Wave
+p378
+aVThunderbolt
+p379
+aVToxic
+p380
+aVToxic Spikes
+p381
+aVTransform
+p382
+aVTri Attack
+p383
+aVTrick
+p384
+aVTrick Room
+p385
+aVU-turn
+p386
+aVUproar
+p387
+aVV-create
+p388
+aVVacuum Wave
+p389
+aVVolt Switch
+p390
+aVWater Pulse
+p391
+aVWater Spout
+p392
+aVWaterfall
+p393
+aVWhirlwind
+p394
+aVWild Charge
+p395
+aVWill-O-Wisp
+p396
+aVWing Attack
+p397
+aVWish
+p398
+aVWood Hammer
+p399
+aVWork Up
+p400
+aVX-Scissor
+p401
+aVYawn
+p402
+aVZap Cannon
+p403
+aVZen Headbutt
+p404
+atp405
+bsbag1
+(g2
+g3
+Ntp406
+Rp407
+(dp408
+g7
+g8
+(g9
+(I0
+tp409
+g11
+tp410
+Rp411
+(I1
+(I38
+tp412
+g18
+I00
+(lp413
+I00
+aI01
+aVAgility
+p414
+aVBug Bite
+p415
+aVCalm Mind
+p416
+aVClose Combat
+p417
+aVDiamond Storm
+p418
+aVDragon Dance
+p419
+aVDragon Pulse
+p420
+aVEarthquake
+p421
+aVFlamethrower
+p422
+aVFocus Blast
+p423
+aVFoul Play
+p424
+aVHeal Bell
+p425
+aVHidden Power
+p426
+aVHydro Pump
+p427
+aVKnock Off
+p428
+aVMoonblast
+p429
+aVOverheat
+p430
+aVPin Missile
+p431
+aVPower-Up Punch
+p432
+aVProtect
+p433
+aVPsychic
+p434
+aVPsyshock
+p435
+aVRecover
+p436
+aVReturn
+p437
+aVRock Polish
+p438
+aVRoost
+p439
+aVScald
+p440
+aVSlack Off
+p441
+aVStealth Rock
+p442
+aVSubstitute
+p443
+aVSwords Dance
+p444
+aVTaunt
+p445
+aVThunderbolt
+p446
+aVTrick Room
+p447
+aVWaterfall
+p448
+aVWill-O-Wisp
+p449
+atp450
+bsbag1
+(g2
+g3
+Ntp451
+Rp452
+(dp453
+g7
+g8
+(g9
+(I0
+tp454
+g11
+tp455
+Rp456
+(I1
+(I18
+tp457
+g18
+I00
+(lp458
+VBug
+p459
+aVDark
+p460
+aVDragon
+p461
+aVElectric
+p462
+aVFairy
+p463
+ag27
+ag28
+aVFlying
+p464
+ag30
+aVGrass
+p465
+aVGround
+p466
+aVIce
+p467
+ag34
+ag35
+ag36
+aVRock
+p468
+aVSteel
+p469
+aVWater
+p470
+atp471
+bsbag1
+(g2
+g3
+Ntp472
+Rp473
+(dp474
+g7
+g8
+(g9
+(I0
+tp475
+g11
+tp476
+Rp477
+(I1
+(I17
+tp478
+g18
+I00
+(lp479
+I0
+ag49
+aVElectric
+p480
+ag51
+aVFighting
+p481
+aVFire
+p482
+aVFlying
+p483
+ag55
+aVGrass
+p484
+aVGround
+p485
+aVIce
+p486
+aVNormal
+p487
+aVPoison
+p488
+aVPsychic
+p489
+aVRock
+p490
+aVSteel
+p491
+aVWater
+p492
+atp493
+bsbag1
+(g2
+g3
+Ntp494
+Rp495
+(dp496
+g7
+g8
+(g9
+(I0
+tp497
+g11
+tp498
+Rp499
+(I1
+(I2
+tp500
+g18
+I00
+(lp501
+I0
+ag74
+atp502
+bsbag1
+(g2
+g3
+Ntp503
+Rp504
+(dp505
+g7
+g8
+(g9
+(I0
+tp506
+g11
+tp507
+Rp508
+(I1
+(I2
+tp509
+g85
+I00
+S'\x00\x01'
+p510
+tp511
+bsbag1
+(g2
+g3
+Ntp512
+Rp513
+(dp514
+g7
+g8
+(g9
+(I0
+tp515
+g11
+tp516
+Rp517
+(I1
+(I236
+tp518
+g18
+I00
+(lp519
+I0
+aVAcrobatics
+p520
+aVAerial Ace
+p521
+aVAgility
+p522
+aVAir Slash
+p523
+aVAncient Power
+p524
+aVAqua Jet
+p525
+ag120
+aVAromatherapy
+p526
+ag122
+aVAvalanche
+p527
+aVBaton Pass
+p528
+aVBelly Drum
+p529
+aVBite
+p530
+aVBlizzard
+p531
+aVBody Slam
+p532
+aVBolt Strike
+p533
+aVBounce
+p534
+aVBrave Bird
+p535
+aVBug Bite
+p536
+aVBug Buzz
+p537
+aVBulk Up
+p538
+aVBullet Punch
+p539
+aVBullet Seed
+p540
+aVCalm Mind
+p541
+aVClear Smog
+p542
+aVClose Combat
+p543
+aVCoil
+p544
+ag153
+aVCounter
+p545
+aVCrabhammer
+p546
+aVCrunch
+p547
+aVCurse
+p548
+aVDark Pulse
+p549
+aVDazzling Gleam
+p550
+aVDefog
+p551
+aVDestiny Bond
+p552
+aVDiamond Storm
+p553
+aVDischarge
+p554
+aVDoom Desire
+p555
+aVDouble-Edge
+p556
+aVDraco Meteor
+p557
+aVDragon Breath
+p558
+aVDragon Claw
+p559
+aVDragon Dance
+p560
+aVDragon Pulse
+p561
+aVDragon Tail
+p562
+aVDrain Punch
+p563
+aVDrill Run
+p564
+aVDual Chop
+p565
+aVDynamic Punch
+p566
+aVEarth Power
+p567
+aVEarthquake
+p568
+aVEncore
+p569
+aVEndeavor
+p570
+aVEndure
+p571
+aVEnergy Ball
+p572
+aVEruption
+p573
+aVExplosion
+p574
+aVExtrasensory
+p575
+aVExtreme Speed
+p576
+aVFacade
+p577
+aVFake Out
+p578
+aVFeint
+p579
+aVFiery Dance
+p580
+aVFinal Gambit
+p581
+aVFire Blast
+p582
+aVFire Fang
+p583
+aVFire Punch
+p584
+ag200
+aVFlamethrower
+p585
+aVFlare Blitz
+p586
+aVFlash Cannon
+p587
+aVFocus Blast
+p588
+aVFocus Punch
+p589
+ag211
+aVFoul Play
+p590
+aVFreeze-Dry
+p591
+aVFrustration
+p592
+aVFusion Bolt
+p593
+aVFuture Sight
+p594
+aVGiga Drain
+p595
+ag221
+aVGlare
+p596
+aVGrass Knot
+p597
+aVGunk Shot
+p598
+aVGyro Ball
+p599
+aVHammer Arm
+p600
+aVHead Smash
+p601
+aVHeal Bell
+p602
+aVHealing Wish
+p603
+aVHeat Wave
+p604
+aVHeavy Slam
+p605
+aVHex
+p606
+aVHidden Power
+p607
+aVHigh Jump Kick
+p608
+aVHone Claws
+p609
+aVHorn Leech
+p610
+ag243
+aVHurricane
+p611
+aVHydro Pump
+p612
+aVHyper Voice
+p613
+aVHyperspace Fury
+p614
+aVHypnosis
+p615
+aVIce Beam
+p616
+aVIce Fang
+p617
+aVIce Punch
+p618
+aVIce Shard
+p619
+aVIcicle Crash
+p620
+aVIcicle Spear
+p621
+aVIcy Wind
+p622
+aVInfestation
+p623
+aVIron Defense
+p624
+aVIron Head
+p625
+aVIron Tail
+p626
+aVKnock Off
+p627
+ag262
+aVLava Plume
+p628
+ag264
+aVLeaf Storm
+p629
+aVLeech Seed
+p630
+aVLight Screen
+p631
+ag268
+aVLow Kick
+p632
+aVLunar Dance
+p633
+aVMach Punch
+p634
+aVMagic Coat
+p635
+aVMagic Room
+p636
+aVMagma Storm
+p637
+ag276
+aVMegahorn
+p638
+aVMemento
+p639
+aVMeteor Mash
+p640
+aVMilk Drink
+p641
+aVMoonblast
+p642
+aVMoonlight
+p643
+ag284
+ag285
+aVNasty Plot
+p644
+aVNatural Gift
+p645
+aVOutrage
+p646
+aVOverheat
+p647
+aVPain Split
+p648
+aVPerish Song
+p649
+aVPin Missile
+p650
+aVPlay Rough
+p651
+aVPoison Jab
+p652
+aVPower Whip
+p653
+aVPower-Up Punch
+p654
+aVProtect
+p655
+aVPsychic
+p656
+aVPsycho Cut
+p657
+aVPsyshock
+p658
+aVPursuit
+p659
+aVQuick Attack
+p660
+aVQuiver Dance
+p661
+aVRain Dance
+p662
+aVRapid Spin
+p663
+aVRecover
+p664
+ag313
+aVReflect Type
+p665
+aVRefresh
+p666
+aVRelic Song
+p667
+aVRest
+p668
+aVReturn
+p669
+aVRoar
+p670
+aVRock Blast
+p671
+aVRock Polish
+p672
+aVRock Slide
+p673
+aVRock Tomb
+p674
+aVRoost
+p675
+ag326
+aVSacred Sword
+p676
+aVScald
+p677
+aVSecret Sword
+p678
+aVSeed Bomb
+p679
+aVSeed Flare
+p680
+aVSeismic Toss
+p681
+aVShadow Ball
+p682
+aVShadow Sneak
+p683
+aVShell Smash
+p684
+aVSkill Swap
+p685
+aVSlack Off
+p686
+aVSleep Powder
+p687
+aVSleep Talk
+p688
+aVSludge Bomb
+p689
+aVSludge Wave
+p690
+aVSmack Down
+p691
+aVSnarl
+p692
+aVSoft-Boiled
+p693
+aVSolar Beam
+p694
+aVSpikes
+p695
+aVSpiky Shield
+p696
+aVSpore
+p697
+aVStealth Rock
+p698
+aVSticky Web
+p699
+aVStone Edge
+p700
+aVStored Power
+p701
+aVStun Spore
+p702
+aVSubstitute
+p703
+aVSucker Punch
+p704
+aVSunny Day
+p705
+ag367
+aVSuperpower
+p706
+aVSurf
+p707
+aVSwords Dance
+p708
+aVSynthesis
+p709
+aVTail Glow
+p710
+aVTailwind
+p711
+aVTaunt
+p712
+aVThunder
+p713
+aVThunder Punch
+p714
+aVThunder Wave
+p715
+aVThunderbolt
+p716
+aVToxic
+p717
+aVToxic Spikes
+p718
+aVTri Attack
+p719
+aVTrick
+p720
+aVTrick Room
+p721
+aVU-turn
+p722
+ag387
+aVV-create
+p723
+aVVacuum Wave
+p724
+aVVolt Switch
+p725
+aVWater Pulse
+p726
+ag392
+aVWaterfall
+p727
+aVWhirlwind
+p728
+aVWild Charge
+p729
+aVWill-O-Wisp
+p730
+aVWish
+p731
+aVWood Hammer
+p732
+aVWork Up
+p733
+aVX-Scissor
+p734
+aVYawn
+p735
+aVZen Headbutt
+p736
+atp737
+bsbag1
+(g2
+g3
+Ntp738
+Rp739
+(dp740
+g7
+g8
+(g9
+(I0
+tp741
+g11
+tp742
+Rp743
+(I1
+(I30
+tp744
+g18
+I00
+(lp745
+I00
+aI01
+ag414
+ag415
+aVCalm Mind
+p746
+ag417
+aVDiamond Storm
+p747
+aVDragon Dance
+p748
+ag420
+aVEarthquake
+p749
+aVFocus Blast
+p750
+ag424
+ag427
+ag428
+aVMoonblast
+p751
+aVPin Missile
+p752
+ag432
+aVProtect
+p753
+ag434
+aVPsyshock
+p754
+ag437
+aVRock Polish
+p755
+aVRoost
+p756
+aVScald
+p757
+ag441
+aVStealth Rock
+p758
+aVSwords Dance
+p759
+ag445
+ag447
+aVWill-O-Wisp
+p760
+atp761
+bsbag1
+(g2
+g3
+Ntp762
+Rp763
+(dp764
+g7
+g8
+(g9
+(I0
+tp765
+g11
+tp766
+Rp767
+(I1
+(I18
+tp768
+g18
+I00
+(lp769
+VBug
+p770
+aVDark
+p771
+aVDragon
+p772
+aVElectric
+p773
+aVFairy
+p774
+ag27
+ag28
+aVFlying
+p775
+aVGhost
+p776
+aVGrass
+p777
+aVGround
+p778
+aVIce
+p779
+ag34
+ag35
+aVPsychic
+p780
+aVRock
+p781
+ag469
+aVWater
+p782
+atp783
+bsbag1
+(g2
+g3
+Ntp784
+Rp785
+(dp786
+g7
+g8
+(g9
+(I0
+tp787
+g11
+tp788
+Rp789
+(I1
+(I17
+tp790
+g18
+I00
+(lp791
+I0
+ag49
+ag50
+ag51
+aVFighting
+p792
+ag53
+ag483
+aVGhost
+p793
+ag56
+ag57
+aVIce
+p794
+aVNormal
+p795
+ag488
+aVPsychic
+p796
+aVRock
+p797
+aVSteel
+p798
+aVWater
+p799
+atp800
+bsbag1
+(g2
+g3
+Ntp801
+Rp802
+(dp803
+g7
+g8
+(g9
+(I0
+tp804
+g11
+tp805
+Rp806
+(I1
+(I2
+tp807
+g18
+I00
+(lp808
+I0
+ag74
+atp809
+bsbag1
+(g2
+g3
+Ntp810
+Rp811
+(dp812
+g7
+g8
+(g9
+(I0
+tp813
+g11
+tp814
+Rp815
+(I1
+(I2
+tp816
+g85
+I00
+S'\x00\x01'
+p817
+tp818
+bsbag1
+(g2
+g3
+Ntp819
+Rp820
+(dp821
+g7
+g8
+(g9
+(I0
+tp822
+g11
+tp823
+Rp824
+(I1
+(I2
+tp825
+g18
+I00
+(lp826
+I0
+ag99
+atp827
+bsbag1
+(g2
+g3
+Ntp828
+Rp829
+(dp830
+g7
+g8
+(g9
+(I0
+tp831
+g11
+tp832
+Rp833
+(I1
+(I227
+tp834
+g18
+I00
+(lp835
+I0
+aVAcid Spray
+p836
+aVAcrobatics
+p837
+aVAerial Ace
+p838
+aVAir Slash
+p839
+aVAncient Power
+p840
+aVAqua Jet
+p841
+ag119
+aVAqua Tail
+p842
+aVAromatherapy
+p843
+aVAura Sphere
+p844
+aVBaton Pass
+p845
+aVBelly Drum
+p846
+ag129
+aVBlizzard
+p847
+aVBlue Flare
+p848
+aVBody Slam
+p849
+aVBolt Strike
+p850
+ag134
+aVBrave Bird
+p851
+aVBug Bite
+p852
+aVBug Buzz
+p853
+aVBulk Up
+p854
+aVBullet Punch
+p855
+aVBullet Seed
+p856
+aVCalm Mind
+p857
+aVCharge Beam
+p858
+ag146
+aVCircle Throw
+p859
+aVClear Smog
+p860
+aVClose Combat
+p861
+aVConfuse Ray
+p862
+aVCosmic Power
+p863
+aVCotton Guard
+p864
+aVCounter
+p865
+aVCrabhammer
+p866
+aVCrunch
+p867
+aVCurse
+p868
+aVDark Pulse
+p869
+aVDazzling Gleam
+p870
+aVDefog
+p871
+aVDiamond Storm
+p872
+aVDischarge
+p873
+aVDoom Desire
+p874
+ag166
+ag167
+aVDraco Meteor
+p875
+aVDragon Claw
+p876
+aVDragon Dance
+p877
+aVDragon Pulse
+p878
+ag173
+aVDragon Tail
+p879
+aVDrain Punch
+p880
+aVDraining Kiss
+p881
+aVDrill Run
+p882
+aVDual Chop
+p883
+aVDynamic Punch
+p884
+aVEarth Power
+p885
+aVEarthquake
+p886
+aVEchoed Voice
+p887
+aVEncore
+p888
+aVEndeavor
+p889
+ag185
+aVEnergy Ball
+p890
+ag187
+aVExplosion
+p891
+ag189
+aVExtreme Speed
+p892
+aVFacade
+p893
+aVFake Out
+p894
+aVFiery Dance
+p895
+aVFinal Gambit
+p896
+aVFire Blast
+p897
+aVFire Fang
+p898
+aVFire Punch
+p899
+aVFlamethrower
+p900
+aVFlare Blitz
+p901
+aVFlash Cannon
+p902
+aVFling
+p903
+aVFly
+p904
+aVFocus Blast
+p905
+aVFocus Punch
+p906
+aVFoul Play
+p907
+aVFreeze Shock
+p908
+aVFreeze-Dry
+p909
+aVFrustration
+p910
+aVFusion Bolt
+p911
+ag218
+ag219
+aVGiga Drain
+p912
+aVGlaciate
+p913
+aVGlare
+p914
+aVGrass Knot
+p915
+aVGravity
+p916
+aVGrowth
+p917
+aVGunk Shot
+p918
+aVGyro Ball
+p919
+aVHammer Arm
+p920
+aVHead Smash
+p921
+aVHeal Bell
+p922
+aVHeal Block
+p923
+aVHealing Wish
+p924
+aVHeart Stamp
+p925
+aVHeat Wave
+p926
+aVHex
+p927
+aVHidden Power
+p928
+aVHigh Jump Kick
+p929
+aVHorn Leech
+p930
+aVHurricane
+p931
+aVHydro Pump
+p932
+aVHyper Voice
+p933
+aVHyperspace Fury
+p934
+aVIce Beam
+p935
+aVIce Fang
+p936
+aVIce Punch
+p937
+aVIce Shard
+p938
+aVIcicle Crash
+p939
+aVIcicle Spear
+p940
+aVIcy Wind
+p941
+aVInfestation
+p942
+aVIron Defense
+p943
+aVIron Head
+p944
+aVIron Tail
+p945
+aVKnock Off
+p946
+aVLava Plume
+p947
+aVLeaf Storm
+p948
+aVLeech Seed
+p949
+aVLight Screen
+p950
+aVLow Kick
+p951
+ag271
+aVMach Punch
+p952
+aVMagma Storm
+p953
+aVMagnet Rise
+p954
+aVMegahorn
+p955
+aVMeteor Mash
+p956
+aVMirror Coat
+p957
+aVMoonblast
+p958
+aVMoonlight
+p959
+aVNasty Plot
+p960
+aVOutrage
+p961
+aVOverheat
+p962
+aVPain Split
+p963
+aVPerish Song
+p964
+aVPin Missile
+p965
+aVPlay Rough
+p966
+aVPoison Jab
+p967
+aVPower Whip
+p968
+aVPower-Up Punch
+p969
+aVProtect
+p970
+aVPsychic
+p971
+aVPsyshock
+p972
+aVPursuit
+p973
+aVQuick Attack
+p974
+aVQuiver Dance
+p975
+aVRain Dance
+p976
+aVRapid Spin
+p977
+aVRecover
+p978
+aVReflect
+p979
+aVRefresh
+p980
+aVRelic Song
+p981
+aVRest
+p982
+aVReturn
+p983
+aVReversal
+p984
+aVRoar
+p985
+aVRock Blast
+p986
+aVRock Polish
+p987
+aVRock Slide
+p988
+aVRock Tomb
+p989
+aVRoost
+p990
+aVSacred Fire
+p991
+aVSand Tomb
+p992
+aVScald
+p993
+aVSecret Sword
+p994
+aVSeed Bomb
+p995
+aVSeed Flare
+p996
+aVSeismic Toss
+p997
+aVShadow Ball
+p998
+ag338
+aVShadow Sneak
+p999
+aVShell Smash
+p1000
+ag342
+aVSlack Off
+p1001
+aVSleep Powder
+p1002
+aVSleep Talk
+p1003
+aVSludge Bomb
+p1004
+aVSludge Wave
+p1005
+aVSoft-Boiled
+p1006
+aVSolar Beam
+p1007
+aVSpikes
+p1008
+aVSpore
+p1009
+aVStealth Rock
+p1010
+aVSticky Web
+p1011
+aVStone Edge
+p1012
+aVStored Power
+p1013
+aVSubstitute
+p1014
+aVSucker Punch
+p1015
+ag366
+aVSuperpower
+p1016
+aVSurf
+p1017
+aVSwords Dance
+p1018
+aVSynthesis
+p1019
+aVTail Glow
+p1020
+aVTailwind
+p1021
+aVTaunt
+p1022
+aVThunder
+p1023
+aVThunder Punch
+p1024
+aVThunder Wave
+p1025
+aVThunderbolt
+p1026
+aVToxic
+p1027
+aVToxic Spikes
+p1028
+aVTransform
+p1029
+aVTri Attack
+p1030
+aVTrick
+p1031
+aVTrick Room
+p1032
+aVU-turn
+p1033
+aVV-create
+p1034
+aVVacuum Wave
+p1035
+aVVolt Switch
+p1036
+aVWaterfall
+p1037
+aVWhirlwind
+p1038
+aVWild Charge
+p1039
+aVWill-O-Wisp
+p1040
+aVWish
+p1041
+ag399
+aVWork Up
+p1042
+aVYawn
+p1043
+aVZen Headbutt
+p1044
+atp1045
+bsbag1
+(g2
+g3
+Ntp1046
+Rp1047
+(dp1048
+g7
+g8
+(g9
+(I0
+tp1049
+g11
+tp1050
+Rp1051
+(I1
+(I15
+tp1052
+g18
+I00
+(lp1053
+I00
+aI01
+aVCalm Mind
+p1054
+aVDragon Dance
+p1055
+aVFocus Blast
+p1056
+aVMoonblast
+p1057
+aVProtect
+p1058
+aVPsyshock
+p1059
+aVRock Polish
+p1060
+aVRoost
+p1061
+aVSlack Off
+p1062
+aVSubstitute
+p1063
+aVSwords Dance
+p1064
+aVWaterfall
+p1065
+aVWill-O-Wisp
+p1066
+atp1067
+bsbag1
+(g2
+g3
+Ntp1068
+Rp1069
+(dp1070
+g7
+g8
+(g9
+(I0
+tp1071
+g11
+tp1072
+Rp1073
+(I1
+(I18
+tp1074
+g18
+I00
+(lp1075
+g770
+aVDark
+p1076
+aVDragon
+p1077
+aVElectric
+p1078
+ag774
+aVFighting
+p1079
+aVFire
+p1080
+aVFlying
+p1081
+aVGhost
+p1082
+aVGrass
+p1083
+aVGround
+p1084
+aVIce
+p1085
+ag34
+ag35
+ag780
+aVRock
+p1086
+aVSteel
+p1087
+aVWater
+p1088
+atp1089
+bsbag1
+(g2
+g3
+Ntp1090
+Rp1091
+(dp1092
+g7
+g8
+(g9
+(I0
+tp1093
+g11
+tp1094
+Rp1095
+(I1
+(I17
+tp1096
+g18
+I00
+(lp1097
+I0
+ag49
+ag50
+ag51
+ag792
+ag482
+aVFlying
+p1098
+ag55
+ag56
+aVGround
+p1099
+ag58
+aVNormal
+p1100
+aVPoison
+p1101
+aVPsychic
+p1102
+aVRock
+p1103
+aVSteel
+p1104
+aVWater
+p1105
+atp1106
+bsbag1
+(g2
+g3
+Ntp1107
+Rp1108
+(dp1109
+g7
+g8
+(g9
+(I0
+tp1110
+g11
+tp1111
+Rp1112
+(I1
+(I2
+tp1113
+g18
+I00
+(lp1114
+I0
+ag74
+atp1115
+bsbag1
+(g2
+g3
+Ntp1116
+Rp1117
+(dp1118
+g7
+g8
+(g9
+(I0
+tp1119
+g11
+tp1120
+Rp1121
+(I1
+(I2
+tp1122
+g85
+I00
+S'\x00\x01'
+p1123
+tp1124
+bsbag1
+(g2
+g3
+Ntp1125
+Rp1126
+(dp1127
+g7
+g8
+(g9
+(I0
+tp1128
+g11
+tp1129
+Rp1130
+(I1
+(I3
+tp1131
+g18
+I00
+(lp1132
+I0
+ag100
+ag102
+atp1133
+bsbag1
+(g2
+g3
+Ntp1134
+Rp1135
+(dp1136
+g7
+g8
+(g9
+(I0
+tp1137
+g11
+tp1138
+Rp1139
+(I1
+(I202
+tp1140
+g18
+I00
+(lp1141
+I0
+aVAcid Spray
+p1142
+aVAcrobatics
+p1143
+aVAerial Ace
+p1144
+aVAir Slash
+p1145
+aVAncient Power
+p1146
+aVAqua Jet
+p1147
+aVAqua Ring
+p1148
+aVAqua Tail
+p1149
+aVAromatherapy
+p1150
+aVAura Sphere
+p1151
+aVBaton Pass
+p1152
+aVBelly Drum
+p1153
+aVBlizzard
+p1154
+aVBlue Flare
+p1155
+aVBody Slam
+p1156
+aVBolt Strike
+p1157
+aVBrave Bird
+p1158
+aVBug Bite
+p1159
+aVBug Buzz
+p1160
+aVBulk Up
+p1161
+aVBullet Punch
+p1162
+aVBullet Seed
+p1163
+aVCalm Mind
+p1164
+aVCircle Throw
+p1165
+aVClear Smog
+p1166
+aVClose Combat
+p1167
+aVCotton Guard
+p1168
+aVCounter
+p1169
+aVCrabhammer
+p1170
+aVCrunch
+p1171
+aVCurse
+p1172
+aVDark Pulse
+p1173
+ag159
+aVDazzling Gleam
+p1174
+aVDefog
+p1175
+aVDestiny Bond
+p1176
+aVDiamond Storm
+p1177
+aVDischarge
+p1178
+aVDouble-Edge
+p1179
+aVDraco Meteor
+p1180
+aVDragon Claw
+p1181
+aVDragon Dance
+p1182
+aVDragon Pulse
+p1183
+aVDragon Rush
+p1184
+aVDragon Tail
+p1185
+aVDrain Punch
+p1186
+aVDrill Run
+p1187
+aVEarth Power
+p1188
+aVEarthquake
+p1189
+aVEncore
+p1190
+aVEnergy Ball
+p1191
+aVExplosion
+p1192
+aVExtreme Speed
+p1193
+aVFacade
+p1194
+aVFake Out
+p1195
+aVFeint
+p1196
+aVFiery Dance
+p1197
+aVFinal Gambit
+p1198
+aVFire Blast
+p1199
+aVFire Fang
+p1200
+aVFire Punch
+p1201
+aVFlamethrower
+p1202
+aVFlare Blitz
+p1203
+aVFlash Cannon
+p1204
+ag206
+aVFocus Blast
+p1205
+aVFocus Punch
+p1206
+aVFoul Play
+p1207
+aVFrustration
+p1208
+aVFusion Bolt
+p1209
+aVFuture Sight
+p1210
+aVGiga Drain
+p1211
+aVGlare
+p1212
+aVGrass Knot
+p1213
+ag225
+aVGrowth
+p1214
+aVGunk Shot
+p1215
+aVGyro Ball
+p1216
+ag229
+aVHeal Bell
+p1217
+aVHeal Block
+p1218
+aVHealing Wish
+p1219
+aVHeart Stamp
+p1220
+aVHeat Wave
+p1221
+aVHex
+p1222
+aVHidden Power
+p1223
+aVHigh Jump Kick
+p1224
+aVHurricane
+p1225
+aVHydro Pump
+p1226
+aVHyper Voice
+p1227
+aVHyperspace Fury
+p1228
+aVHypnosis
+p1229
+aVIce Beam
+p1230
+aVIce Fang
+p1231
+aVIce Punch
+p1232
+aVIce Shard
+p1233
+aVIcicle Crash
+p1234
+aVIcicle Spear
+p1235
+aVIcy Wind
+p1236
+aVIron Defense
+p1237
+aVIron Head
+p1238
+aVIron Tail
+p1239
+aVKnock Off
+p1240
+aVLava Plume
+p1241
+aVLeaf Storm
+p1242
+aVLeech Seed
+p1243
+ag267
+aVLow Kick
+p1244
+aVMach Punch
+p1245
+aVMagma Storm
+p1246
+aVMegahorn
+p1247
+aVMemento
+p1248
+aVMeteor Mash
+p1249
+aVMirror Coat
+p1250
+aVMoonblast
+p1251
+aVMoonlight
+p1252
+aVMuddy Water
+p1253
+aVNasty Plot
+p1254
+ag288
+ag289
+aVOutrage
+p1255
+aVOverheat
+p1256
+aVPain Split
+p1257
+aVPhantom Force
+p1258
+aVPin Missile
+p1259
+aVPlay Rough
+p1260
+aVPower Whip
+p1261
+aVPower-Up Punch
+p1262
+aVProtect
+p1263
+aVPsychic
+p1264
+aVPsycho Cut
+p1265
+aVPsyshock
+p1266
+aVPursuit
+p1267
+aVQuick Attack
+p1268
+aVQuiver Dance
+p1269
+aVRain Dance
+p1270
+aVRapid Spin
+p1271
+aVRazor Shell
+p1272
+aVRecover
+p1273
+aVReflect
+p1274
+aVReflect Type
+p1275
+aVRefresh
+p1276
+aVRest
+p1277
+aVReturn
+p1278
+aVReversal
+p1279
+aVRoar
+p1280
+aVRock Blast
+p1281
+aVRock Polish
+p1282
+aVRock Slide
+p1283
+aVRock Tomb
+p1284
+aVRoost
+p1285
+aVSacred Fire
+p1286
+aVSacred Sword
+p1287
+aVScald
+p1288
+aVSecret Sword
+p1289
+aVSeismic Toss
+p1290
+aVShadow Ball
+p1291
+aVShadow Sneak
+p1292
+aVSlack Off
+p1293
+aVSleep Powder
+p1294
+aVSleep Talk
+p1295
+aVSludge Bomb
+p1296
+aVSludge Wave
+p1297
+aVSoft-Boiled
+p1298
+aVSolar Beam
+p1299
+aVSpikes
+p1300
+ag357
+aVSpore
+p1301
+aVStealth Rock
+p1302
+aVSticky Web
+p1303
+aVStone Edge
+p1304
+aVStored Power
+p1305
+aVStun Spore
+p1306
+aVSubstitute
+p1307
+aVSucker Punch
+p1308
+aVSunny Day
+p1309
+aVSuperpower
+p1310
+aVSurf
+p1311
+aVSwords Dance
+p1312
+aVSynthesis
+p1313
+aVTail Glow
+p1314
+aVTaunt
+p1315
+aVThunder
+p1316
+aVThunder Punch
+p1317
+aVThunder Wave
+p1318
+aVThunderbolt
+p1319
+aVToxic
+p1320
+aVToxic Spikes
+p1321
+aVTransform
+p1322
+aVTrick
+p1323
+aVTrick Room
+p1324
+aVU-turn
+p1325
+aVV-create
+p1326
+aVVolt Switch
+p1327
+aVWater Pulse
+p1328
+aVWaterfall
+p1329
+aVWhirlwind
+p1330
+aVWill-O-Wisp
+p1331
+aVWish
+p1332
+aVX-Scissor
+p1333
+aVZen Headbutt
+p1334
+atp1335
+bsbag1
+(g2
+g3
+Ntp1336
+Rp1337
+(dp1338
+g7
+g8
+(g9
+(I0
+tp1339
+g11
+tp1340
+Rp1341
+(I1
+(I12
+tp1342
+g18
+I00
+(lp1343
+I00
+aI01
+ag419
+ag421
+aVFocus Blast
+p1344
+aVProtect
+p1345
+aVRoost
+p1346
+aVScald
+p1347
+aVSlack Off
+p1348
+aVSwords Dance
+p1349
+ag446
+ag449
+atp1350
+bsbag1
+(g2
+g3
+Ntp1351
+Rp1352
+(dp1353
+g7
+g8
+(g9
+(I0
+tp1354
+g11
+tp1355
+Rp1356
+(I1
+(I18
+tp1357
+g18
+I00
+(lp1358
+g770
+ag23
+aVDragon
+p1359
+ag25
+ag774
+aVFighting
+p1360
+aVFire
+p1361
+aVFlying
+p1362
+ag30
+ag31
+ag466
+aVIce
+p1363
+aVNormal
+p1364
+ag35
+ag36
+ag781
+ag38
+ag1088
+atp1365
+bsbag1
+(g2
+g3
+Ntp1366
+Rp1367
+(dp1368
+g7
+g8
+(g9
+(I0
+tp1369
+g11
+tp1370
+Rp1371
+(I1
+(I17
+tp1372
+g18
+I00
+(lp1373
+I0
+ag49
+ag480
+ag51
+ag481
+ag53
+aVFlying
+p1374
+ag55
+ag56
+ag1099
+aVIce
+p1375
+ag59
+aVPoison
+p1376
+aVPsychic
+p1377
+aVRock
+p1378
+aVSteel
+p1379
+ag64
+atp1380
+bsbag1
+(g2
+g3
+Ntp1381
+Rp1382
+(dp1383
+g7
+g8
+(g9
+(I0
+tp1384
+g11
+tp1385
+Rp1386
+(I1
+(I2
+tp1387
+g18
+I00
+(lp1388
+I0
+ag74
+atp1389
+bsbag1
+(g2
+g3
+Ntp1390
+Rp1391
+(dp1392
+g7
+g8
+(g9
+(I0
+tp1393
+g11
+tp1394
+Rp1395
+(I1
+(I2
+tp1396
+g85
+I00
+S'\x00\x01'
+p1397
+tp1398
+bsbag1
+(g2
+g3
+Ntp1399
+Rp1400
+(dp1401
+g7
+g8
+(g9
+(I0
+tp1402
+g11
+tp1403
+Rp1404
+(I1
+(I2
+tp1405
+g18
+I00
+(lp1406
+I0
+aVPursuit
+p1407
+atp1408
+bsbag1
+(g2
+g3
+Ntp1409
+Rp1410
+(dp1411
+g7
+g8
+(g9
+(I0
+tp1412
+g11
+tp1413
+Rp1414
+(I1
+(I205
+tp1415
+g18
+I00
+(lp1416
+I0
+aVAcid Spray
+p1417
+aVAcrobatics
+p1418
+aVAerial Ace
+p1419
+aVAgility
+p1420
+aVAir Slash
+p1421
+aVAncient Power
+p1422
+aVAqua Jet
+p1423
+aVAqua Tail
+p1424
+aVAromatherapy
+p1425
+aVAura Sphere
+p1426
+aVAvalanche
+p1427
+aVBaton Pass
+p1428
+aVBelly Drum
+p1429
+ag130
+aVBody Slam
+p1430
+aVBolt Strike
+p1431
+aVBounce
+p1432
+aVBrave Bird
+p1433
+aVBug Bite
+p1434
+aVBug Buzz
+p1435
+aVBulk Up
+p1436
+aVBulldoze
+p1437
+aVBullet Punch
+p1438
+aVBullet Seed
+p1439
+aVCalm Mind
+p1440
+aVClear Smog
+p1441
+aVClose Combat
+p1442
+aVCoil
+p1443
+aVCotton Guard
+p1444
+aVCounter
+p1445
+aVCrabhammer
+p1446
+aVCrunch
+p1447
+aVCurse
+p1448
+aVDark Pulse
+p1449
+aVDazzling Gleam
+p1450
+aVDefog
+p1451
+aVDestiny Bond
+p1452
+aVDiamond Storm
+p1453
+aVDischarge
+p1454
+aVDraco Meteor
+p1455
+aVDragon Claw
+p1456
+aVDragon Dance
+p1457
+aVDragon Pulse
+p1458
+aVDragon Tail
+p1459
+aVDrain Punch
+p1460
+aVDynamic Punch
+p1461
+aVEarth Power
+p1462
+aVEarthquake
+p1463
+aVEchoed Voice
+p1464
+aVEncore
+p1465
+aVEnergy Ball
+p1466
+aVExplosion
+p1467
+aVExtreme Speed
+p1468
+aVFacade
+p1469
+aVFairy Lock
+p1470
+aVFake Out
+p1471
+aVFeint
+p1472
+aVFiery Dance
+p1473
+ag196
+aVFire Blast
+p1474
+aVFire Fang
+p1475
+aVFire Punch
+p1476
+aVFlamethrower
+p1477
+aVFlare Blitz
+p1478
+aVFlash Cannon
+p1479
+aVFocus Blast
+p1480
+aVFocus Punch
+p1481
+aVFoul Play
+p1482
+aVFreeze-Dry
+p1483
+aVFrustration
+p1484
+aVFusion Bolt
+p1485
+aVGiga Drain
+p1486
+aVGlare
+p1487
+aVGrass Knot
+p1488
+aVGravity
+p1489
+aVGunk Shot
+p1490
+aVGyro Ball
+p1491
+aVHammer Arm
+p1492
+aVHaze
+p1493
+aVHeal Bell
+p1494
+aVHeal Block
+p1495
+ag234
+aVHeart Stamp
+p1496
+aVHeat Wave
+p1497
+aVHidden Power
+p1498
+aVHigh Jump Kick
+p1499
+aVHurricane
+p1500
+aVHydro Pump
+p1501
+aVHyper Voice
+p1502
+aVHyperspace Fury
+p1503
+aVHyperspace Hole
+p1504
+aVHypnosis
+p1505
+aVIce Beam
+p1506
+aVIce Fang
+p1507
+aVIce Punch
+p1508
+aVIce Shard
+p1509
+aVIcicle Crash
+p1510
+aVIcicle Spear
+p1511
+aVIcy Wind
+p1512
+aVInfestation
+p1513
+aVIron Head
+p1514
+aVKnock Off
+p1515
+aVLava Plume
+p1516
+aVLeaf Storm
+p1517
+aVLeech Seed
+p1518
+aVLight Screen
+p1519
+aVLovely Kiss
+p1520
+aVLow Kick
+p1521
+aVMach Punch
+p1522
+aVMagma Storm
+p1523
+aVMagnet Rise
+p1524
+aVMegahorn
+p1525
+aVMeteor Mash
+p1526
+aVMirror Coat
+p1527
+aVMoonblast
+p1528
+aVMoonlight
+p1529
+aVNasty Plot
+p1530
+aVOutrage
+p1531
+aVOverheat
+p1532
+aVPain Split
+p1533
+aVPerish Song
+p1534
+aVPin Missile
+p1535
+aVPlay Rough
+p1536
+aVPower Whip
+p1537
+aVPower-Up Punch
+p1538
+aVProtect
+p1539
+aVPsychic
+p1540
+aVPsyshock
+p1541
+aVPursuit
+p1542
+aVQuick Attack
+p1543
+aVQuiver Dance
+p1544
+aVRain Dance
+p1545
+aVRapid Spin
+p1546
+ag311
+ag436
+aVReflect
+p1547
+aVReflect Type
+p1548
+aVRest
+p1549
+aVReturn
+p1550
+aVReversal
+p1551
+aVRoar
+p1552
+aVRock Blast
+p1553
+aVRock Polish
+p1554
+aVRock Slide
+p1555
+aVRock Tomb
+p1556
+aVRoost
+p1557
+aVSacred Fire
+p1558
+ag328
+aVScald
+p1559
+aVScreech
+p1560
+aVSecret Sword
+p1561
+aVSeed Bomb
+p1562
+aVSeismic Toss
+p1563
+aVShadow Ball
+p1564
+aVShadow Sneak
+p1565
+ag343
+aVSkill Swap
+p1566
+aVSlack Off
+p1567
+aVSleep Powder
+p1568
+aVSleep Talk
+p1569
+aVSludge Bomb
+p1570
+aVSludge Wave
+p1571
+aVSmack Down
+p1572
+aVSnarl
+p1573
+aVSoft-Boiled
+p1574
+aVSolar Beam
+p1575
+aVSpikes
+p1576
+aVSpiky Shield
+p1577
+aVSpore
+p1578
+aVStealth Rock
+p1579
+aVStone Edge
+p1580
+aVStored Power
+p1581
+aVStun Spore
+p1582
+aVSubstitute
+p1583
+aVSucker Punch
+p1584
+aVSunny Day
+p1585
+aVSuperpower
+p1586
+aVSurf
+p1587
+aVSwords Dance
+p1588
+aVSynthesis
+p1589
+aVTail Glow
+p1590
+aVTailwind
+p1591
+aVTaunt
+p1592
+aVThunder
+p1593
+aVThunder Punch
+p1594
+aVThunder Wave
+p1595
+aVThunderbolt
+p1596
+aVToxic
+p1597
+aVToxic Spikes
+p1598
+aVTri Attack
+p1599
+aVTrick
+p1600
+aVTrick Room
+p1601
+aVU-turn
+p1602
+aVV-create
+p1603
+aVVacuum Wave
+p1604
+aVVolt Switch
+p1605
+aVWaterfall
+p1606
+aVWhirlwind
+p1607
+aVWill-O-Wisp
+p1608
+aVWish
+p1609
+aVWood Hammer
+p1610
+aVX-Scissor
+p1611
+ag403
+aVZen Headbutt
+p1612
+atp1613
+bsbag1
+(g2
+g3
+Ntp1614
+Rp1615
+(dp1616
+g7
+g8
+(g9
+(I0
+tp1617
+g11
+tp1618
+Rp1619
+(I1
+(I15
+tp1620
+g18
+I00
+(lp1621
+I00
+aI01
+ag416
+aVDragon Dance
+p1622
+ag425
+ag426
+aVMoonblast
+p1623
+aVProtect
+p1624
+ag436
+ag438
+aVRoost
+p1625
+ag440
+aVSlack Off
+p1626
+aVSwords Dance
+p1627
+aVTaunt
+p1628
+atp1629
+bsbag1
+(g2
+g3
+Ntp1630
+Rp1631
+(dp1632
+g7
+g8
+(g9
+(I0
+tp1633
+g11
+tp1634
+Rp1635
+(I1
+(I18
+tp1636
+g18
+I00
+(lp1637
+g770
+aVDark
+p1638
+aVDragon
+p1639
+aVElectric
+p1640
+ag774
+ag27
+ag1361
+aVFlying
+p1641
+aVGhost
+p1642
+ag31
+ag466
+ag33
+ag34
+ag35
+ag780
+ag781
+ag38
+ag1088
+atp1643
+bsbag1
+(g2
+g3
+Ntp1644
+Rp1645
+(dp1646
+g7
+g8
+(g9
+(I0
+tp1647
+g11
+tp1648
+Rp1649
+(I1
+(I17
+tp1650
+g18
+I00
+(lp1651
+I0
+ag49
+ag480
+ag51
+ag792
+ag482
+aVFlying
+p1652
+ag55
+ag56
+aVGround
+p1653
+ag794
+ag795
+ag1101
+aVPsychic
+p1654
+ag1103
+aVSteel
+p1655
+aVWater
+p1656
+atp1657
+bsbag1
+(g2
+g3
+Ntp1658
+Rp1659
+(dp1660
+g7
+g8
+(g9
+(I0
+tp1661
+g11
+tp1662
+Rp1663
+(I1
+(I2
+tp1664
+g18
+I00
+(lp1665
+I0
+ag74
+atp1666
+bsbag1
+(g2
+g3
+Ntp1667
+Rp1668
+(dp1669
+g7
+g8
+(g9
+(I0
+tp1670
+g11
+tp1671
+Rp1672
+(I1
+(I2
+tp1673
+g85
+I00
+S'\x00\x01'
+p1674
+tp1675
+bsbag1
+(g2
+g3
+Ntp1676
+Rp1677
+(dp1678
+g7
+g8
+(g9
+(I0
+tp1679
+g11
+tp1680
+Rp1681
+(I1
+(I221
+tp1682
+g18
+I00
+(lp1683
+I0
+aVAcid Spray
+p1684
+aVAcrobatics
+p1685
+aVAerial Ace
+p1686
+aVAgility
+p1687
+aVAir Slash
+p1688
+aVAncient Power
+p1689
+aVAqua Jet
+p1690
+aVAromatherapy
+p1691
+aVAura Sphere
+p1692
+ag123
+aVAvalanche
+p1693
+ag125
+aVBaton Pass
+p1694
+aVBelly Drum
+p1695
+aVBlizzard
+p1696
+aVBody Slam
+p1697
+aVBolt Strike
+p1698
+aVBounce
+p1699
+aVBrave Bird
+p1700
+aVBrick Break
+p1701
+aVBug Bite
+p1702
+aVBug Buzz
+p1703
+aVBulk Up
+p1704
+ag141
+aVBullet Punch
+p1705
+aVBullet Seed
+p1706
+aVCalm Mind
+p1707
+aVCharge Beam
+p1708
+aVCharm
+p1709
+aVClear Smog
+p1710
+aVClose Combat
+p1711
+aVCoil
+p1712
+aVCosmic Power
+p1713
+aVCounter
+p1714
+aVCrunch
+p1715
+aVCurse
+p1716
+aVDark Pulse
+p1717
+aVDazzling Gleam
+p1718
+aVDefog
+p1719
+aVDestiny Bond
+p1720
+aVDiamond Storm
+p1721
+aVDischarge
+p1722
+aVDoom Desire
+p1723
+aVDraco Meteor
+p1724
+aVDragon Claw
+p1725
+aVDragon Dance
+p1726
+aVDragon Pulse
+p1727
+aVDragon Tail
+p1728
+aVDrain Punch
+p1729
+aVDynamic Punch
+p1730
+aVEarth Power
+p1731
+aVEarthquake
+p1732
+aVEchoed Voice
+p1733
+aVEncore
+p1734
+aVEndeavor
+p1735
+aVEndure
+p1736
+aVEnergy Ball
+p1737
+aVExplosion
+p1738
+aVExtreme Speed
+p1739
+aVFacade
+p1740
+aVFake Out
+p1741
+aVFeint
+p1742
+aVFiery Dance
+p1743
+aVFinal Gambit
+p1744
+aVFire Blast
+p1745
+aVFire Fang
+p1746
+aVFire Punch
+p1747
+aVFlamethrower
+p1748
+aVFlare Blitz
+p1749
+ag203
+aVFlash Cannon
+p1750
+ag205
+aVFocus Blast
+p1751
+ag208
+aVFocus Punch
+p1752
+aVForce Palm
+p1753
+aVFoul Play
+p1754
+aVFrustration
+p1755
+aVFusion Bolt
+p1756
+aVGiga Drain
+p1757
+aVGlare
+p1758
+aVGrass Knot
+p1759
+aVGrowth
+p1760
+aVGunk Shot
+p1761
+aVGyro Ball
+p1762
+aVHammer Arm
+p1763
+aVHaze
+p1764
+aVHead Smash
+p1765
+aVHeal Bell
+p1766
+aVHealing Wish
+p1767
+aVHeart Stamp
+p1768
+aVHeat Wave
+p1769
+aVHex
+p1770
+aVHidden Power
+p1771
+aVHigh Jump Kick
+p1772
+ag241
+aVHowl
+p1773
+aVHurricane
+p1774
+aVHydro Pump
+p1775
+aVHyper Voice
+p1776
+aVHyperspace Fury
+p1777
+aVIce Beam
+p1778
+aVIce Fang
+p1779
+aVIce Punch
+p1780
+aVIce Shard
+p1781
+aVIcicle Crash
+p1782
+aVIcicle Spear
+p1783
+aVIcy Wind
+p1784
+aVIron Head
+p1785
+aVIron Tail
+p1786
+aVKnock Off
+p1787
+aVLava Plume
+p1788
+aVLeaf Storm
+p1789
+aVLeech Seed
+p1790
+aVLight Screen
+p1791
+aVLow Kick
+p1792
+aVLunar Dance
+p1793
+aVMach Punch
+p1794
+aVMagic Coat
+p1795
+aVMagma Storm
+p1796
+aVMagnet Rise
+p1797
+aVMegahorn
+p1798
+ag278
+aVMeteor Mash
+p1799
+aVMirror Coat
+p1800
+aVMoonblast
+p1801
+aVMoonlight
+p1802
+aVNasty Plot
+p1803
+aVNatural Gift
+p1804
+aVNight Slash
+p1805
+aVOutrage
+p1806
+aVOverheat
+p1807
+aVPain Split
+p1808
+aVPin Missile
+p1809
+aVPlay Rough
+p1810
+aVPoison Jab
+p1811
+aVPower Whip
+p1812
+aVPower-Up Punch
+p1813
+aVProtect
+p1814
+aVPsychic
+p1815
+aVPsycho Cut
+p1816
+aVPsyshock
+p1817
+aVPursuit
+p1818
+aVQuick Attack
+p1819
+aVQuiver Dance
+p1820
+aVRain Dance
+p1821
+aVRapid Spin
+p1822
+aVRecover
+p1823
+aVReflect
+p1824
+aVReflect Type
+p1825
+aVRefresh
+p1826
+aVRest
+p1827
+aVReturn
+p1828
+aVReversal
+p1829
+aVRoar
+p1830
+aVRock Blast
+p1831
+aVRock Polish
+p1832
+aVRock Slide
+p1833
+aVRock Tomb
+p1834
+aVRoost
+p1835
+aVSacred Fire
+p1836
+aVSacred Sword
+p1837
+aVScald
+p1838
+ag331
+ag332
+aVSecret Sword
+p1839
+aVSeed Flare
+p1840
+aVSeismic Toss
+p1841
+aVShadow Ball
+p1842
+ag339
+aVShadow Sneak
+p1843
+aVShell Smash
+p1844
+aVSignal Beam
+p1845
+aVSkill Swap
+p1846
+aVSlack Off
+p1847
+aVSleep Powder
+p1848
+aVSleep Talk
+p1849
+aVSludge Bomb
+p1850
+aVSludge Wave
+p1851
+aVSmack Down
+p1852
+ag352
+aVSoft-Boiled
+p1853
+aVSolar Beam
+p1854
+aVSpikes
+p1855
+aVSpiky Shield
+p1856
+aVSpore
+p1857
+aVStealth Rock
+p1858
+aVSticky Web
+p1859
+aVStone Edge
+p1860
+aVStored Power
+p1861
+aVStun Spore
+p1862
+aVSubstitute
+p1863
+aVSucker Punch
+p1864
+aVSuperpower
+p1865
+aVSurf
+p1866
+aVSwords Dance
+p1867
+aVSynthesis
+p1868
+aVTail Glow
+p1869
+aVTailwind
+p1870
+aVTaunt
+p1871
+aVThunder
+p1872
+aVThunder Punch
+p1873
+aVThunder Wave
+p1874
+aVThunderbolt
+p1875
+aVToxic
+p1876
+aVToxic Spikes
+p1877
+aVTri Attack
+p1878
+aVTrick
+p1879
+aVTrick Room
+p1880
+aVU-turn
+p1881
+aVV-create
+p1882
+aVVolt Switch
+p1883
+aVWaterfall
+p1884
+aVWhirlwind
+p1885
+aVWill-O-Wisp
+p1886
+aVWish
+p1887
+aVWork Up
+p1888
+aVX-Scissor
+p1889
+aVYawn
+p1890
+aVZen Headbutt
+p1891
+atp1892
+bsbag1
+(g2
+g3
+Ntp1893
+Rp1894
+(dp1895
+g7
+g8
+(g9
+(I0
+tp1896
+g11
+tp1897
+Rp1898
+(I1
+(I9
+tp1899
+g18
+I00
+(lp1900
+I00
+aI01
+aVDragon Dance
+p1901
+aVFlamethrower
+p1902
+aVMoonblast
+p1903
+ag431
+aVProtect
+p1904
+ag443
+aVSwords Dance
+p1905
+atp1906
+bsbag1
+(g2
+g3
+Ntp1907
+Rp1908
+(dp1909
+g7
+g8
+(g9
+(I0
+tp1910
+g11
+tp1911
+Rp1912
+(I1
+(I18
+tp1913
+g18
+I00
+(lp1914
+g770
+ag771
+ag24
+aVElectric
+p1915
+aVFairy
+p1916
+ag27
+ag1361
+ag1641
+ag30
+ag31
+ag778
+aVIce
+p1917
+ag34
+ag35
+ag780
+ag781
+ag38
+aVWater
+p1918
+atp1919
+bsbag1
+(g2
+g3
+Ntp1920
+Rp1921
+(dp1922
+g7
+g8
+(g9
+(I0
+tp1923
+g11
+tp1924
+Rp1925
+(I1
+(I16
+tp1926
+g18
+I00
+(lp1927
+I0
+ag49
+ag51
+ag481
+ag53
+ag1374
+ag55
+ag484
+ag1099
+aVIce
+p1928
+ag487
+ag1376
+aVPsychic
+p1929
+ag1103
+ag1104
+ag64
+atp1930
+bsbag1
+(g2
+g3
+Ntp1931
+Rp1932
+(dp1933
+g7
+g8
+(g9
+(I0
+tp1934
+g11
+tp1935
+Rp1936
+(I1
+(I2
+tp1937
+g18
+I00
+(lp1938
+I0
+ag74
+atp1939
+bsbag1
+(g2
+g3
+Ntp1940
+Rp1941
+(dp1942
+g7
+g8
+(g9
+(I0
+tp1943
+g11
+tp1944
+Rp1945
+(I1
+(I2
+tp1946
+g85
+I00
+S'\x00\x01'
+p1947
+tp1948
+bsbag1
+(g2
+g3
+Ntp1949
+Rp1950
+(dp1951
+g7
+g8
+(g9
+(I0
+tp1952
+g11
+tp1953
+Rp1954
+(I1
+(I4
+tp1955
+g18
+I00
+(lp1956
+I0
+ag98
+aVIron Head
+p1957
+ag101
+atp1958
+bsbag1
+(g2
+g3
+Ntp1959
+Rp1960
+(dp1961
+g7
+g8
+(g9
+(I0
+tp1962
+g11
+tp1963
+Rp1964
+(I1
+(I226
+tp1965
+g18
+I00
+(lp1966
+I0
+aVAcid Spray
+p1967
+aVAcrobatics
+p1968
+aVAerial Ace
+p1969
+aVAgility
+p1970
+aVAir Slash
+p1971
+aVAncient Power
+p1972
+aVAqua Jet
+p1973
+aVAqua Tail
+p1974
+aVAromatherapy
+p1975
+aVAura Sphere
+p1976
+ag124
+aVBaton Pass
+p1977
+aVBelly Drum
+p1978
+aVBlizzard
+p1979
+aVBlue Flare
+p1980
+aVBody Slam
+p1981
+aVBolt Strike
+p1982
+aVBounce
+p1983
+aVBrave Bird
+p1984
+ag137
+aVBug Bite
+p1985
+aVBug Buzz
+p1986
+aVBulk Up
+p1987
+aVBulldoze
+p1988
+aVBullet Punch
+p1989
+aVBullet Seed
+p1990
+aVCalm Mind
+p1991
+aVCharge Beam
+p1992
+aVClear Smog
+p1993
+aVClose Combat
+p1994
+aVCoil
+p1995
+aVCotton Guard
+p1996
+aVCounter
+p1997
+aVCrabhammer
+p1998
+aVCrunch
+p1999
+aVCurse
+p2000
+aVDark Pulse
+p2001
+aVDazzling Gleam
+p2002
+aVDefog
+p2003
+aVDestiny Bond
+p2004
+aVDiamond Storm
+p2005
+aVDischarge
+p2006
+aVDoom Desire
+p2007
+aVDouble-Edge
+p2008
+aVDraco Meteor
+p2009
+aVDragon Claw
+p2010
+aVDragon Dance
+p2011
+aVDragon Pulse
+p2012
+aVDragon Tail
+p2013
+aVDrain Punch
+p2014
+ag178
+aVDynamic Punch
+p2015
+aVEarth Power
+p2016
+aVEarthquake
+p2017
+aVEchoed Voice
+p2018
+aVEncore
+p2019
+aVEndeavor
+p2020
+aVEndure
+p2021
+aVEnergy Ball
+p2022
+aVExplosion
+p2023
+aVExtreme Speed
+p2024
+aVFacade
+p2025
+aVFake Out
+p2026
+aVFiery Dance
+p2027
+aVFire Blast
+p2028
+ag198
+aVFire Punch
+p2029
+aVFlamethrower
+p2030
+aVFlare Blitz
+p2031
+aVFlash Cannon
+p2032
+aVFocus Blast
+p2033
+aVFocus Punch
+p2034
+ag210
+aVFoul Play
+p2035
+aVFreeze Shock
+p2036
+aVFreeze-Dry
+p2037
+aVFrustration
+p2038
+aVFusion Bolt
+p2039
+aVGiga Drain
+p2040
+aVGlaciate
+p2041
+aVGlare
+p2042
+aVGrass Knot
+p2043
+aVGravity
+p2044
+aVGunk Shot
+p2045
+aVGyro Ball
+p2046
+aVHammer Arm
+p2047
+aVHaze
+p2048
+aVHead Smash
+p2049
+aVHeal Bell
+p2050
+aVHealing Wish
+p2051
+aVHeart Stamp
+p2052
+aVHeat Wave
+p2053
+aVHeavy Slam
+p2054
+aVHex
+p2055
+aVHidden Power
+p2056
+aVHigh Jump Kick
+p2057
+aVHone Claws
+p2058
+aVHurricane
+p2059
+aVHydro Pump
+p2060
+aVHyper Voice
+p2061
+aVHyperspace Fury
+p2062
+aVHyperspace Hole
+p2063
+aVHypnosis
+p2064
+aVIce Beam
+p2065
+aVIce Fang
+p2066
+aVIce Punch
+p2067
+aVIce Shard
+p2068
+aVIcicle Crash
+p2069
+aVIcy Wind
+p2070
+aVInfestation
+p2071
+aVIron Head
+p2072
+aVIron Tail
+p2073
+aVKnock Off
+p2074
+aVLava Plume
+p2075
+aVLeaf Storm
+p2076
+aVLeech Seed
+p2077
+aVLight Screen
+p2078
+aVLow Kick
+p2079
+ag270
+aVLunar Dance
+p2080
+aVMach Punch
+p2081
+aVMagic Coat
+p2082
+aVMagma Storm
+p2083
+aVMagnet Rise
+p2084
+ag277
+aVMeteor Mash
+p2085
+ag280
+aVMirror Coat
+p2086
+aVMoonblast
+p2087
+aVMoonlight
+p2088
+ag286
+aVNasty Plot
+p2089
+aVOutrage
+p2090
+aVOverheat
+p2091
+aVPain Split
+p2092
+aVPerish Song
+p2093
+aVPin Missile
+p2094
+aVPlay Rough
+p2095
+aVPoison Jab
+p2096
+aVPower Whip
+p2097
+aVPower-Up Punch
+p2098
+aVProtect
+p2099
+aVPsychic
+p2100
+aVPsyshock
+p2101
+aVPsywave
+p2102
+aVPursuit
+p2103
+aVQuick Attack
+p2104
+aVQuiver Dance
+p2105
+aVRain Dance
+p2106
+aVRapid Spin
+p2107
+aVRecover
+p2108
+aVReflect
+p2109
+aVReflect Type
+p2110
+aVRefresh
+p2111
+aVRelic Song
+p2112
+aVRest
+p2113
+aVReturn
+p2114
+aVRoar
+p2115
+aVRock Blast
+p2116
+aVRock Polish
+p2117
+aVRock Slide
+p2118
+aVRock Tomb
+p2119
+aVRoost
+p2120
+aVSacred Fire
+p2121
+ag327
+aVScald
+p2122
+aVSecret Sword
+p2123
+aVSeed Bomb
+p2124
+aVSeed Flare
+p2125
+aVSeismic Toss
+p2126
+aVShadow Ball
+p2127
+aVShadow Sneak
+p2128
+aVShell Smash
+p2129
+aVSignal Beam
+p2130
+aVSkill Swap
+p2131
+aVSlack Off
+p2132
+aVSleep Powder
+p2133
+aVSleep Talk
+p2134
+aVSludge Bomb
+p2135
+aVSludge Wave
+p2136
+aVSmack Down
+p2137
+aVSoft-Boiled
+p2138
+aVSolar Beam
+p2139
+ag355
+aVSpikes
+p2140
+aVSpore
+p2141
+aVStealth Rock
+p2142
+aVStone Edge
+p2143
+aVStored Power
+p2144
+aVStun Spore
+p2145
+aVSubstitute
+p2146
+aVSucker Punch
+p2147
+aVSunny Day
+p2148
+aVSuperpower
+p2149
+aVSurf
+p2150
+ag370
+aVSwords Dance
+p2151
+aVSynthesis
+p2152
+aVTail Glow
+p2153
+aVTailwind
+p2154
+aVTaunt
+p2155
+aVThunder
+p2156
+aVThunder Punch
+p2157
+aVThunder Wave
+p2158
+aVThunderbolt
+p2159
+aVToxic
+p2160
+aVToxic Spikes
+p2161
+aVTransform
+p2162
+aVTrick
+p2163
+aVTrick Room
+p2164
+aVU-turn
+p2165
+aVV-create
+p2166
+aVVacuum Wave
+p2167
+aVVolt Switch
+p2168
+ag391
+aVWaterfall
+p2169
+aVWhirlwind
+p2170
+aVWild Charge
+p2171
+aVWill-O-Wisp
+p2172
+ag397
+aVWish
+p2173
+aVWood Hammer
+p2174
+aVX-Scissor
+p2175
+aVYawn
+p2176
+aVZen Headbutt
+p2177
+atp2178
+bsbag1
+(g2
+g3
+Ntp2179
+Rp2180
+(dp2181
+g7
+g8
+(g9
+(I0
+tp2182
+g11
+tp2183
+Rp2184
+(I1
+(I10
+tp2185
+g18
+I00
+(lp2186
+I00
+aI01
+ag418
+aVDragon Dance
+p2187
+aVFlamethrower
+p2188
+ag430
+aVRecover
+p2189
+aVRoost
+p2190
+aVWaterfall
+p2191
+aVWill-O-Wisp
+p2192
+atp2193
+bsbag1
+(g2
+g3
+Ntp2194
+Rp2195
+(dp2196
+g7
+g8
+(g9
+(I0
+tp2197
+g11
+tp2198
+Rp2199
+(I1
+(I18
+tp2200
+g18
+I00
+(lp2201
+VBug
+p2202
+aVDark
+p2203
+aVDragon
+p2204
+ag25
+aVFairy
+p2205
+ag27
+ag28
+ag1081
+ag30
+aVGrass
+p2206
+aVGround
+p2207
+aVIce
+p2208
+aVNormal
+p2209
+ag35
+ag780
+ag781
+ag469
+aVWater
+p2210
+atp2211
+bsbag1
+(g2
+g3
+Ntp2212
+Rp2213
+(dp2214
+g7
+g8
+(g9
+(I0
+tp2215
+g11
+tp2216
+Rp2217
+(I1
+(I17
+tp2218
+g18
+I00
+(lp2219
+I0
+ag49
+ag480
+ag51
+ag792
+ag482
+ag1652
+ag793
+aVGrass
+p2220
+ag1099
+aVIce
+p2221
+ag795
+ag488
+ag796
+aVRock
+p2222
+aVSteel
+p2223
+ag1105
+atp2224
+bsbag1
+(g2
+g3
+Ntp2225
+Rp2226
+(dp2227
+g7
+g8
+(g9
+(I0
+tp2228
+g11
+tp2229
+Rp2230
+(I1
+(I2
+tp2231
+g18
+I00
+(lp2232
+I0
+ag74
+atp2233
+bsbag1
+(g2
+g3
+Ntp2234
+Rp2235
+(dp2236
+g7
+g8
+(g9
+(I0
+tp2237
+g11
+tp2238
+Rp2239
+(I1
+(I2
+tp2240
+g85
+I00
+S'\x00\x01'
+p2241
+tp2242
+bsbag1
+(g2
+g3
+Ntp2243
+Rp2244
+(dp2245
+g7
+g8
+(g9
+(I0
+tp2246
+g11
+tp2247
+Rp2248
+(I1
+(I7
+tp2249
+g18
+I00
+(lp2250
+I0
+aVAqua Jet
+p2251
+aVBrave Bird
+p2252
+aVDisable
+p2253
+aVLava Plume
+p2254
+aVU-turn
+p2255
+aVVolt Switch
+p2256
+atp2257
+bsbag1
+(g2
+g3
+Ntp2258
+Rp2259
+(dp2260
+g7
+g8
+(g9
+(I0
+tp2261
+g11
+tp2262
+Rp2263
+(I1
+(I307
+tp2264
+g18
+I00
+(lp2265
+I0
+aVAcid Spray
+p2266
+aVAcrobatics
+p2267
+aVAcupressure
+p2268
+aVAerial Ace
+p2269
+aVAgility
+p2270
+aVAir Slash
+p2271
+aVAmnesia
+p2272
+aVAncient Power
+p2273
+aVAqua Jet
+p2274
+aVAqua Ring
+p2275
+aVAqua Tail
+p2276
+aVArm Thrust
+p2277
+aVAromatherapy
+p2278
+aVAura Sphere
+p2279
+aVAvalanche
+p2280
+aVBaton Pass
+p2281
+aVBelly Drum
+p2282
+aVBlizzard
+p2283
+aVBlock
+p2284
+aVBlue Flare
+p2285
+aVBody Slam
+p2286
+aVBolt Strike
+p2287
+aVBoomburst
+p2288
+aVBounce
+p2289
+aVBrave Bird
+p2290
+aVBrick Break
+p2291
+aVBug Bite
+p2292
+aVBug Buzz
+p2293
+aVBulk Up
+p2294
+aVBulldoze
+p2295
+aVBullet Punch
+p2296
+aVBullet Seed
+p2297
+aVCalm Mind
+p2298
+aVCharge Beam
+p2299
+aVCircle Throw
+p2300
+aVClear Smog
+p2301
+aVClose Combat
+p2302
+aVCoil
+p2303
+aVConfuse Ray
+p2304
+aVCosmic Power
+p2305
+aVCotton Guard
+p2306
+aVCounter
+p2307
+aVCrabhammer
+p2308
+aVCross Poison
+p2309
+aVCrunch
+p2310
+aVCurse
+p2311
+aVDark Pulse
+p2312
+aVDark Void
+p2313
+aVDazzling Gleam
+p2314
+aVDefog
+p2315
+aVDestiny Bond
+p2316
+aVDiamond Storm
+p2317
+aVDisable
+p2318
+aVDischarge
+p2319
+aVDoom Desire
+p2320
+aVDouble Kick
+p2321
+aVDouble-Edge
+p2322
+aVDraco Meteor
+p2323
+aVDragon Breath
+p2324
+aVDragon Claw
+p2325
+aVDragon Dance
+p2326
+aVDragon Pulse
+p2327
+aVDragon Rush
+p2328
+aVDragon Tail
+p2329
+aVDrain Punch
+p2330
+aVDrill Peck
+p2331
+aVDrill Run
+p2332
+aVDual Chop
+p2333
+aVDynamic Punch
+p2334
+aVDynamicPunch
+p2335
+aVEarth Power
+p2336
+aVEarthquake
+p2337
+aVEncore
+p2338
+aVEndeavor
+p2339
+aVEndure
+p2340
+aVEnergy Ball
+p2341
+aVEruption
+p2342
+aVExplosion
+p2343
+aVExtrasensory
+p2344
+aVExtreme Speed
+p2345
+aVExtremeSpeed
+p2346
+aVFacade
+p2347
+aVFairy Lock
+p2348
+aVFake Out
+p2349
+aVFeint
+p2350
+aVFiery Dance
+p2351
+aVFinal Gambit
+p2352
+aVFire Blast
+p2353
+aVFire Fang
+p2354
+aVFire Punch
+p2355
+aVFlame Charge
+p2356
+aVFlame Wheel
+p2357
+aVFlamethrower
+p2358
+aVFlare Blitz
+p2359
+aVFlash Cannon
+p2360
+aVFly
+p2361
+aVFocus Blast
+p2362
+aVFocus Energy
+p2363
+aVFocus Punch
+p2364
+aVForce Palm
+p2365
+aVForesight
+p2366
+aVFoul Play
+p2367
+aVFreeze-Dry
+p2368
+aVFrustration
+p2369
+aVFusion Bolt
+p2370
+aVFuture Sight
+p2371
+aVGear Grind
+p2372
+aVGeomancy
+p2373
+aVGiga Drain
+p2374
+aVGiga Impact
+p2375
+aVGlaciate
+p2376
+aVGlare
+p2377
+aVGrass Knot
+p2378
+aVGrass Whistle
+p2379
+aVGravity
+p2380
+aVGrowth
+p2381
+aVGunk Shot
+p2382
+aVGyro Ball
+p2383
+aVHail
+p2384
+aVHammer Arm
+p2385
+aVHaze
+p2386
+aVHead Smash
+p2387
+aVHeal Bell
+p2388
+aVHeal Block
+p2389
+aVHealing Wish
+p2390
+aVHeart Stamp
+p2391
+aVHeat Wave
+p2392
+aVHeavy Slam
+p2393
+aVHex
+p2394
+aVHidden Power
+p2395
+aVHigh Jump Kick
+p2396
+aVHone Claws
+p2397
+aVHorn Leech
+p2398
+aVHurricane
+p2399
+aVHydro Pump
+p2400
+aVHyper Beam
+p2401
+aVHyper Voice
+p2402
+aVHyperspace Fury
+p2403
+aVHyperspace Hole
+p2404
+aVHypnosis
+p2405
+aVIce Beam
+p2406
+aVIce Fang
+p2407
+aVIce Punch
+p2408
+aVIce Shard
+p2409
+aVIcicle Crash
+p2410
+aVIcicle Spear
+p2411
+aVIcy Wind
+p2412
+aVIncinerate
+p2413
+aVInfestation
+p2414
+aVIron Defense
+p2415
+aVIron Head
+p2416
+aVIron Tail
+p2417
+aVJump Kick
+p2418
+aVKnock Off
+p2419
+aVLava Plume
+p2420
+aVLeaf Blade
+p2421
+aVLeaf Storm
+p2422
+aVLeech Seed
+p2423
+aVLight Screen
+p2424
+aVLovely Kiss
+p2425
+aVLow Kick
+p2426
+aVLow Sweep
+p2427
+aVLunar Dance
+p2428
+aVMach Punch
+p2429
+aVMagic Coat
+p2430
+aVMagic Room
+p2431
+aVMagma Storm
+p2432
+aVMagnet Rise
+p2433
+aVMegahorn
+p2434
+aVMemento
+p2435
+aVMetal Burst
+p2436
+aVMeteor Mash
+p2437
+aVMilk Drink
+p2438
+aVMimic
+p2439
+aVMirror Coat
+p2440
+aVMoonblast
+p2441
+aVMoonlight
+p2442
+aVMorning Sun
+p2443
+aVMuddy Water
+p2444
+aVNasty Plot
+p2445
+aVNatural Gift
+p2446
+aVNight Slash
+p2447
+aVNuzzle
+p2448
+aVOutrage
+p2449
+aVOverheat
+p2450
+aVPain Split
+p2451
+aVParting Shot
+p2452
+aVPayback
+p2453
+aVPerish Song
+p2454
+aVPetal Dance
+p2455
+aVPin Missile
+p2456
+aVPlay Rough
+p2457
+aVPoison Fang
+p2458
+aVPoison Jab
+p2459
+aVPower Gem
+p2460
+aVPower Trick
+p2461
+aVPower Whip
+p2462
+aVPower-Up Punch
+p2463
+aVProtect
+p2464
+aVPsychic
+p2465
+aVPsycho Cut
+p2466
+aVPsyshock
+p2467
+aVPsywave
+p2468
+aVPunishment
+p2469
+aVPursuit
+p2470
+aVQuick Attack
+p2471
+aVQuiver Dance
+p2472
+aVRain Dance
+p2473
+aVRapid Spin
+p2474
+aVRazor Shell
+p2475
+aVRecover
+p2476
+aVReflect
+p2477
+aVReflect Type
+p2478
+aVRefresh
+p2479
+aVRelic Song
+p2480
+aVRest
+p2481
+aVRetaliate
+p2482
+aVReturn
+p2483
+aVReversal
+p2484
+aVRoar
+p2485
+aVRock Blast
+p2486
+aVRock Climb
+p2487
+aVRock Polish
+p2488
+aVRock Slide
+p2489
+aVRock Tomb
+p2490
+aVRoost
+p2491
+aVSacred Fire
+p2492
+aVSacred Sword
+p2493
+aVScald
+p2494
+aVScreech
+p2495
+aVSecret Power
+p2496
+aVSecret Sword
+p2497
+aVSeed Bomb
+p2498
+aVSeed Flare
+p2499
+aVSeismic Toss
+p2500
+aVShadow Ball
+p2501
+aVShadow Claw
+p2502
+aVShadow Sneak
+p2503
+aVSharpen
+p2504
+aVShell Smash
+p2505
+aVShift Gear
+p2506
+aVSignal Beam
+p2507
+aVSkill Swap
+p2508
+aVSlack Off
+p2509
+aVSleep Powder
+p2510
+aVSleep Talk
+p2511
+aVSludge Bomb
+p2512
+aVSludge Wave
+p2513
+aVSmack Down
+p2514
+aVSnarl
+p2515
+aVSnatch
+p2516
+aVSoft-Boiled
+p2517
+aVSolar Beam
+p2518
+aVSpikes
+p2519
+aVSpiky Shield
+p2520
+aVSpore
+p2521
+aVStealth Rock
+p2522
+aVSteel Wing
+p2523
+aVSticky Web
+p2524
+aVStockpile
+p2525
+aVStone Edge
+p2526
+aVStored Power
+p2527
+aVStun Spore
+p2528
+aVSubstitute
+p2529
+aVSucker Punch
+p2530
+aVSunny Day
+p2531
+aVSuper Fang
+p2532
+aVSuperpower
+p2533
+aVSurf
+p2534
+aVSwitcheroo
+p2535
+aVSwords Dance
+p2536
+aVSynthesis
+p2537
+aVTail Glow
+p2538
+aVTail Slap
+p2539
+aVTailwind
+p2540
+aVTaunt
+p2541
+aVThunder
+p2542
+aVThunder Punch
+p2543
+aVThunder Wave
+p2544
+aVThunderbolt
+p2545
+aVTorment
+p2546
+aVToxic
+p2547
+aVToxic Spikes
+p2548
+aVTransform
+p2549
+aVTri Attack
+p2550
+aVTrick
+p2551
+aVTrick Room
+p2552
+aVU-turn
+p2553
+aVUproar
+p2554
+aVV-create
+p2555
+aVVacuum Wave
+p2556
+aVVolt Switch
+p2557
+aVWater Pulse
+p2558
+aVWater Spout
+p2559
+aVWaterfall
+p2560
+aVWhirlpool
+p2561
+aVWhirlwind
+p2562
+aVWild Charge
+p2563
+aVWill-O-Wisp
+p2564
+aVWing Attack
+p2565
+aVWish
+p2566
+aVWood Hammer
+p2567
+aVWork Up
+p2568
+aVX-Scissor
+p2569
+aVYawn
+p2570
+aVZen Headbutt
+p2571
+atp2572
+bsbag1
+(g2
+g3
+Ntp2573
+Rp2574
+(dp2575
+g7
+g8
+(g9
+(I0
+tp2576
+g11
+tp2577
+Rp2578
+(I1
+(I43
+tp2579
+g18
+I00
+(lp2580
+I00
+aI01
+aVAgility
+p2581
+aVBlock
+p2582
+aVCalm Mind
+p2583
+aVClose Combat
+p2584
+aVCrunch
+p2585
+aVDiamond Storm
+p2586
+aVDragon Claw
+p2587
+aVDragon Dance
+p2588
+aVEarth Power
+p2589
+aVEarthquake
+p2590
+aVFake Out
+p2591
+aVFire Blast
+p2592
+aVFlamethrower
+p2593
+aVFocus Blast
+p2594
+aVFrustration
+p2595
+aVGiga Drain
+p2596
+aVHammer Arm
+p2597
+aVHeal Bell
+p2598
+aVHyper Voice
+p2599
+aVKnock Off
+p2600
+aVMeteor Mash
+p2601
+aVMoonblast
+p2602
+aVPin Missile
+p2603
+aVProtect
+p2604
+aVPsychic
+p2605
+aVPsyshock
+p2606
+aVReturn
+p2607
+aVRock Polish
+p2608
+aVRoost
+p2609
+aVScald
+p2610
+aVSharpen
+p2611
+aVSlack Off
+p2612
+aVSubstitute
+p2613
+aVSurf
+p2614
+aVSwords Dance
+p2615
+aVTailwind
+p2616
+aVTaunt
+p2617
+aVThunderbolt
+p2618
+aVToxic
+p2619
+aVWaterfall
+p2620
+aVWill-O-Wisp
+p2621
+atp2622
+bsbag1
+(g2
+g3
+Ntp2623
+Rp2624
+(dp2625
+g7
+g8
+(g9
+(I0
+tp2626
+g11
+tp2627
+Rp2628
+(I1
+(I18
+tp2629
+g18
+I00
+(lp2630
+g459
+ag460
+ag24
+aVElectric
+p2631
+aVFairy
+p2632
+aVFighting
+p2633
+ag1080
+ag1362
+ag30
+ag465
+aVGround
+p2634
+ag1363
+ag34
+ag35
+ag36
+ag468
+ag469
+ag470
+atp2635
+bsbag1
+(g2
+g3
+Ntp2636
+Rp2637
+(dp2638
+g7
+g8
+(g9
+(I0
+tp2639
+g11
+tp2640
+Rp2641
+(I1
+(I17
+tp2642
+g18
+I00
+(lp2643
+I0
+ag49
+ag480
+ag51
+ag792
+ag482
+aVFlying
+p2644
+ag55
+ag56
+ag57
+ag2221
+ag487
+ag488
+aVPsychic
+p2645
+ag490
+ag1104
+aVWater
+p2646
+atp2647
+bsbag1
+(g2
+g3
+Ntp2648
+Rp2649
+(dp2650
+g7
+g8
+(g9
+(I0
+tp2651
+g11
+tp2652
+Rp2653
+(I1
+(I2
+tp2654
+g18
+I00
+(lp2655
+I0
+ag74
+atp2656
+bsbag1
+(g2
+g3
+Ntp2657
+Rp2658
+(dp2659
+g7
+g8
+(g9
+(I0
+tp2660
+g11
+tp2661
+Rp2662
+(I1
+(I2
+tp2663
+g85
+I00
+S'\x00\x01'
+p2664
+tp2665
+bsbag1
+(g2
+g3
+Ntp2666
+Rp2667
+(dp2668
+g7
+g8
+(g9
+(I0
+tp2669
+g11
+tp2670
+Rp2671
+(I1
+(I2
+tp2672
+g18
+I00
+(lp2673
+I0
+ag2255
+atp2674
+bsbag1
+(g2
+g3
+Ntp2675
+Rp2676
+(dp2677
+g7
+g8
+(g9
+(I0
+tp2678
+g11
+tp2679
+Rp2680
+(I1
+(I245
+tp2681
+g18
+I00
+(lp2682
+I0
+aVAcrobatics
+p2683
+aVAerial Ace
+p2684
+aVAgility
+p2685
+aVAir Slash
+p2686
+aVAncient Power
+p2687
+aVAqua Jet
+p2688
+aVAqua Tail
+p2689
+ag2277
+aVAromatherapy
+p2690
+aVAura Sphere
+p2691
+aVAvalanche
+p2692
+aVBaton Pass
+p2693
+aVBelly Drum
+p2694
+aVBlizzard
+p2695
+aVBlock
+p2696
+aVBody Slam
+p2697
+aVBolt Strike
+p2698
+aVBoomburst
+p2699
+aVBounce
+p2700
+aVBrave Bird
+p2701
+aVBrick Break
+p2702
+aVBug Bite
+p2703
+aVBug Buzz
+p2704
+aVBulk Up
+p2705
+aVBulldoze
+p2706
+aVBullet Punch
+p2707
+aVBullet Seed
+p2708
+aVCalm Mind
+p2709
+aVCharge Beam
+p2710
+aVClear Smog
+p2711
+aVClose Combat
+p2712
+aVCoil
+p2713
+aVConfuse Ray
+p2714
+aVCotton Guard
+p2715
+aVCounter
+p2716
+aVCrabhammer
+p2717
+aVCrunch
+p2718
+aVCurse
+p2719
+aVDark Pulse
+p2720
+aVDazzling Gleam
+p2721
+aVDefog
+p2722
+aVDestiny Bond
+p2723
+aVDiamond Storm
+p2724
+aVDischarge
+p2725
+aVDoom Desire
+p2726
+aVDouble-Edge
+p2727
+aVDraco Meteor
+p2728
+aVDragon Breath
+p2729
+aVDragon Claw
+p2730
+aVDragon Dance
+p2731
+aVDragon Pulse
+p2732
+aVDragon Rush
+p2733
+aVDragon Tail
+p2734
+aVDrain Punch
+p2735
+ag2333
+aVDynamic Punch
+p2736
+aVEarth Power
+p2737
+aVEarthquake
+p2738
+aVEncore
+p2739
+aVEndeavor
+p2740
+aVEnergy Ball
+p2741
+aVEruption
+p2742
+aVExplosion
+p2743
+aVExtrasensory
+p2744
+aVExtreme Speed
+p2745
+aVFacade
+p2746
+aVFake Out
+p2747
+aVFeint
+p2748
+aVFiery Dance
+p2749
+aVFinal Gambit
+p2750
+aVFire Blast
+p2751
+aVFire Fang
+p2752
+aVFire Punch
+p2753
+aVFlame Charge
+p2754
+ag2357
+aVFlamethrower
+p2755
+aVFlare Blitz
+p2756
+aVFlash Cannon
+p2757
+aVFocus Blast
+p2758
+aVFocus Punch
+p2759
+aVForce Palm
+p2760
+aVFoul Play
+p2761
+aVFreeze-Dry
+p2762
+aVFrustration
+p2763
+aVFusion Bolt
+p2764
+ag2372
+aVGiga Drain
+p2765
+aVGiga Impact
+p2766
+aVGlare
+p2767
+aVGrass Knot
+p2768
+ag2379
+aVGunk Shot
+p2769
+aVGyro Ball
+p2770
+aVHammer Arm
+p2771
+aVHead Smash
+p2772
+aVHeal Bell
+p2773
+aVHealing Wish
+p2774
+aVHeart Stamp
+p2775
+aVHeat Wave
+p2776
+aVHeavy Slam
+p2777
+aVHex
+p2778
+aVHidden Power
+p2779
+aVHigh Jump Kick
+p2780
+aVHone Claws
+p2781
+aVHurricane
+p2782
+aVHydro Pump
+p2783
+aVHyper Beam
+p2784
+aVHyper Voice
+p2785
+aVHyperspace Fury
+p2786
+aVHypnosis
+p2787
+aVIce Beam
+p2788
+aVIce Fang
+p2789
+aVIce Punch
+p2790
+aVIce Shard
+p2791
+aVIcicle Crash
+p2792
+aVIcicle Spear
+p2793
+aVIcy Wind
+p2794
+aVIron Defense
+p2795
+aVIron Head
+p2796
+aVIron Tail
+p2797
+aVJump Kick
+p2798
+aVKnock Off
+p2799
+aVLava Plume
+p2800
+aVLeaf Storm
+p2801
+aVLeech Seed
+p2802
+aVLight Screen
+p2803
+aVLow Kick
+p2804
+aVLunar Dance
+p2805
+aVMach Punch
+p2806
+aVMagic Coat
+p2807
+ag2431
+aVMagma Storm
+p2808
+aVMagnet Rise
+p2809
+aVMegahorn
+p2810
+aVMemento
+p2811
+aVMetal Burst
+p2812
+aVMeteor Mash
+p2813
+aVMirror Coat
+p2814
+aVMoonblast
+p2815
+aVMoonlight
+p2816
+ag2443
+aVNasty Plot
+p2817
+aVOutrage
+p2818
+aVOverheat
+p2819
+aVPain Split
+p2820
+aVParting Shot
+p2821
+aVPerish Song
+p2822
+aVPin Missile
+p2823
+aVPlay Rough
+p2824
+ag2458
+aVPoison Jab
+p2825
+aVPower Whip
+p2826
+aVPower-Up Punch
+p2827
+aVProtect
+p2828
+aVPsychic
+p2829
+ag2466
+aVPsyshock
+p2830
+aVPursuit
+p2831
+aVQuick Attack
+p2832
+aVQuiver Dance
+p2833
+aVRain Dance
+p2834
+aVRapid Spin
+p2835
+aVRecover
+p2836
+aVReflect
+p2837
+aVReflect Type
+p2838
+aVRefresh
+p2839
+aVRest
+p2840
+ag2482
+aVReturn
+p2841
+aVReversal
+p2842
+aVRoar
+p2843
+aVRock Blast
+p2844
+aVRock Polish
+p2845
+aVRock Slide
+p2846
+aVRock Tomb
+p2847
+aVRoost
+p2848
+aVSacred Fire
+p2849
+aVScald
+p2850
+aVScreech
+p2851
+aVSecret Sword
+p2852
+aVSeed Bomb
+p2853
+aVSeed Flare
+p2854
+aVSeismic Toss
+p2855
+aVShadow Ball
+p2856
+aVShadow Claw
+p2857
+aVShadow Sneak
+p2858
+aVSharpen
+p2859
+aVShift Gear
+p2860
+aVSkill Swap
+p2861
+aVSlack Off
+p2862
+aVSleep Powder
+p2863
+aVSleep Talk
+p2864
+aVSludge Bomb
+p2865
+aVSludge Wave
+p2866
+aVSmack Down
+p2867
+aVSnarl
+p2868
+aVSoft-Boiled
+p2869
+aVSolar Beam
+p2870
+aVSpikes
+p2871
+aVSpiky Shield
+p2872
+aVSpore
+p2873
+aVStealth Rock
+p2874
+aVSticky Web
+p2875
+aVStockpile
+p2876
+aVStone Edge
+p2877
+aVStored Power
+p2878
+aVStun Spore
+p2879
+aVSubstitute
+p2880
+aVSucker Punch
+p2881
+aVSunny Day
+p2882
+aVSuperpower
+p2883
+aVSurf
+p2884
+aVSwords Dance
+p2885
+aVSynthesis
+p2886
+aVTail Glow
+p2887
+aVTail Slap
+p2888
+aVTailwind
+p2889
+aVTaunt
+p2890
+aVThunder
+p2891
+aVThunder Punch
+p2892
+aVThunder Wave
+p2893
+aVThunderbolt
+p2894
+aVToxic
+p2895
+aVToxic Spikes
+p2896
+ag2549
+aVTri Attack
+p2897
+aVTrick
+p2898
+aVTrick Room
+p2899
+aVU-turn
+p2900
+aVV-create
+p2901
+aVVolt Switch
+p2902
+aVWater Pulse
+p2903
+ag2559
+aVWaterfall
+p2904
+aVWhirlpool
+p2905
+aVWhirlwind
+p2906
+aVWild Charge
+p2907
+aVWill-O-Wisp
+p2908
+aVWish
+p2909
+aVWood Hammer
+p2910
+aVWork Up
+p2911
+aVX-Scissor
+p2912
+aVYawn
+p2913
+aVZen Headbutt
+p2914
+atp2915
+bsbag1
+(g2
+g3
+Ntp2916
+Rp2917
+(dp2918
+g7
+g8
+(g9
+(I0
+tp2919
+g11
+tp2920
+Rp2921
+(I1
+(I27
+tp2922
+g18
+I00
+(lp2923
+I00
+aI01
+ag2581
+aVCalm Mind
+p2924
+aVCrunch
+p2925
+ag2587
+aVDragon Dance
+p2926
+ag2590
+aVFocus Blast
+p2927
+ag2597
+ag2598
+ag2600
+aVMoonblast
+p2928
+aVProtect
+p2929
+aVPsychic
+p2930
+aVPsyshock
+p2931
+aVReturn
+p2932
+aVRock Polish
+p2933
+aVRoost
+p2934
+aVSlack Off
+p2935
+aVSubstitute
+p2936
+ag2614
+aVSwords Dance
+p2937
+ag2616
+ag2617
+aVWaterfall
+p2938
+aVWill-O-Wisp
+p2939
+atp2940
+bsbag1
+(g2
+g3
+Ntp2941
+Rp2942
+(dp2943
+g7
+g8
+(g9
+(I0
+tp2944
+g11
+tp2945
+Rp2946
+(I1
+(I18
+tp2947
+g18
+I00
+(lp2948
+g770
+aVDark
+p2949
+aVDragon
+p2950
+ag1915
+ag463
+aVFighting
+p2951
+ag28
+ag1641
+ag30
+aVGrass
+p2952
+ag466
+ag1363
+aVNormal
+p2953
+ag35
+aVPsychic
+p2954
+ag781
+ag469
+ag1088
+atp2955
+bsbag1
+(g2
+g3
+Ntp2956
+Rp2957
+(dp2958
+g7
+g8
+(g9
+(I0
+tp2959
+g11
+tp2960
+Rp2961
+(I1
+(I17
+tp2962
+g18
+I00
+(lp2963
+I0
+ag49
+ag480
+ag51
+ag481
+ag482
+ag2644
+aVGhost
+p2964
+aVGrass
+p2965
+ag1099
+ag1928
+ag795
+aVPoison
+p2966
+ag1654
+ag797
+aVSteel
+p2967
+ag1656
+atp2968
+bsbag1
+(g2
+g3
+Ntp2969
+Rp2970
+(dp2971
+g7
+g8
+(g9
+(I0
+tp2972
+g11
+tp2973
+Rp2974
+(I1
+(I2
+tp2975
+g18
+I00
+(lp2976
+I0
+ag74
+atp2977
+bsbag1
+(g2
+g3
+Ntp2978
+Rp2979
+(dp2980
+g7
+g8
+(g9
+(I0
+tp2981
+g11
+tp2982
+Rp2983
+(I1
+(I2
+tp2984
+g85
+I00
+S'\x00\x01'
+p2985
+tp2986
+bsbag1
+(g2
+g3
+Ntp2987
+Rp2988
+(dp2989
+g7
+g8
+(g9
+(I0
+tp2990
+g11
+tp2991
+Rp2992
+(I1
+(I2
+tp2993
+g18
+I00
+(lp2994
+I0
+ag2254
+atp2995
+bsbag1
+(g2
+g3
+Ntp2996
+Rp2997
+(dp2998
+g7
+g8
+(g9
+(I0
+tp2999
+g11
+tp3000
+Rp3001
+(I1
+(I236
+tp3002
+g18
+I00
+(lp3003
+I0
+aVAcid Spray
+p3004
+aVAcrobatics
+p3005
+aVAgility
+p3006
+aVAir Slash
+p3007
+aVAncient Power
+p3008
+aVAqua Jet
+p3009
+aVAqua Tail
+p3010
+aVAromatherapy
+p3011
+aVAura Sphere
+p3012
+aVBaton Pass
+p3013
+aVBelly Drum
+p3014
+aVBlizzard
+p3015
+ag2582
+aVBlue Flare
+p3016
+aVBody Slam
+p3017
+aVBolt Strike
+p3018
+ag2288
+aVBounce
+p3019
+aVBrave Bird
+p3020
+aVBug Bite
+p3021
+aVBug Buzz
+p3022
+aVBulk Up
+p3023
+aVBulldoze
+p3024
+aVBullet Punch
+p3025
+aVBullet Seed
+p3026
+aVCalm Mind
+p3027
+aVCharge Beam
+p3028
+aVCircle Throw
+p3029
+aVClear Smog
+p3030
+aVClose Combat
+p3031
+aVCoil
+p3032
+aVConfuse Ray
+p3033
+aVCounter
+p3034
+aVCrabhammer
+p3035
+aVCross Poison
+p3036
+aVCrunch
+p3037
+aVCurse
+p3038
+aVDark Pulse
+p3039
+aVDazzling Gleam
+p3040
+aVDefog
+p3041
+aVDestiny Bond
+p3042
+aVDiamond Storm
+p3043
+aVDischarge
+p3044
+aVDoom Desire
+p3045
+aVDouble-Edge
+p3046
+aVDraco Meteor
+p3047
+aVDragon Claw
+p3048
+aVDragon Dance
+p3049
+aVDragon Pulse
+p3050
+ag2328
+aVDragon Tail
+p3051
+aVDrain Punch
+p3052
+aVDynamic Punch
+p3053
+aVEarth Power
+p3054
+aVEarthquake
+p3055
+aVEncore
+p3056
+aVEndeavor
+p3057
+aVEndure
+p3058
+aVEnergy Ball
+p3059
+aVExplosion
+p3060
+aVExtrasensory
+p3061
+aVExtreme Speed
+p3062
+aVFacade
+p3063
+aVFake Out
+p3064
+aVFiery Dance
+p3065
+aVFinal Gambit
+p3066
+aVFire Blast
+p3067
+aVFire Fang
+p3068
+aVFire Punch
+p3069
+aVFlame Charge
+p3070
+aVFlamethrower
+p3071
+aVFlare Blitz
+p3072
+aVFlash Cannon
+p3073
+aVFocus Blast
+p3074
+aVFocus Punch
+p3075
+aVForce Palm
+p3076
+ag2366
+aVFoul Play
+p3077
+aVFrustration
+p3078
+aVFusion Bolt
+p3079
+aVFuture Sight
+p3080
+aVGiga Drain
+p3081
+aVGiga Impact
+p3082
+aVGlaciate
+p3083
+aVGlare
+p3084
+aVGrass Knot
+p3085
+aVGravity
+p3086
+aVGrowth
+p3087
+aVGunk Shot
+p3088
+aVGyro Ball
+p3089
+aVHammer Arm
+p3090
+aVHaze
+p3091
+aVHead Smash
+p3092
+aVHeal Bell
+p3093
+aVHealing Wish
+p3094
+aVHeart Stamp
+p3095
+aVHeat Wave
+p3096
+aVHeavy Slam
+p3097
+aVHex
+p3098
+aVHidden Power
+p3099
+aVHigh Jump Kick
+p3100
+ag2398
+aVHurricane
+p3101
+aVHydro Pump
+p3102
+aVHyper Voice
+p3103
+aVHyperspace Fury
+p3104
+aVHypnosis
+p3105
+aVIce Beam
+p3106
+aVIce Fang
+p3107
+aVIce Punch
+p3108
+aVIce Shard
+p3109
+aVIcicle Crash
+p3110
+aVIcicle Spear
+p3111
+ag2412
+aVInfestation
+p3112
+aVIron Head
+p3113
+aVIron Tail
+p3114
+aVKnock Off
+p3115
+aVLava Plume
+p3116
+aVLeaf Blade
+p3117
+aVLeaf Storm
+p3118
+aVLeech Seed
+p3119
+aVLight Screen
+p3120
+aVLow Kick
+p3121
+ag2427
+aVLunar Dance
+p3122
+aVMach Punch
+p3123
+ag2430
+aVMagic Room
+p3124
+aVMagma Storm
+p3125
+aVMagnet Rise
+p3126
+aVMegahorn
+p3127
+ag2435
+aVMetal Burst
+p3128
+aVMeteor Mash
+p3129
+aVMirror Coat
+p3130
+aVMoonblast
+p3131
+aVMoonlight
+p3132
+aVMorning Sun
+p3133
+aVNasty Plot
+p3134
+aVNatural Gift
+p3135
+aVNight Slash
+p3136
+aVOutrage
+p3137
+aVOverheat
+p3138
+aVPain Split
+p3139
+ag2452
+ag2455
+aVPin Missile
+p3140
+aVPlay Rough
+p3141
+aVPoison Jab
+p3142
+ag2461
+aVPower Whip
+p3143
+aVPower-Up Punch
+p3144
+aVProtect
+p3145
+aVPsychic
+p3146
+aVPsycho Cut
+p3147
+aVPsyshock
+p3148
+aVPursuit
+p3149
+aVQuick Attack
+p3150
+aVQuiver Dance
+p3151
+aVRain Dance
+p3152
+aVRapid Spin
+p3153
+aVRecover
+p3154
+aVReflect
+p3155
+aVReflect Type
+p3156
+aVRefresh
+p3157
+aVRelic Song
+p3158
+aVRest
+p3159
+aVReturn
+p3160
+aVReversal
+p3161
+aVRoar
+p3162
+aVRock Blast
+p3163
+aVRock Polish
+p3164
+aVRock Slide
+p3165
+aVRock Tomb
+p3166
+aVRoost
+p3167
+aVSacred Fire
+p3168
+aVScald
+p3169
+aVSecret Sword
+p3170
+aVSeed Bomb
+p3171
+aVSeed Flare
+p3172
+aVSeismic Toss
+p3173
+aVShadow Ball
+p3174
+aVShadow Sneak
+p3175
+ag2505
+aVSkill Swap
+p3176
+aVSlack Off
+p3177
+aVSleep Powder
+p3178
+aVSleep Talk
+p3179
+aVSludge Bomb
+p3180
+aVSludge Wave
+p3181
+ag2516
+aVSoft-Boiled
+p3182
+aVSolar Beam
+p3183
+aVSpikes
+p3184
+aVSpiky Shield
+p3185
+aVSpore
+p3186
+aVStealth Rock
+p3187
+aVSticky Web
+p3188
+aVStockpile
+p3189
+aVStone Edge
+p3190
+aVStored Power
+p3191
+aVStun Spore
+p3192
+aVSubstitute
+p3193
+aVSucker Punch
+p3194
+aVSuper Fang
+p3195
+aVSuperpower
+p3196
+aVSurf
+p3197
+aVSwitcheroo
+p3198
+aVSwords Dance
+p3199
+aVSynthesis
+p3200
+aVTail Glow
+p3201
+aVTailwind
+p3202
+aVTaunt
+p3203
+aVThunder
+p3204
+aVThunder Punch
+p3205
+aVThunder Wave
+p3206
+aVThunderbolt
+p3207
+aVToxic
+p3208
+aVToxic Spikes
+p3209
+aVTri Attack
+p3210
+aVTrick
+p3211
+aVTrick Room
+p3212
+aVU-turn
+p3213
+aVV-create
+p3214
+aVVacuum Wave
+p3215
+aVVolt Switch
+p3216
+aVWaterfall
+p3217
+aVWhirlwind
+p3218
+aVWill-O-Wisp
+p3219
+ag2565
+aVWish
+p3220
+aVWood Hammer
+p3221
+aVWork Up
+p3222
+aVZen Headbutt
+p3223
+atp3224
+bsbag1
+(g2
+g3
+Ntp3225
+Rp3226
+(dp3227
+g7
+g8
+(g9
+(I0
+tp3228
+g11
+tp3229
+Rp3230
+(I1
+(I23
+tp3231
+g18
+I00
+(lp3232
+I00
+aI01
+ag2582
+aVCalm Mind
+p3233
+ag2584
+ag2586
+aVDragon Dance
+p3234
+ag2589
+ag2592
+aVKnock Off
+p3235
+aVMoonblast
+p3236
+ag2603
+aVProtect
+p3237
+aVPsychic
+p3238
+aVPsyshock
+p3239
+aVReturn
+p3240
+ag2608
+aVScald
+p3241
+aVSlack Off
+p3242
+aVSwords Dance
+p3243
+ag2619
+aVWaterfall
+p3244
+ag2621
+atp3245
+bsbag1
+(g2
+g3
+Ntp3246
+Rp3247
+(dp3248
+g7
+g8
+(g9
+(I0
+tp3249
+g11
+tp3250
+Rp3251
+(I1
+(I18
+tp3252
+g18
+I00
+(lp3253
+VBug
+p3254
+aVDark
+p3255
+ag1639
+ag25
+aVFairy
+p3256
+aVFighting
+p3257
+ag28
+ag1081
+ag30
+ag31
+ag778
+ag33
+ag34
+aVPoison
+p3258
+aVPsychic
+p3259
+ag468
+ag469
+ag1088
+atp3260
+bsbag1
+(g2
+g3
+Ntp3261
+Rp3262
+(dp3263
+g7
+g8
+(g9
+(I0
+tp3264
+g11
+tp3265
+Rp3266
+(I1
+(I17
+tp3267
+g18
+I00
+(lp3268
+I0
+ag49
+ag50
+ag51
+ag481
+ag482
+aVFlying
+p3269
+ag55
+ag56
+ag1099
+ag58
+ag795
+ag1101
+ag1654
+ag1103
+ag491
+aVWater
+p3270
+atp3271
+bsbag1
+(g2
+g3
+Ntp3272
+Rp3273
+(dp3274
+g7
+g8
+(g9
+(I0
+tp3275
+g11
+tp3276
+Rp3277
+(I1
+(I2
+tp3278
+g18
+I00
+(lp3279
+I0
+ag74
+atp3280
+bsbag1
+(g2
+g3
+Ntp3281
+Rp3282
+(dp3283
+g7
+g8
+(g9
+(I0
+tp3284
+g11
+tp3285
+Rp3286
+(I1
+(I2
+tp3287
+g85
+I00
+S'\x00\x01'
+p3288
+tp3289
+bsbag1
+(g2
+g3
+Ntp3290
+Rp3291
+(dp3292
+g7
+g8
+(g9
+(I0
+tp3293
+g11
+tp3294
+Rp3295
+(I1
+(I3
+tp3296
+g18
+I00
+(lp3297
+I0
+aVAqua Jet
+p3298
+ag2252
+atp3299
+bsbag1
+(g2
+g3
+Ntp3300
+Rp3301
+(dp3302
+g7
+g8
+(g9
+(I0
+tp3303
+g11
+tp3304
+Rp3305
+(I1
+(I224
+tp3306
+g18
+I00
+(lp3307
+I0
+aVAcid Spray
+p3308
+aVAcrobatics
+p3309
+aVAcupressure
+p3310
+aVAerial Ace
+p3311
+aVAir Slash
+p3312
+aVAncient Power
+p3313
+aVAqua Jet
+p3314
+aVAqua Ring
+p3315
+aVAqua Tail
+p3316
+aVAromatherapy
+p3317
+aVAura Sphere
+p3318
+aVAvalanche
+p3319
+aVBaton Pass
+p3320
+aVBelly Drum
+p3321
+aVBlizzard
+p3322
+aVBlue Flare
+p3323
+aVBody Slam
+p3324
+aVBounce
+p3325
+aVBrave Bird
+p3326
+aVBrick Break
+p3327
+aVBug Bite
+p3328
+aVBug Buzz
+p3329
+aVBulk Up
+p3330
+aVBullet Punch
+p3331
+aVBullet Seed
+p3332
+aVCalm Mind
+p3333
+aVClear Smog
+p3334
+aVClose Combat
+p3335
+aVCoil
+p3336
+aVCotton Guard
+p3337
+aVCounter
+p3338
+aVCrabhammer
+p3339
+aVCrunch
+p3340
+aVCurse
+p3341
+aVDark Pulse
+p3342
+aVDark Void
+p3343
+aVDazzling Gleam
+p3344
+aVDefog
+p3345
+aVDestiny Bond
+p3346
+aVDiamond Storm
+p3347
+aVDischarge
+p3348
+aVDraco Meteor
+p3349
+aVDragon Claw
+p3350
+aVDragon Dance
+p3351
+aVDragon Pulse
+p3352
+ag2329
+aVDrain Punch
+p3353
+ag2331
+aVEarth Power
+p3354
+aVEarthquake
+p3355
+aVEncore
+p3356
+aVEndeavor
+p3357
+aVEndure
+p3358
+aVEnergy Ball
+p3359
+ag2342
+aVExplosion
+p3360
+aVExtrasensory
+p3361
+aVExtreme Speed
+p3362
+aVFacade
+p3363
+aVFairy Lock
+p3364
+aVFake Out
+p3365
+aVFeint
+p3366
+aVFiery Dance
+p3367
+aVFire Blast
+p3368
+aVFire Fang
+p3369
+aVFire Punch
+p3370
+aVFlame Charge
+p3371
+aVFlamethrower
+p3372
+aVFlare Blitz
+p3373
+aVFlash Cannon
+p3374
+aVFocus Blast
+p3375
+aVFocus Punch
+p3376
+aVFoul Play
+p3377
+aVFrustration
+p3378
+aVFusion Bolt
+p3379
+aVGear Grind
+p3380
+aVGeomancy
+p3381
+aVGiga Drain
+p3382
+aVGlaciate
+p3383
+aVGlare
+p3384
+aVGrass Knot
+p3385
+ag2381
+aVGunk Shot
+p3386
+aVGyro Ball
+p3387
+aVHammer Arm
+p3388
+aVHaze
+p3389
+aVHead Smash
+p3390
+aVHeal Bell
+p3391
+aVHeal Block
+p3392
+aVHealing Wish
+p3393
+aVHeart Stamp
+p3394
+aVHeat Wave
+p3395
+ag2393
+aVHex
+p3396
+aVHidden Power
+p3397
+aVHigh Jump Kick
+p3398
+aVHone Claws
+p3399
+aVHurricane
+p3400
+aVHydro Pump
+p3401
+aVHyper Beam
+p3402
+aVHyper Voice
+p3403
+aVHyperspace Fury
+p3404
+aVHypnosis
+p3405
+aVIce Beam
+p3406
+aVIce Fang
+p3407
+aVIce Punch
+p3408
+aVIce Shard
+p3409
+aVIcicle Crash
+p3410
+aVIcicle Spear
+p3411
+aVIcy Wind
+p3412
+aVIron Head
+p3413
+aVIron Tail
+p3414
+aVKnock Off
+p3415
+aVLava Plume
+p3416
+aVLeaf Storm
+p3417
+aVLeech Seed
+p3418
+aVLight Screen
+p3419
+aVLow Kick
+p3420
+aVLow Sweep
+p3421
+aVMach Punch
+p3422
+aVMagma Storm
+p3423
+aVMagnet Rise
+p3424
+aVMegahorn
+p3425
+aVMemento
+p3426
+ag2436
+aVMeteor Mash
+p3427
+aVMirror Coat
+p3428
+aVMoonblast
+p3429
+aVMoonlight
+p3430
+aVNasty Plot
+p3431
+aVNatural Gift
+p3432
+aVNuzzle
+p3433
+aVOutrage
+p3434
+aVOverheat
+p3435
+aVPain Split
+p3436
+aVPerish Song
+p3437
+aVPin Missile
+p3438
+aVPlay Rough
+p3439
+aVPoison Jab
+p3440
+aVPower Whip
+p3441
+aVPower-Up Punch
+p3442
+aVProtect
+p3443
+aVPsychic
+p3444
+aVPsycho Cut
+p3445
+aVPsyshock
+p3446
+aVPursuit
+p3447
+aVQuick Attack
+p3448
+aVQuiver Dance
+p3449
+aVRain Dance
+p3450
+aVRapid Spin
+p3451
+aVRazor Shell
+p3452
+aVRecover
+p3453
+aVReflect
+p3454
+aVReflect Type
+p3455
+aVRefresh
+p3456
+aVRelic Song
+p3457
+aVRest
+p3458
+aVReturn
+p3459
+aVReversal
+p3460
+aVRoar
+p3461
+aVRock Blast
+p3462
+ag2487
+aVRock Polish
+p3463
+aVRock Slide
+p3464
+aVRock Tomb
+p3465
+aVRoost
+p3466
+aVSacred Fire
+p3467
+aVScald
+p3468
+aVSecret Sword
+p3469
+aVSeed Bomb
+p3470
+aVSeismic Toss
+p3471
+aVShadow Ball
+p3472
+aVShadow Sneak
+p3473
+aVShell Smash
+p3474
+ag2506
+aVSignal Beam
+p3475
+aVSkill Swap
+p3476
+aVSlack Off
+p3477
+aVSleep Powder
+p3478
+aVSleep Talk
+p3479
+aVSludge Bomb
+p3480
+aVSludge Wave
+p3481
+aVSmack Down
+p3482
+aVSoft-Boiled
+p3483
+aVSolar Beam
+p3484
+aVSpikes
+p3485
+aVSpiky Shield
+p3486
+aVSpore
+p3487
+aVStealth Rock
+p3488
+aVSteel Wing
+p3489
+aVSticky Web
+p3490
+aVStockpile
+p3491
+aVStone Edge
+p3492
+aVStored Power
+p3493
+aVSubstitute
+p3494
+aVSucker Punch
+p3495
+aVSuper Fang
+p3496
+aVSuperpower
+p3497
+aVSurf
+p3498
+aVSwords Dance
+p3499
+aVSynthesis
+p3500
+aVTail Glow
+p3501
+aVTailwind
+p3502
+aVTaunt
+p3503
+aVThunder
+p3504
+aVThunder Punch
+p3505
+aVThunder Wave
+p3506
+aVThunderbolt
+p3507
+aVToxic
+p3508
+aVToxic Spikes
+p3509
+ag2550
+aVTrick
+p3510
+aVTrick Room
+p3511
+aVU-turn
+p3512
+aVV-create
+p3513
+aVVacuum Wave
+p3514
+aVVolt Switch
+p3515
+aVWaterfall
+p3516
+aVWhirlwind
+p3517
+aVWild Charge
+p3518
+aVWill-O-Wisp
+p3519
+aVWish
+p3520
+aVZen Headbutt
+p3521
+atp3522
+bsbag1
+(g2
+g3
+Ntp3523
+Rp3524
+(dp3525
+g7
+g8
+(g9
+(I0
+tp3526
+g11
+tp3527
+Rp3528
+(I1
+(I14
+tp3529
+g18
+I00
+(lp3530
+I00
+aI01
+aVCalm Mind
+p3531
+aVClose Combat
+p3532
+aVDragon Dance
+p3533
+aVEarthquake
+p3534
+ag2595
+ag2601
+aVMoonblast
+p3535
+ag2607
+aVRoost
+p3536
+aVScald
+p3537
+aVSwords Dance
+p3538
+aVWill-O-Wisp
+p3539
+atp3540
+bsbag1
+(g2
+g3
+Ntp3541
+Rp3542
+(dp3543
+g7
+g8
+(g9
+(I0
+tp3544
+g11
+tp3545
+Rp3546
+(I1
+(I18
+tp3547
+g18
+I00
+(lp3548
+g22
+ag2949
+ag772
+ag25
+ag2632
+aVFighting
+p3549
+aVFire
+p3550
+ag1362
+ag30
+aVGrass
+p3551
+aVGround
+p3552
+aVIce
+p3553
+ag34
+ag35
+ag780
+ag781
+ag38
+ag1088
+atp3554
+bsbag1
+(g2
+g3
+Ntp3555
+Rp3556
+(dp3557
+g7
+g8
+(g9
+(I0
+tp3558
+g11
+tp3559
+Rp3560
+(I1
+(I17
+tp3561
+g18
+I00
+(lp3562
+I0
+ag49
+ag480
+ag51
+ag481
+aVFire
+p3563
+ag2644
+ag55
+ag56
+ag57
+ag794
+ag795
+ag1376
+ag1654
+ag1103
+ag1379
+aVWater
+p3564
+atp3565
+bsbag1
+(g2
+g3
+Ntp3566
+Rp3567
+(dp3568
+g7
+g8
+(g9
+(I0
+tp3569
+g11
+tp3570
+Rp3571
+(I1
+(I2
+tp3572
+g18
+I00
+(lp3573
+I0
+ag74
+atp3574
+bsbag1
+(g2
+g3
+Ntp3575
+Rp3576
+(dp3577
+g7
+g8
+(g9
+(I0
+tp3578
+g11
+tp3579
+Rp3580
+(I1
+(I2
+tp3581
+g85
+I00
+S'\x00\x01'
+p3582
+tp3583
+bsbag1
+(g2
+g3
+Ntp3584
+Rp3585
+(dp3586
+g7
+g8
+(g9
+(I0
+tp3587
+g11
+tp3588
+Rp3589
+(I1
+(I2
+tp3590
+g18
+I00
+(lp3591
+I0
+aVAqua Jet
+p3592
+atp3593
+bsbag1
+(g2
+g3
+Ntp3594
+Rp3595
+(dp3596
+g7
+g8
+(g9
+(I0
+tp3597
+g11
+tp3598
+Rp3599
+(I1
+(I224
+tp3600
+g18
+I00
+(lp3601
+I0
+aVAcid Spray
+p3602
+aVAcrobatics
+p3603
+aVAgility
+p3604
+aVAir Slash
+p3605
+aVAncient Power
+p3606
+aVAqua Jet
+p3607
+aVAqua Ring
+p3608
+aVAqua Tail
+p3609
+aVAromatherapy
+p3610
+aVAura Sphere
+p3611
+aVBaton Pass
+p3612
+aVBelly Drum
+p3613
+aVBlizzard
+p3614
+ag2284
+aVBody Slam
+p3615
+aVBolt Strike
+p3616
+aVBounce
+p3617
+aVBrave Bird
+p3618
+aVBrick Break
+p3619
+aVBug Bite
+p3620
+aVBug Buzz
+p3621
+aVBulk Up
+p3622
+aVBulldoze
+p3623
+aVBullet Punch
+p3624
+aVBullet Seed
+p3625
+aVCalm Mind
+p3626
+aVCharge Beam
+p3627
+ag2301
+aVClose Combat
+p3628
+aVConfuse Ray
+p3629
+ag2305
+aVCotton Guard
+p3630
+aVCounter
+p3631
+aVCrabhammer
+p3632
+aVCrunch
+p3633
+aVCurse
+p3634
+aVDark Pulse
+p3635
+aVDazzling Gleam
+p3636
+aVDefog
+p3637
+aVDestiny Bond
+p3638
+aVDiamond Storm
+p3639
+aVDischarge
+p3640
+aVDouble-Edge
+p3641
+aVDraco Meteor
+p3642
+ag2324
+aVDragon Claw
+p3643
+aVDragon Dance
+p3644
+aVDragon Pulse
+p3645
+aVDragon Tail
+p3646
+aVDrain Punch
+p3647
+aVDrill Run
+p3648
+aVDynamic Punch
+p3649
+ag2335
+aVEarth Power
+p3650
+aVEarthquake
+p3651
+aVEncore
+p3652
+aVEndeavor
+p3653
+aVEndure
+p3654
+aVEnergy Ball
+p3655
+aVExplosion
+p3656
+aVExtrasensory
+p3657
+aVExtreme Speed
+p3658
+aVFacade
+p3659
+ag2348
+aVFake Out
+p3660
+ag2350
+aVFiery Dance
+p3661
+aVFire Blast
+p3662
+aVFire Fang
+p3663
+aVFire Punch
+p3664
+aVFlame Charge
+p3665
+aVFlamethrower
+p3666
+aVFlare Blitz
+p3667
+aVFlash Cannon
+p3668
+aVFly
+p3669
+aVFocus Blast
+p3670
+ag2363
+aVFocus Punch
+p3671
+aVFoul Play
+p3672
+aVFreeze-Dry
+p3673
+aVFrustration
+p3674
+aVFusion Bolt
+p3675
+ag2373
+aVGiga Drain
+p3676
+aVGlaciate
+p3677
+aVGlare
+p3678
+aVGrass Knot
+p3679
+aVGunk Shot
+p3680
+aVGyro Ball
+p3681
+aVHammer Arm
+p3682
+aVHead Smash
+p3683
+aVHeal Bell
+p3684
+aVHealing Wish
+p3685
+aVHeart Stamp
+p3686
+aVHeat Wave
+p3687
+aVHeavy Slam
+p3688
+aVHex
+p3689
+aVHidden Power
+p3690
+aVHigh Jump Kick
+p3691
+ag2397
+aVHurricane
+p3692
+aVHydro Pump
+p3693
+aVHyper Voice
+p3694
+aVHyperspace Fury
+p3695
+aVHyperspace Hole
+p3696
+aVIce Beam
+p3697
+aVIce Fang
+p3698
+aVIce Punch
+p3699
+aVIce Shard
+p3700
+aVIcicle Crash
+p3701
+aVIcy Wind
+p3702
+ag2413
+aVIron Head
+p3703
+aVIron Tail
+p3704
+aVJump Kick
+p3705
+aVKnock Off
+p3706
+aVLava Plume
+p3707
+aVLeaf Blade
+p3708
+aVLeaf Storm
+p3709
+aVLeech Seed
+p3710
+aVLight Screen
+p3711
+aVLow Kick
+p3712
+aVLow Sweep
+p3713
+aVMach Punch
+p3714
+aVMagic Coat
+p3715
+aVMagma Storm
+p3716
+aVMagnet Rise
+p3717
+aVMegahorn
+p3718
+aVMemento
+p3719
+aVMetal Burst
+p3720
+aVMeteor Mash
+p3721
+aVMirror Coat
+p3722
+aVMoonblast
+p3723
+aVMoonlight
+p3724
+aVNasty Plot
+p3725
+aVNatural Gift
+p3726
+aVNight Slash
+p3727
+aVOutrage
+p3728
+aVOverheat
+p3729
+aVPain Split
+p3730
+ag2453
+aVPerish Song
+p3731
+aVPin Missile
+p3732
+aVPlay Rough
+p3733
+aVPoison Jab
+p3734
+aVPower Whip
+p3735
+aVPower-Up Punch
+p3736
+aVProtect
+p3737
+aVPsychic
+p3738
+aVPsyshock
+p3739
+aVPursuit
+p3740
+aVQuick Attack
+p3741
+aVQuiver Dance
+p3742
+aVRain Dance
+p3743
+aVRapid Spin
+p3744
+aVRecover
+p3745
+aVReflect
+p3746
+aVReflect Type
+p3747
+aVRelic Song
+p3748
+aVRest
+p3749
+aVReturn
+p3750
+aVReversal
+p3751
+aVRoar
+p3752
+aVRock Blast
+p3753
+aVRock Polish
+p3754
+aVRock Slide
+p3755
+aVRock Tomb
+p3756
+aVRoost
+p3757
+aVSacred Fire
+p3758
+ag2493
+aVScald
+p3759
+aVSecret Sword
+p3760
+aVSeed Bomb
+p3761
+aVSeed Flare
+p3762
+aVSeismic Toss
+p3763
+aVShadow Ball
+p3764
+aVShadow Claw
+p3765
+aVShadow Sneak
+p3766
+aVSkill Swap
+p3767
+aVSlack Off
+p3768
+aVSleep Powder
+p3769
+aVSleep Talk
+p3770
+aVSludge Bomb
+p3771
+aVSludge Wave
+p3772
+aVSmack Down
+p3773
+aVSnarl
+p3774
+aVSoft-Boiled
+p3775
+aVSolar Beam
+p3776
+aVSpikes
+p3777
+aVSpiky Shield
+p3778
+aVSpore
+p3779
+aVStealth Rock
+p3780
+aVSticky Web
+p3781
+aVStone Edge
+p3782
+aVStored Power
+p3783
+aVSubstitute
+p3784
+aVSucker Punch
+p3785
+aVSuperpower
+p3786
+aVSurf
+p3787
+aVSwitcheroo
+p3788
+aVSwords Dance
+p3789
+aVSynthesis
+p3790
+aVTail Glow
+p3791
+aVTailwind
+p3792
+aVTaunt
+p3793
+aVThunder
+p3794
+aVThunder Punch
+p3795
+aVThunder Wave
+p3796
+aVThunderbolt
+p3797
+aVToxic
+p3798
+aVToxic Spikes
+p3799
+aVTrick
+p3800
+aVTrick Room
+p3801
+aVU-turn
+p3802
+aVV-create
+p3803
+aVVolt Switch
+p3804
+aVWaterfall
+p3805
+aVWhirlwind
+p3806
+aVWill-O-Wisp
+p3807
+aVWing Attack
+p3808
+aVWish
+p3809
+aVX-Scissor
+p3810
+aVZen Headbutt
+p3811
+atp3812
+bsbag1
+(g2
+g3
+Ntp3813
+Rp3814
+(dp3815
+g7
+g8
+(g9
+(I0
+tp3816
+g11
+tp3817
+Rp3818
+(I1
+(I12
+tp3819
+g18
+I00
+(lp3820
+I00
+aI01
+aVCalm Mind
+p3821
+aVDiamond Storm
+p3822
+aVDragon Dance
+p3823
+ag2591
+ag2602
+aVPsychic
+p3824
+aVRock Polish
+p3825
+aVRoost
+p3826
+aVScald
+p3827
+aVSwords Dance
+p3828
+atp3829
+bsbag1
+(g2
+g3
+Ntp3830
+Rp3831
+(dp3832
+g7
+g8
+(g9
+(I0
+tp3833
+g11
+tp3834
+Rp3835
+(I1
+(I18
+tp3836
+g18
+I00
+(lp3837
+g770
+ag2949
+aVDragon
+p3838
+ag25
+ag774
+ag27
+ag28
+ag1641
+ag30
+ag1083
+ag3552
+ag1363
+ag34
+ag35
+aVPsychic
+p3839
+ag781
+ag38
+ag1088
+atp3840
+bsbag1
+(g2
+g3
+Ntp3841
+Rp3842
+(dp3843
+g7
+g8
+(g9
+(I0
+tp3844
+g11
+tp3845
+Rp3846
+(I1
+(I17
+tp3847
+g18
+I00
+(lp3848
+I0
+ag49
+ag480
+ag51
+ag481
+aVFire
+p3849
+ag1374
+ag55
+ag56
+ag1099
+ag58
+ag795
+aVPoison
+p3850
+ag1654
+ag1103
+aVSteel
+p3851
+ag3270
+atp3852
+bsbag1
+(g2
+g3
+Ntp3853
+Rp3854
+(dp3855
+g7
+g8
+(g9
+(I0
+tp3856
+g11
+tp3857
+Rp3858
+(I1
+(I2
+tp3859
+g18
+I00
+(lp3860
+I0
+ag74
+atp3861
+bsbag1
+(g2
+g3
+Ntp3862
+Rp3863
+(dp3864
+g7
+g8
+(g9
+(I0
+tp3865
+g11
+tp3866
+Rp3867
+(I1
+(I2
+tp3868
+g85
+I00
+S'\x00\x01'
+p3869
+tp3870
+bsbag1
+(g2
+g3
+Ntp3871
+Rp3872
+(dp3873
+g7
+g8
+(g9
+(I0
+tp3874
+g11
+tp3875
+Rp3876
+(I1
+(I231
+tp3877
+g18
+I00
+(lp3878
+I0
+aVAcid Spray
+p3879
+aVAcrobatics
+p3880
+ag2269
+aVAgility
+p3881
+aVAir Slash
+p3882
+aVAmnesia
+p3883
+aVAncient Power
+p3884
+aVAqua Jet
+p3885
+aVAqua Tail
+p3886
+aVAromatherapy
+p3887
+aVAura Sphere
+p3888
+aVBaton Pass
+p3889
+aVBelly Drum
+p3890
+ag2283
+aVBody Slam
+p3891
+aVBoomburst
+p3892
+aVBounce
+p3893
+aVBrave Bird
+p3894
+aVBrick Break
+p3895
+aVBug Bite
+p3896
+aVBug Buzz
+p3897
+aVBulk Up
+p3898
+aVBulldoze
+p3899
+aVBullet Punch
+p3900
+aVBullet Seed
+p3901
+aVCalm Mind
+p3902
+aVCharge Beam
+p3903
+ag2300
+aVClear Smog
+p3904
+aVClose Combat
+p3905
+aVCoil
+p3906
+aVCounter
+p3907
+aVCross Poison
+p3908
+aVCrunch
+p3909
+aVCurse
+p3910
+aVDark Pulse
+p3911
+aVDazzling Gleam
+p3912
+aVDefog
+p3913
+aVDestiny Bond
+p3914
+aVDiamond Storm
+p3915
+aVDischarge
+p3916
+aVDoom Desire
+p3917
+ag2321
+aVDraco Meteor
+p3918
+aVDragon Claw
+p3919
+aVDragon Dance
+p3920
+aVDragon Pulse
+p3921
+aVDragon Rush
+p3922
+aVDragon Tail
+p3923
+aVDrain Punch
+p3924
+aVDrill Run
+p3925
+aVEarth Power
+p3926
+aVEarthquake
+p3927
+aVEncore
+p3928
+aVEndeavor
+p3929
+aVEndure
+p3930
+aVEnergy Ball
+p3931
+aVEruption
+p3932
+aVExplosion
+p3933
+aVExtrasensory
+p3934
+aVExtreme Speed
+p3935
+ag2346
+aVFacade
+p3936
+aVFairy Lock
+p3937
+aVFake Out
+p3938
+aVFiery Dance
+p3939
+aVFinal Gambit
+p3940
+aVFire Blast
+p3941
+aVFire Fang
+p3942
+aVFire Punch
+p3943
+aVFlame Charge
+p3944
+aVFlamethrower
+p3945
+aVFlare Blitz
+p3946
+aVFlash Cannon
+p3947
+aVFocus Blast
+p3948
+aVFocus Punch
+p3949
+aVForce Palm
+p3950
+aVFoul Play
+p3951
+aVFrustration
+p3952
+aVFusion Bolt
+p3953
+aVGiga Drain
+p3954
+aVGlaciate
+p3955
+aVGlare
+p3956
+aVGrass Knot
+p3957
+aVGunk Shot
+p3958
+aVGyro Ball
+p3959
+ag2384
+aVHammer Arm
+p3960
+aVHaze
+p3961
+aVHeal Bell
+p3962
+aVHeal Block
+p3963
+aVHealing Wish
+p3964
+aVHeart Stamp
+p3965
+aVHeat Wave
+p3966
+aVHex
+p3967
+aVHidden Power
+p3968
+aVHigh Jump Kick
+p3969
+aVHone Claws
+p3970
+aVHurricane
+p3971
+aVHydro Pump
+p3972
+aVHyper Voice
+p3973
+aVHyperspace Fury
+p3974
+aVHyperspace Hole
+p3975
+aVIce Beam
+p3976
+aVIce Fang
+p3977
+aVIce Punch
+p3978
+aVIce Shard
+p3979
+aVIcicle Crash
+p3980
+aVIcicle Spear
+p3981
+aVIcy Wind
+p3982
+aVIncinerate
+p3983
+ag2414
+aVIron Defense
+p3984
+aVIron Head
+p3985
+aVKnock Off
+p3986
+aVLava Plume
+p3987
+aVLeaf Storm
+p3988
+aVLeech Seed
+p3989
+aVLight Screen
+p3990
+ag2425
+aVLow Kick
+p3991
+ag2428
+aVMach Punch
+p3992
+aVMagma Storm
+p3993
+aVMagnet Rise
+p3994
+aVMegahorn
+p3995
+aVMemento
+p3996
+aVMetal Burst
+p3997
+aVMeteor Mash
+p3998
+aVMilk Drink
+p3999
+ag2439
+aVMirror Coat
+p4000
+aVMoonblast
+p4001
+aVMoonlight
+p4002
+aVMorning Sun
+p4003
+aVMuddy Water
+p4004
+aVNasty Plot
+p4005
+aVNatural Gift
+p4006
+aVNight Slash
+p4007
+aVOutrage
+p4008
+aVOverheat
+p4009
+aVPain Split
+p4010
+aVPin Missile
+p4011
+aVPlay Rough
+p4012
+aVPoison Jab
+p4013
+ag2460
+aVPower Whip
+p4014
+aVPower-Up Punch
+p4015
+aVProtect
+p4016
+aVPsychic
+p4017
+aVPsyshock
+p4018
+ag2468
+ag2469
+aVPursuit
+p4019
+aVQuick Attack
+p4020
+ag2472
+aVRain Dance
+p4021
+aVRapid Spin
+p4022
+aVRecover
+p4023
+aVReflect
+p4024
+aVReflect Type
+p4025
+aVRest
+p4026
+aVReturn
+p4027
+aVReversal
+p4028
+aVRoar
+p4029
+aVRock Blast
+p4030
+aVRock Polish
+p4031
+aVRock Slide
+p4032
+aVRock Tomb
+p4033
+aVRoost
+p4034
+aVSacred Fire
+p4035
+aVScald
+p4036
+ag2495
+ag2496
+aVSecret Sword
+p4037
+aVSeed Bomb
+p4038
+aVSeed Flare
+p4039
+aVSeismic Toss
+p4040
+aVShadow Ball
+p4041
+aVShadow Sneak
+p4042
+ag2611
+aVShell Smash
+p4043
+aVSignal Beam
+p4044
+aVSkill Swap
+p4045
+aVSlack Off
+p4046
+aVSleep Powder
+p4047
+aVSleep Talk
+p4048
+aVSludge Bomb
+p4049
+aVSludge Wave
+p4050
+aVSmack Down
+p4051
+aVSoft-Boiled
+p4052
+aVSolar Beam
+p4053
+aVSpikes
+p4054
+aVSpiky Shield
+p4055
+aVSpore
+p4056
+aVStealth Rock
+p4057
+aVSticky Web
+p4058
+aVStone Edge
+p4059
+aVStored Power
+p4060
+aVStun Spore
+p4061
+aVSubstitute
+p4062
+aVSucker Punch
+p4063
+aVSuperpower
+p4064
+aVSurf
+p4065
+aVSwitcheroo
+p4066
+aVSwords Dance
+p4067
+aVSynthesis
+p4068
+aVTail Glow
+p4069
+aVTailwind
+p4070
+aVTaunt
+p4071
+aVThunder
+p4072
+aVThunder Punch
+p4073
+aVThunder Wave
+p4074
+aVThunderbolt
+p4075
+ag2546
+aVToxic
+p4076
+aVToxic Spikes
+p4077
+aVTrick
+p4078
+aVTrick Room
+p4079
+aVU-turn
+p4080
+aVV-create
+p4081
+aVVacuum Wave
+p4082
+aVVolt Switch
+p4083
+aVWaterfall
+p4084
+aVWhirlwind
+p4085
+aVWill-O-Wisp
+p4086
+aVWish
+p4087
+ag2568
+aVYawn
+p4088
+aVZen Headbutt
+p4089
+atp4090
+bsbag1
+(g2
+g3
+Ntp4091
+Rp4092
+(dp4093
+g7
+g8
+(g9
+(I0
+tp4094
+g11
+tp4095
+Rp4096
+(I1
+(I12
+tp4097
+g18
+I00
+(lp4098
+I00
+aI01
+aVCalm Mind
+p4099
+aVDragon Dance
+p4100
+aVEarthquake
+p4101
+aVFake Out
+p4102
+ag2599
+aVMoonblast
+p4103
+aVRoost
+p4104
+ag2611
+ag2613
+ag2618
+atp4105
+bsbag1
+(g2
+g3
+Ntp4106
+Rp4107
+(dp4108
+g7
+g8
+(g9
+(I0
+tp4109
+g11
+tp4110
+Rp4111
+(I1
+(I18
+tp4112
+g18
+I00
+(lp4113
+g770
+ag2949
+ag1639
+ag773
+ag2632
+ag27
+ag28
+aVFlying
+p4114
+ag1642
+ag3551
+ag3552
+ag1363
+aVNormal
+p4115
+ag35
+ag36
+ag781
+ag38
+ag1918
+atp4116
+bsbag1
+(g2
+g3
+Ntp4117
+Rp4118
+(dp4119
+g7
+g8
+(g9
+(I0
+tp4120
+g11
+tp4121
+Rp4122
+(I1
+(I17
+tp4123
+g18
+I00
+(lp4124
+I0
+ag49
+ag480
+ag51
+aVFighting
+p4125
+ag53
+ag1652
+ag55
+aVGrass
+p4126
+ag1099
+ag794
+ag795
+ag1376
+ag1654
+ag1103
+ag63
+ag1656
+atp4127
+bsbag1
+(g2
+g3
+Ntp4128
+Rp4129
+(dp4130
+g7
+g8
+(g9
+(I0
+tp4131
+g11
+tp4132
+Rp4133
+(I1
+(I2
+tp4134
+g18
+I00
+(lp4135
+I0
+ag74
+atp4136
+bsbag1
+(g2
+g3
+Ntp4137
+Rp4138
+(dp4139
+g7
+g8
+(g9
+(I0
+tp4140
+g11
+tp4141
+Rp4142
+(I1
+(I2
+tp4143
+g85
+I00
+S'\x00\x01'
+p4144
+tp4145
+bsbag1
+(g2
+g3
+Ntp4146
+Rp4147
+(dp4148
+g7
+g8
+(g9
+(I0
+tp4149
+g11
+tp4150
+Rp4151
+(I1
+(I3
+tp4152
+g18
+I00
+(lp4153
+I0
+ag2253
+ag2256
+atp4154
+bsbag1
+(g2
+g3
+Ntp4155
+Rp4156
+(dp4157
+g7
+g8
+(g9
+(I0
+tp4158
+g11
+tp4159
+Rp4160
+(I1
+(I221
+tp4161
+g18
+I00
+(lp4162
+I0
+aVAcrobatics
+p4163
+aVAgility
+p4164
+aVAir Slash
+p4165
+aVAmnesia
+p4166
+aVAncient Power
+p4167
+aVAqua Jet
+p4168
+aVAqua Tail
+p4169
+aVAromatherapy
+p4170
+aVAura Sphere
+p4171
+aVAvalanche
+p4172
+aVBaton Pass
+p4173
+aVBelly Drum
+p4174
+aVBlizzard
+p4175
+aVBlue Flare
+p4176
+aVBody Slam
+p4177
+aVBolt Strike
+p4178
+aVBounce
+p4179
+aVBrave Bird
+p4180
+aVBug Bite
+p4181
+aVBug Buzz
+p4182
+aVBulk Up
+p4183
+ag2295
+aVBullet Punch
+p4184
+aVBullet Seed
+p4185
+aVCalm Mind
+p4186
+aVCharge Beam
+p4187
+aVClear Smog
+p4188
+aVClose Combat
+p4189
+aVCoil
+p4190
+aVCounter
+p4191
+aVCrunch
+p4192
+aVCurse
+p4193
+aVDark Pulse
+p4194
+aVDazzling Gleam
+p4195
+aVDefog
+p4196
+aVDestiny Bond
+p4197
+aVDiamond Storm
+p4198
+ag2318
+aVDischarge
+p4199
+aVDoom Desire
+p4200
+aVDouble-Edge
+p4201
+aVDraco Meteor
+p4202
+aVDragon Claw
+p4203
+aVDragon Dance
+p4204
+aVDragon Pulse
+p4205
+aVDragon Tail
+p4206
+aVDrain Punch
+p4207
+aVDrill Peck
+p4208
+aVEarth Power
+p4209
+aVEarthquake
+p4210
+aVEncore
+p4211
+aVEndeavor
+p4212
+aVEnergy Ball
+p4213
+aVExplosion
+p4214
+aVExtrasensory
+p4215
+aVExtreme Speed
+p4216
+aVFacade
+p4217
+aVFake Out
+p4218
+aVFiery Dance
+p4219
+aVFire Blast
+p4220
+aVFire Fang
+p4221
+aVFire Punch
+p4222
+aVFlamethrower
+p4223
+aVFlare Blitz
+p4224
+aVFlash Cannon
+p4225
+aVFly
+p4226
+aVFocus Blast
+p4227
+aVFocus Punch
+p4228
+aVFoul Play
+p4229
+aVFreeze-Dry
+p4230
+aVFrustration
+p4231
+aVFusion Bolt
+p4232
+aVGiga Drain
+p4233
+aVGiga Impact
+p4234
+aVGlaciate
+p4235
+aVGlare
+p4236
+aVGrass Knot
+p4237
+ag2380
+aVGunk Shot
+p4238
+aVGyro Ball
+p4239
+aVHammer Arm
+p4240
+aVHaze
+p4241
+aVHead Smash
+p4242
+aVHeal Bell
+p4243
+aVHeal Block
+p4244
+aVHealing Wish
+p4245
+aVHeart Stamp
+p4246
+aVHeat Wave
+p4247
+aVHex
+p4248
+aVHidden Power
+p4249
+aVHigh Jump Kick
+p4250
+aVHorn Leech
+p4251
+aVHurricane
+p4252
+aVHydro Pump
+p4253
+aVHyper Beam
+p4254
+aVHyper Voice
+p4255
+aVHyperspace Fury
+p4256
+aVHypnosis
+p4257
+aVIce Beam
+p4258
+aVIce Fang
+p4259
+aVIce Punch
+p4260
+aVIce Shard
+p4261
+aVIcicle Crash
+p4262
+aVIcicle Spear
+p4263
+aVIcy Wind
+p4264
+aVIron Defense
+p4265
+aVIron Head
+p4266
+aVIron Tail
+p4267
+aVKnock Off
+p4268
+aVLava Plume
+p4269
+aVLeaf Blade
+p4270
+aVLeaf Storm
+p4271
+aVLeech Seed
+p4272
+aVLight Screen
+p4273
+aVLow Kick
+p4274
+aVMach Punch
+p4275
+aVMagma Storm
+p4276
+aVMagnet Rise
+p4277
+aVMegahorn
+p4278
+aVMemento
+p4279
+aVMeteor Mash
+p4280
+aVMirror Coat
+p4281
+aVMoonblast
+p4282
+aVMoonlight
+p4283
+aVNasty Plot
+p4284
+aVNatural Gift
+p4285
+aVNight Slash
+p4286
+aVOutrage
+p4287
+aVOverheat
+p4288
+aVPain Split
+p4289
+aVPerish Song
+p4290
+aVPin Missile
+p4291
+aVPlay Rough
+p4292
+aVPoison Jab
+p4293
+aVPower Whip
+p4294
+aVPower-Up Punch
+p4295
+aVProtect
+p4296
+aVPsychic
+p4297
+aVPsyshock
+p4298
+aVPursuit
+p4299
+aVQuick Attack
+p4300
+aVQuiver Dance
+p4301
+aVRain Dance
+p4302
+aVRapid Spin
+p4303
+ag2475
+aVRecover
+p4304
+aVReflect
+p4305
+aVReflect Type
+p4306
+aVRest
+p4307
+aVReturn
+p4308
+aVRoar
+p4309
+aVRock Blast
+p4310
+aVRock Polish
+p4311
+aVRock Slide
+p4312
+aVRock Tomb
+p4313
+aVRoost
+p4314
+aVSacred Fire
+p4315
+aVSacred Sword
+p4316
+aVScald
+p4317
+aVSecret Sword
+p4318
+ag2498
+aVSeed Flare
+p4319
+aVSeismic Toss
+p4320
+aVShadow Ball
+p4321
+aVShadow Claw
+p4322
+aVShadow Sneak
+p4323
+ag2504
+aVShell Smash
+p4324
+aVSlack Off
+p4325
+aVSleep Powder
+p4326
+aVSleep Talk
+p4327
+aVSludge Bomb
+p4328
+aVSludge Wave
+p4329
+aVSmack Down
+p4330
+aVSnarl
+p4331
+aVSoft-Boiled
+p4332
+aVSolar Beam
+p4333
+aVSpikes
+p4334
+aVSpore
+p4335
+aVStealth Rock
+p4336
+ag2523
+aVSticky Web
+p4337
+aVStone Edge
+p4338
+aVStun Spore
+p4339
+aVSubstitute
+p4340
+aVSucker Punch
+p4341
+aVSuperpower
+p4342
+aVSurf
+p4343
+aVSwitcheroo
+p4344
+aVSwords Dance
+p4345
+aVSynthesis
+p4346
+aVTail Glow
+p4347
+aVTailwind
+p4348
+aVTaunt
+p4349
+aVThunder
+p4350
+aVThunder Punch
+p4351
+aVThunder Wave
+p4352
+aVThunderbolt
+p4353
+aVToxic
+p4354
+aVToxic Spikes
+p4355
+aVTransform
+p4356
+aVTri Attack
+p4357
+aVTrick
+p4358
+aVTrick Room
+p4359
+aVU-turn
+p4360
+ag2554
+aVV-create
+p4361
+ag2556
+aVVolt Switch
+p4362
+ag2558
+aVWaterfall
+p4363
+aVWhirlpool
+p4364
+aVWhirlwind
+p4365
+aVWild Charge
+p4366
+aVWill-O-Wisp
+p4367
+aVWish
+p4368
+aVWood Hammer
+p4369
+aVX-Scissor
+p4370
+ag2570
+aVZen Headbutt
+p4371
+atp4372
+bsbag1
+(g2
+g3
+Ntp4373
+Rp4374
+(dp4375
+g7
+g8
+(g9
+(I0
+tp4376
+g11
+tp4377
+Rp4378
+(I1
+(I14
+tp4379
+g18
+I00
+(lp4380
+I00
+aI01
+ag2583
+aVDragon Dance
+p4381
+aVEarthquake
+p4382
+ag2593
+ag2594
+aVFrustration
+p4383
+ag2596
+ag2606
+aVScald
+p4384
+ag2504
+aVSubstitute
+p4385
+aVWaterfall
+p4386
+atp4387
+bsbag1
+(g2
+g3
+Ntp4388
+Rp4389
+(dp4390
+g7
+g8
+(g9
+(I0
+tp4391
+g11
+tp4392
+Rp4393
+(I1
+(I2
+tp4394
+g85
+I00
+S'\x00\x01'
+p4395
+tp4396
+bsbag1
+(g2
+g3
+Ntp4397
+Rp4398
+(dp4399
+g7
+g8
+(g9
+(I0
+tp4400
+g11
+tp4401
+Rp4402
+(I1
+(I2
+tp4403
+g85
+I00
+S'\x00\x01'
+p4404
+tp4405
+bsba.

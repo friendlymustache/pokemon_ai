@@ -1,12 +1,8 @@
 *.pyc
+data/
 ./logs
-*.csv
-*.mtx
-*.bst
 *.clf
 *.tar
-*.tgz
-*.pickle
 ghostdriver.log
 __pycache__
 showdownai.egg-info
