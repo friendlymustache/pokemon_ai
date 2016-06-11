@@ -1,5 +1,5 @@
 # Building the project
-Please install all packages specified in requirements.txt.
+Please install all packages specified in requirements.txt. In addition to these, make sure you have numpy, scipy, pandas, sklearn, and xgboost. 
 
 # Running the bot
 Navigate to the root folder of the project. There are two options to run the bot:
