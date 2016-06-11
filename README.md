@@ -6,7 +6,7 @@ Navigate to the root folder of the project. There are two options to run the bot
 
 Command Line
 
-Run python showdownai/showdown.py with the desired options. For example:
+Run "python showdownai/showdown.py" with the desired options. For example:
 
 python showdownai/showdown.py --username 4ShadesOfBrown --password 4ShadesOfBrown --browser chrome teams/chris_volt.txt
 
