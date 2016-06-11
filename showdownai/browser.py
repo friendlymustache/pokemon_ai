@@ -228,17 +228,35 @@ class Selenium():
         mute.click()
 
     def get_my_primary(self):
-        img = self.driver.find_elements_by_css_selector(".battle img")[6]
-        text = img.get_attribute('src')
-        poke = text.split("/")[-1]
-        poke = poke[:-4]
+        elems = self.driver.find_elements_by_css_selector(".battle img")
+        count = 0
+        while len(elems) < 7 and count < 40:
+            elems = self.driver.find_elements_by_css_selector(".battle img")
+            time.sleep(1)
+            count += 1
+        try:
+            img = elems[6]
+            text = img.get_attribute('src')
+            poke = text.split("/")[-1]
+            poke = poke[:-4]
+        except:
+            poke = None
         return poke
 
     def get_opp_primary(self):
-        img = self.driver.find_elements_by_css_selector(".battle img")[5]
-        text = img.get_attribute('src')
-        poke = text.split("/")[-1]
-        poke = poke[:-4]
+        elems = self.driver.find_elements_by_css_selector(".battle img")
+        count = 0
+        while len(elems) < 7 and count < 40:
+            elems = self.driver.find_elements_by_css_selector(".battle img")
+            time.sleep(1)
+            count += 1
+        try:
+            img = elems[5]
+            text = img.get_attribute('src')
+            poke = text.split("/")[-1]
+            poke = poke[:-4]
+        except:
+            poke = None
         return poke
 
     def move(self, index, backup_switch, mega=False, volt_turn=None):
@@ -248,7 +266,16 @@ class Selenium():
             if mega:
                 mega_button = self.driver.find_element_by_name('megaevo')
                 mega_button.click()
-            moves = self.driver.find_elements_by_css_selector(".movemenu button")
+            moves = []
+            count = 0
+            while moves == [] and count < 40:
+                print "Trying to find move buttons"
+                moves = self.driver.find_elements_by_name("chooseMove")
+                time.sleep(1)
+                count+=1
+            if index < 0 or index > len(moves) - 1:
+                print "Index out of bounds", index
+                index = 0
             move = moves[index]
             move.click()
             if volt_turn is not None:

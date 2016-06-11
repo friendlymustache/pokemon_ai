@@ -9,3 +9,6 @@ class TierException(ShowdownException):
 
 class GameOverException(ShowdownException):
     pass
+
+if __name__ == "__main__":
+    pass

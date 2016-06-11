@@ -1,14 +1,17 @@
+import sys
+import os
+sys.path.append(os.path.abspath('./'))
 from smogon import SmogonMoveset
 from team import Team, Pokemon
 from browser import Selenium
 from log import SimulatorLog
+from agent import MonteCarloAgent
 from simulator import Simulator
 from gamestate import GameState
-from agent import PessimisticMinimaxAgent
 from data import NAME_CORRECTIONS, MOVE_CORRECTIONS, load_data, get_move, correct_name, get_hidden_power
 from move_predict import create_predictor
 from path import Path
-from exceptions import *
+from showdownai.exceptions import GameOverException, TierException, UserNotOnlineException
 from state import KernelState
 import time
 
@@ -99,7 +102,7 @@ class Showdown():
                 moveset = SmogonMoveset.from_dict(moveset[0])
             else:
                 moveset = SmogonMoveset(None, None, None, {'hp': 88, 'patk': 84, 'pdef': 84, 'spatk': 84, 'spdef': 84, 'spe': 84}, {'hp': 1.0, 'patk': 1.0, 'pdef': 1.0, 'spatk': 1.0, 'spdef': 1.0, 'spe': 1.0}, None, 'ou')
-            moveset.moves = None
+            moveset.moves = []
             if poke_name in self.smogon_data:
                 typing = self.smogon_data[poke_name].typing
                 stats = self.smogon_data[poke_name].stats
@@ -111,8 +114,8 @@ class Showdown():
                 stats = {'hp': 80, 'patk': 80, 'pdef': 80, 'spatk': 80, 'spdef': 80, 'spe': 80}
             predictor = create_predictor(self.predictor_name, name, self.pokedata)
             poke = Pokemon(name, typing, stats, moveset, predictor, calculate=True)
-            moves = [x[0] for x in poke.predict_moves([])]
-            poke.moveset.moves = moves[:4]
+            #moves = [x[0] for x in poke.predict_moves([])]
+            #poke.moveset.moves = moves[:4]
             poke.health = poke.final_stats['hp']
             poke.alive = True
             opp_poke_list.append(poke)
@@ -162,7 +165,11 @@ class Showdown():
             else:
                 buffer.append(line)
         my_poke_name = self.selenium.get_my_primary()
+        if my_poke_name == None:
+            my_poke_name = gamestate.get_team(0).primary().name
         opp_poke_name = self.selenium.get_opp_primary()
+        if opp_poke_name == None:
+            opp_poke_name = gamestate.get_team(1).primary().name
 
         old_gamestate = gamestate
         gamestate = gamestate.deep_copy()
@@ -259,7 +266,7 @@ class Showdown():
                 print "=========================================================================================="
                 print "My primary:", gamestate.get_team(0).primary()
                 print "Their primary:", gamestate.get_team(1).primary()
-                print "Their moves: ", gamestate.get_team(1).primary().moveset.moves
+                print "Their moves: ", gamestate.get_team(1).primary().moveset.known_moves
                 print "Their item: ", gamestate.get_team(1).primary().item
                 print "Their ability: ", gamestate.get_team(1).primary().ability
                 print "My move:",
@@ -397,21 +404,15 @@ def main():
 
 
     pokedata = load_data(args.data_dir)
-
     showdown = Showdown(
         team_text,
-        OptimisticMinimax(2, pokedata),
+        MonteCarloAgent(20, pokedata),
         args.username,
         pokedata,
-        password=args.password,
-        proxy=args.proxy,
         browser=args.browser,
-        monitor_url=args.monitor_url,
-        predictor_name=args.predictor,
-        verbose=args.verbose,
-        data_dir=args.data_dir,
-        lib_dir=args.lib_dir,
-        kernel_dir=args.kernel_dir,
-        kernel=args.kernel
+        password=args.password,
     )
     showdown.run(args.iterations, challenge=args.challenge)
+
+
+main()

@@ -77,7 +77,7 @@ class DamagingMove(Move):
         abs_def_buffs = 1.0 + 0.5 * abs(defender.get_stage(defs))
         atk_stage_multiplier = abs_atk_buffs if attacker.get_stage(atks) > 0 else 1 / abs_atk_buffs
         def_stage_multiplier = abs_def_buffs if defender.get_stage(defs) > 0 else 1 / abs_def_buffs
-        type = 1
+        def_type = 1
         move_type = self.type
         name = self.name
         power = self.power(gamestate, who)
@@ -144,12 +144,14 @@ class DamagingMove(Move):
             defender.increase_stage('spe', 1)
         if move_type == "Fire" and defender.ability == "Flash Fire":
             other *= 0
+        if move_type == "Electric" and "Ground" in defender.typing:
+            other *= 0
         type_multipliers = [get_multiplier(x, move_type, attacker.ability=="Scrappy") for x in defender.typing]
         for x in type_multipliers:
-            type *= x
+            def_type *= x
         critical = 1
         r = 1
-        modifier = stab * type * critical * other * r
+        modifier = stab * def_type * critical * other * r
         if attacker.ability == "Huge Power" or attacker.ability == "Pure Power":
             attack *= 2
         damage = (((42.0) * attack/defense * power)/50 + 2) * modifier

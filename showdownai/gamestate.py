@@ -3,6 +3,12 @@ from simulator import Action
 from type import get_multiplier
 from data import MOVES
 import logging
+import sys
+from compiler.ast import flatten
+from feature_encoders import GamestateEncoder
+import numpy
+import scipy.sparse as sp
+import random
 logging.basicConfig()
 
 class GameState():
@@ -36,8 +42,38 @@ class GameState():
     def get_team(self, team):
         return self.teams[team]
 
-    def to_list(self):
-        return self.teams[0].to_list() + self.teams[1].to_list() + [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
+    def validate_teams(self):
+        while len(self.teams[1].poke_list) < 6:
+            self.teams[1].poke_list.append(self.teams[1].poke_list[-1])
+        return len(self.teams[0].poke_list) == 6 and len(self.teams[1].poke_list) == 6
+    
+    def to_encoded_list(self, label_encoders, cats, turn_num, player_num):
+        dense_data, sparse_data = self.to_list()
+        dense_data = [0 if elm is None else elm for elm in dense_data]
+        dense_data.append(turn_num)
+        dense_data.append(player_num)
+        for i in range(len(cats)):
+            try:
+                dense_data[cats[i]] = label_encoders[i].transform([dense_data[cats[i]]])[0]
+            except:
+                dense_data[cats[i]] = 0
+        return sp.hstack((dense_data, sparse_data), format='csc')
+
+    def to_list(self, encoder=None):
+
+        if encoder==None:
+            encoder = GamestateEncoder()
+        
+        if not self.validate_teams():
+            return False
+
+        first_team_dense, first_team_sparse = self.teams[0].to_list(encoder=encoder)
+        second_team_dense, second_team_sparse = self.teams[1].to_list(encoder=encoder)
+        additional_state = [self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]]
+        dense_data = [first_team_dense, second_team_dense, additional_state]
+
+        return (flatten(dense_data), sp.hstack([first_team_sparse, second_team_sparse]))
+
 
     def to_tuple(self):
         return (tuple(x.to_tuple() for x in self.teams), (self.rocks[0], self.rocks[1], self.spikes[0], self.spikes[1]))
@@ -45,6 +81,12 @@ class GameState():
     @staticmethod
     def from_tuple(tupl):
         return GameState([team.from_tuple() for team in tupl[0]])
+
+    def value_function(self, classifier, turn_num, player_num):
+        prob = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0]
+        if player_num == 0:
+            prob = 1.0-prob
+        return prob
 
     def evaluate(self, who):
         win_bonus = 0
@@ -105,12 +147,14 @@ class GameState():
 	my_poke.reset_encore()
         opp_poke = opp_team.primary()
         if log:
-            print (
-                "%s switched in." % my_poke
-            )
+            pass
+            # print (
+            #     "%s switched in." % my_poke
+            # )
         if my_poke.ability == "Intimidate":
             if log:
-                print ("%s got intimidated." % opp_poke)
+                pass
+                # print ("%s got intimidated." % opp_poke)
             opp_poke.decrease_stage('patk', 1)
         if self.rocks[who] and hazards:
             type = 1.0
@@ -120,7 +164,8 @@ class GameState():
             damage = 1.0 / 8 * type
             d = my_poke.damage_percent(damage)
             if log:
-                print "%s was damaged %f due to rocks!" % (my_poke, d)
+                pass
+                # print "%s was damaged %f due to rocks!" % (my_poke, d)
             if self.spikes[who] > 0 and "Flying" not in my_poke.typing and my_poke.ability != "Levitate":
                 if self.spikes[who] == 1:
                     d = my_poke.damage_percent(1.0 / 8)
@@ -129,9 +174,109 @@ class GameState():
                 elif self.spikes[who] == 3:
                     d = my_poke.damage_percent(1.0 / 4)
                 if log:
-                    print "%s was damaged %f due to spikes!" % (my_poke, d)
+                    pass
+                    # print "%s was damaged %f due to spikes!" % (my_poke, d)
 
 
+    def get_legal_actions_probs(self, classifier, turn_num, player_num, log=False, probs=True):
+        my_team = self.get_team(player_num)
+        my_poke = my_team.primary()
+        opp_team = self.get_team(1 - player_num)
+        opp_poke = opp_team.primary()
+        mega = my_poke.can_evolve()
+
+        pokemon = range(len(my_team.poke_list))
+        valid_switches = [i for i in pokemon if my_team.poke_list[i].alive and i != my_team.primary_poke]
+        valid_backup_switches = valid_switches + [my_team.primary_poke]
+        if len(valid_switches) == 0:
+            valid_switches = [None]
+
+        move_names = []
+        move_probs = []
+        if probs:
+            classifier_probs = classifier.predict(self.to_encoded_list(classifier.feature_label_encoders, classifier.cat_indices, turn_num, player_num))[0, :]
+        else:
+            classifier_probs = numpy.ones(681)
+        if my_poke.choiced and my_poke.move_choice != None:
+            move_names = [my_poke.move_choice]
+            move_probs = numpy.ones(1)
+        elif len(my_poke.moveset.known_moves) < 4:
+            move_names = classifier.move_names
+            move_probs = classifier_probs[classifier.move_indices]
+        else:
+            move_names = my_poke.moveset.known_moves
+            my_move_indices = numpy.array([classifier.move_dict[move] if move in classifier.move_dict else 0 for move in move_names])
+            move_probs = classifier_probs[my_move_indices]
+
+        move_probs = numpy.repeat(move_probs, len(valid_switches))
+        moves = []
+        for i in range(len(move_names)):
+            move_name = move_names[i]
+            if move_name in my_poke.moveset.known_moves:
+                move_index = my_poke.moveset.known_moves.index(move_name)
+            else:
+                move_index = -1
+            if move_name == "U-turn" or move_name == "Volt Switch":
+                if valid_switches[0] == None:
+                    moves.append(
+                        Action(
+                            "move",
+                            move_index=move_index,
+                            mega=mega,
+                            volt_turn=None,
+                            backup_switch=None,
+                            move_name=move_name
+                        )
+                    )
+                else:
+                    switches = valid_backup_switches[:]
+                    for a in xrange(1, len(switches)):
+                            b = random.choice(xrange(0, a))
+                            switches[a], switches[b] = switches[b], switches[a]
+                    moves.extend([
+                        Action("move", move_index=move_index, mega=mega, volt_turn=valid_switches[j], backup_switch=switches[j], move_name=move_name)
+                        for j in range(len(valid_switches))
+                    ])
+            else:
+                moves.extend([
+                    Action("move", move_index=move_index, mega=mega, backup_switch=j, move_name=move_name)
+                    for j in valid_switches
+                ])
+
+        switches = [Action("switch", switch_index=i, backup_switch=j) for i in valid_switches for j in valid_backup_switches if j != i and i is not None]
+        if valid_switches == [None]:
+            switch_probs = []
+        elif probs:
+            switch_indices = numpy.array([classifier.pokemon_dict[my_team.poke_list[i].name] if my_team.poke_list[i].name in classifier.pokemon_dict else 0 for i in valid_switches])
+            switch_probs = numpy.repeat(classifier_probs[switch_indices], len(valid_backup_switches)-1)
+        else:
+            switch_probs = numpy.ones(len(switches))
+
+
+        if opp_poke.ability == "Magnet Pull" and "Steel" in my_poke.typing and "Ghost" not in my_poke.typing:
+            switches = []
+            switch_probs = []
+        elif opp_poke.ability == "Shadow Tag" and "Ghost" not in my_poke.typing:
+            switches = []
+            switch_probs = []
+        elif opp_poke.ability == "Arena Trap" and "Ghost" not in my_poke.typing and "Flying" not in my_poke.typing:
+            switches = []
+        if my_poke.taunt:
+            moves = [move for move in moves if MOVES[move.move_name].category != "Non-Damaging"]
+            indices = numpy.array([i for i in range(len(moves)) if MOVES[move.move_name].category != "Non-Damaging"])
+            move_probs = move_probs[indices]
+        if my_poke.disabled is not None:
+            moves = [move for move in moves if move.move_name != my_poke.disabled]
+            indices = [i for i in range(len(moves)) if move.move_name != my_poke.disabled]
+            move_probs = move_probs[indices]
+        if my_poke.encore:
+            moves = [move for move in moves if move.move_name == my_poke.last_move]
+            indices = [i for i in range(len(moves)) if move.move_name == my_poke.last_move]
+
+        total = moves+switches
+        total_probs = numpy.hstack((move_probs, switch_probs))
+        total_probs /= numpy.sum(total_probs)
+        return (total, total_probs)
 
     def get_legal_actions(self, who, log=False):
         my_team = self.get_team(who)

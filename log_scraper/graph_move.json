@@ -1,0 +1,18 @@
+{
+    "cooccurences": {
+        "Pikachu": {
+            "Return": {
+                "Struggle": 1
+            },
+            "Struggle": {
+                "Return": 1
+            }
+        }
+    },
+    "frequencies": {
+        "Pikachu": {
+            "Return": 1,
+            "Struggle": 1
+        }
+    }
+}

@@ -4,6 +4,10 @@ import re
 from mega_items import mega_items
 from math import floor
 from operator import itemgetter
+import math
+import sys
+from compiler.ast import flatten
+import scipy.sparse as sp
 
 import logging
 logging.basicConfig()
@@ -85,29 +89,29 @@ class Pokemon():
             logging.debug("%s has Competitive and sharply increased special attack." % self)
 
     def meloetta_evolve(self):
-        assert self.name == "Meloetta"
-        if "Psychic" in self.typing:
-            stats = {
-                "hp": 100,
-                "patk": 128,
-                "pdef": 90,
-                "spatk": 77,
-                "spdef": 77,
-                "spe": 128
-            }
-            typing = ['Normal', 'Fighting']
-        elif "Fighting" in self.typing:
-            stats = {
-                "hp": 100,
-                "patk": 77,
-                "pdef": 77,
-                "spatk": 128,
-                "spdef": 128,
-                "spe": 90
-            }
-            typing = ['Normal', 'Psychic']
-        self.set_stats(stats)
-        self.typing = typing
+        if self.name == "Meloetta":
+            if "Psychic" in self.typing:
+                stats = {
+                    "hp": 100,
+                    "patk": 128,
+                    "pdef": 90,
+                    "spatk": 77,
+                    "spdef": 77,
+                    "spe": 128
+                }
+                typing = ['Normal', 'Fighting']
+            elif "Fighting" in self.typing:
+                stats = {
+                    "hp": 100,
+                    "patk": 77,
+                    "pdef": 77,
+                    "spatk": 128,
+                    "spdef": 128,
+                    "spe": 90
+                }
+                typing = ['Normal', 'Psychic']
+            self.set_stats(stats)
+            self.typing = typing
 
     def meloetta_reset(self):
         stats = {
@@ -201,8 +205,9 @@ class Pokemon():
         return self.predictor(known_moves)
 
     def copy(self):
+        moveset = smogon.SmogonMoveset.from_dict(self.moveset.to_dict())
         poke = Pokemon(self.name, self.typing[:],
-                       self.stats, self.moveset, self.predictor,
+                       self.stats, moveset, self.predictor,
                        status=self.status, taunt=self.taunt, disabled=self.disabled, last_move=self.last_move, encore=self.encore, alive=self.alive,
                        calculate=False, old_typing=self.old_typing)
         poke.final_stats = self.final_stats
@@ -216,11 +221,28 @@ class Pokemon():
             poke.move_choice = self.move_choice
         return poke
     
-    def to_list(self):
-        return [self.name, self.item, self.health] + self.typing + [None]*(2-len(self.typing)) + [self.status, self.taunt, self.disabled, self.last_move, self.encore] + self.moveset.known_moves + [None]*(4-len(self.moveset.known_moves)) + self.moveset.moves + map(itemgetter(1), sorted(self.stats.items())) + map(itemgetter(1), sorted(self.stages.items())) 
+    def to_list(self, encoder=None):
+        basic_info = flatten([[self.health], 
+            self.typing, [None] * (2 - len(self.typing)), 
+            [self.status, self.taunt, self.disabled, self.last_move, self.encore]])
+
+        #moveset = flatten([self.moveset.moves, self.moveset.known_moves])
+
+        # other_info = (map(itemgetter(1), sorted(self.stats.items())) 
+        #     + map(itemgetter(1), sorted(self.stages.items())))
+        other_info = []
+
+        # If we're passed an encoder, use it to encode the pokemon's moveset
+        # (e.g. one-hot encode the moves)
+        if encoder is not None:
+            # encoded_moves = encoder.encode_moveset(self.moveset.moves)
+            encoded_known_moves = encoder.encode_moveset(self.moveset.known_moves)
+            moveset = flatten([encoded_known_moves])
+
+        return (flatten([basic_info, other_info]), moveset)
 
     def to_tuple(self):
-        return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.last_move, self.encore, tuple(self.stages.values()))
+        return (self.name, self.item, self.health, tuple(self.typing), self.status, self.taunt, self.disabled, self.encore, tuple(self.stages.values()))
 
     def __repr__(self):
         return "%s(%u)" % (self.name, self.health)
@@ -235,12 +257,51 @@ class Team():
         team.primary_poke = self.primary_poke
         return team
 
+    def get_poke_index(self, poke_name):
+        '''
+        Given a pokemon name, returns the index of that pokemon within
+        the current team
+        '''
+        for idx, poke in enumerate(self.poke_list):
+            if poke.name == poke_name:
+                return idx
 
-    def to_list(self):
-        return [self.primary_poke, self.poke_list[self.primary_poke].name] + sum([x.to_list() for x in self.poke_list], [])
+
+    def to_list(self, encoder=None):
+        '''if encoder is not None:
+            primary_poke_name = encoder.encode_poke_name(self.poke_list[self.primary_poke].name)
+        else:
+            primary_poke_name = self.poke_list[self.primary_poke].name
+        primary_poke_info = [self.primary_poke, primary_poke_name]'''
+        
+        primary_poke = self.poke_list[self.primary_poke]
+        primary_poke_dense, primary_poke_moveset = primary_poke.to_list(encoder=encoder)
+        # Concatenate the (possibly-encoded) list representations of each pokemon
+        # in our team.   
+        dense_data = [primary_poke_dense]
+        sparse_data = [sp.csr_matrix(primary_poke_moveset)]
+
+        for poke in self.poke_list:
+            # Add (dense) list representation of pokemon to list of pokemon encodings            
+            dense_representation, moveset = poke.to_list(encoder=encoder)
+            dense_data.append(dense_representation)
+
+            # Convert moveset into a sparse csr matrix
+            # sparse_data.append(sp.csr_matrix(moveset))
+
+        # If encoder is provided, obtain a representation of the pokemon comprising
+        # the team from the encoder and prepend it to the team representation (e.g. a one-hot
+        # encoded representation of the team)
+        if encoder is not None:
+            names = [poke.name for poke in self.poke_list]
+            encoded_names = sp.csr_matrix(encoder.encode_team(names))
+            sparse_data.append(encoded_names)
+
+        
+        return (dense_data, sp.hstack(sparse_data))
 
     def to_tuple(self):
-        return (self.primary_poke, tuple(x.to_tuple() for x in self.poke_list))
+        return (self.primary().name, tuple(x.to_tuple() for x in self.poke_list))
 
     @staticmethod
     def from_tuple(tupl):
@@ -376,7 +437,7 @@ class Team():
                     evs['spe'] = spe
             nature = line[3][:-7]
             nature = Team.convert_nature(nature)
-            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, moves, tag=None)
+            moveset = smogon.SmogonMoveset(name, item, ability, evs, nature, [], tag=None, known_moves=moves)
             typing = data[name].typing
             stats = data[name].stats
             poke = Pokemon(name, typing, stats, moveset, None, calculate=True)

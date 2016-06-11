@@ -18,16 +18,18 @@ class ReplayDatabase(object):
         print "Connected to database at %s"%db_path
         try:
             c = self.conn.cursor()
+            c.execute("CREATE TABLE invalid_replays (replay_id TEXT PRIMARY KEY )")            
             c.execute("CREATE TABLE replay (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-                "replay_id TEXT NOT NULL UNIQUE, battle_log TEXT NOT NULL," + 
+                "replay_id TEXT NOT NULL UNIQUE, battle_log TEXT," + 
                 "username VARCHAR(100))")
             print "Created database for replays"
         except:
             pass
 
+
     def get_replay_count(self):
         c = self.conn.cursor()
-        counts = c.execute("SELECT COUNT(*) FROM replay").fetchone()
+        counts = c.execute("SELECT COUNT(DISTINCT replay_id) FROM replay").fetchone()
         return counts
 
     def get_replay_ids(self):
@@ -60,13 +62,31 @@ class ReplayDatabase(object):
         # Execute the query and return the results
         return c.execute(query_string).fetchall()
 
+    def should_scrape_replay(self, replay_id):
+        '''
+        Only scrape a replay if it hasn't been scraped yet, in which case
+        it won't be saved in either our table of valid replays or our table
+        of invalid replays
+        '''
+        if self.check_replay_exists(replay_id):
+            return False
+        c = self.conn.cursor()
+        is_invalid = c.execute("SELECT EXISTS(SELECT 1 FROM invalid_replays WHERE replay_id=? LIMIT 1)", [replay_id]).fetchone()
+        return not bool(is_invalid[0])
+
+
     def check_replay_exists(self, replay_id):
         c = self.conn.cursor()
         replay = c.execute("SELECT EXISTS(SELECT 1 FROM replay WHERE replay_id=? LIMIT 1)", [replay_id]).fetchone()
         return bool(replay[0])
 
 
+    def add_invalid_replay(self, replay_id):
+        c = self.conn.cursor()
+        c.execute("INSERT INTO invalid_replays (replay_id) VALUES (?)", [replay_id])
+
     def add_replay(self, replay_id, battle_log, username):
+        assert(battle_log is not None and len(battle_log) > 0)
         c = self.conn.cursor()
         c.execute("INSERT INTO replay (replay_id, battle_log, username) VALUES (?, ?, ?)", [replay_id, battle_log, username])
 

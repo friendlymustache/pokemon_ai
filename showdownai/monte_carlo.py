@@ -1,21 +1,26 @@
 import itertools
+from copy import deepcopy
 import numpy as np
 from operator import itemgetter
+from classifier import Classifier
 
 class MonteCarloTree():
-    def __init__(self):
+    def __init__(self, sl_files, rollout_files, value_files):
         self.root = None
+        self.sl_classifier = Classifier(sl_files[0], sl_files[1], sl_files[2], sl_files[3])
+        self.rollout_classifier = Classifier(rollout_files[0], rollout_files[1], rollout_files[2], rollout_files[3])
+        self.value_function = Classifier(value_files[0], value_files[1], value_files[2], value_files[3], True)
 
     def re_root(self, state):
         if (self.root == None):
             print "Created initial MCTS"
-            self.root = GameStateNode(state)
+            self.root = GameStateNode(state, self.sl_classifier, 0)
         elif (state.to_tuple() in self.root.children_gamestates):
             print "Found gamestate"
             self.root = self.root.children_gamestates[state.to_tuple()]
         else:
             print "Created new gamestate"
-            self.root = GameStateNode(state)
+            self.root = GameStateNode(state, self.sl_classifier, self.root.turn_num + 1)
 
     def select_add_actionpair(self):
         current = self.root
@@ -48,7 +53,7 @@ class MonteCarloTree():
         return new_actionpair
 
     def add_gamestate(self, actionpair_node, new_state): 
-        new_gamestate = GameStateNode(new_state, actionpair_node)
+        new_gamestate = GameStateNode(new_state, self.sl_classifier, actionpair_node.parent.turn_num + 1, actionpair_node)
         actionpair_node.children_gamestates.append(new_gamestate)
         return new_gamestate
 
@@ -63,10 +68,11 @@ class MonteCarloTree():
             # Update corresponding UCT score in previous GS node
             node = node.parent
             node.increment(outcome, ap)
-            for a in node.my_actions:
+            node.update_uct_scores((ap))
+            '''for a in node.my_actions:
                 node.update_uct_scores((a, None))
             for b in node.opp_actions:
-                node.update_uct_scores((None, b))
+                node.update_uct_scores((None, b))'''
 
     def best_move(self):
         best_action = max(self.root.my_actions, key=lambda i: self.root.my_actions_n[i][0] / self.root.my_actions_n[i][1])
@@ -87,20 +93,33 @@ class Node(object):
 
 
 class GameStateNode(Node):
-    def __init__(self, state, parent=None):
+    def __init__(self, state, sl_classifier, turn_num, parent=None):
         super(GameStateNode, self).__init__(parent)
 
         self.state = state
 
+        self.turn_num = turn_num
+
+        self.my_legal_actions_probs = state.get_legal_actions_probs(sl_classifier, turn_num, 0)
+        self.opp_legal_actions_probs = state.get_legal_actions_probs(sl_classifier, turn_num, 1)
+
         # Wins and number of times visited for all actions
         # {action : [wins, num_visited]}
-        self.my_actions_n = {a: [0.0, 0.0] for a in state.get_legal_actions(0)}
-        self.opp_actions_n = {b: [0.0, 0.0] for b in state.get_legal_actions(1)}
+        self.my_actions_n = {a: [0.0, 1.0] for a in self.my_legal_actions_probs[0]}
+        self.opp_actions_n = {b: [0.0, 1.0] for b in self.opp_legal_actions_probs[0]}
+
+        # print "Num my actions:", len(self.my_legal_actions_probs[0])
+        # print "Num opp actions:", len(self.opp_legal_actions_probs[0])
+
+        # Probabilities for each action
+        self.my_actions_p = dict(zip(self.my_legal_actions_probs[0], self.my_legal_actions_probs[1]*len(self.my_legal_actions_probs[0])))
+        self.opp_actions_p = dict(zip(self.opp_legal_actions_probs[0], self.opp_legal_actions_probs[1]*len(self.opp_legal_actions_probs[0])))
 
         # Our and our opponent's actions
         # {action : uct_score}
-        self.my_actions = {a : float("inf") for a in state.get_legal_actions(0)}
-        self.opp_actions = {b : float("inf") for b in state.get_legal_actions(1)}
+        # Initially the same my/opp_actions_p
+        self.my_actions = deepcopy(self.my_actions_p)
+        self.opp_actions = deepcopy(self.opp_actions_p)
 
         # Our (immediate) action pair children
         # {(my_action, opp_action) : action pair node}
@@ -129,17 +148,17 @@ class GameStateNode(Node):
         
         if my_action:
             my_n = self.my_actions_n[my_action][1]
-            if my_n > 0:
-                my_mean = self.my_actions_n[my_action][0] / my_n
-                my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
-                self.my_actions[my_action] = my_mean + my_explore
+            my_mean = self.my_actions_n[my_action][0] / my_n
+            my_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / my_n)
+            my_prob = self.my_actions_p[my_action]
+            self.my_actions[my_action] = my_mean + my_prob/my_n
 
         if opp_action:
             opp_n = self.opp_actions_n[opp_action][1]
-            if opp_n > 0:
-                opp_mean = self.opp_actions_n[opp_action][0] / opp_n
-                opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
-                self.opp_actions[opp_action] = opp_mean + opp_explore
+            opp_mean = self.opp_actions_n[opp_action][0] / opp_n
+            opp_explore = 2 * C * np.sqrt(2 * np.log(self.times_visited) / opp_n)
+            opp_prob = self.opp_actions_p[opp_action]
+            self.opp_actions[opp_action] = opp_mean + opp_prob/opp_n
 
 
 class ActionPairNode(Node):

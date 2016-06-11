@@ -3,6 +3,7 @@ from monte_carlo import MonteCarloTree
 
 import logging
 import time
+import numpy
 import random
 
 logging.basicConfig()
@@ -144,10 +145,28 @@ class OptimisticMinimaxAgent(MinimaxAgent):
 
 
 class MonteCarloAgent(Agent):
-    def __init__(self, maxtime, pokedata):
+    def __init__(self, maxtime, pokedata, sl_policy=None):
+        self.lmbda = 0.8
+ 
+        sl_model_file = 'models/sl/sl_simple.bst'
+        sl_feature_labels_file = 'models/sl/sl_X_encoders.pickle'
+        sl_cats_file = 'models/sl/sl_cats.pickle'
+        sl_target_label_file = 'models/sl/sl_Y_encoder.pickle'
+        sl_files = [sl_model_file, sl_feature_labels_file, sl_cats_file, sl_target_label_file]
+ 
+        rollout_model_file = 'models/sl/sl_simple.bst'
+        rollout_files = [rollout_model_file, sl_feature_labels_file, sl_cats_file, sl_target_label_file]
+ 
+        value_model_file = 'models/value/value_func.bst'
+        value_feature_labels_file = 'models/value/value_func_X_encoders.pickle'
+        value_cats_file = 'models/value/value_func_cats.pickle'
+        value_target_label_file = 'models/value/value_func_Y_encoder.pickle'
+        value_files = [value_model_file, value_feature_labels_file, value_cats_file, value_target_label_file]
+ 
         self.maxtime = maxtime
         self.simulator = Simulator(pokedata)
-        self.tree = MonteCarloTree()
+        self.tree = MonteCarloTree(sl_files, rollout_files, value_files)
+        self.sl_policy = sl_policy
         print "Monte Carlo tree created"
 
     def get_action(self, state, who, log=True):
@@ -155,9 +174,9 @@ class MonteCarloAgent(Agent):
         start = time.time()
         best_action, value, opp_action = self.search(state, who, start, log=log)
 
-        if best_action:
+        '''if best_action:
             if best_action.is_move():
-                my_move_name = state.get_team(who).primary().moveset.moves[best_action.move_index]
+                my_move_name = state.get_team(who).primary().moveset.known_moves[best_action.move_index]
             if opp_action.is_move():
                 opp_move_name = state.get_team(1 - who).primary().moveset.moves[opp_action.move_index]
             if best_action.is_switch():
@@ -168,22 +187,34 @@ class MonteCarloAgent(Agent):
                 print "I think you are going to use %s(%s, %s, %s) and I will use %s(%s, %s, %s)." % (
                     opp_move_name, opp_action.backup_switch, opp_action.mega, opp_action.volt_turn,
                     my_move_name, best_action.backup_switch, best_action.mega, best_action.volt_turn,
-                )
+                )'''
 
         return best_action
 
-    def rollout(self, state):
-        winner = state.get_winner()
-
-        while not winner:
-            my_actions = state.get_legal_actions(0)
-            opp_actions = state.get_legal_actions(1)
-            i = random.randrange(len(my_actions))
-            j = random.randrange(len(opp_actions))
-            state = self.simulator.simulate(state, (my_actions[i], opp_actions[j]), 0)
+    def rollout(self, state, turn_num):
+        try:
             winner = state.get_winner()
+            start = time.time()
+            while not winner and (time.time() - start) < self.maxtime:
+                my_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 0, probs=False)
+                if random.random() < 0.05:
+                    opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=True)
+                else:
+                    opp_action_probs = state.get_legal_actions_probs(self.tree.rollout_classifier, turn_num, 1, probs=False)
+                my_action = numpy.random.choice(my_action_probs[0], p=my_action_probs[1])
+                opp_action = numpy.random.choice(opp_action_probs[0], p=opp_action_probs[1])
+                state = self.simulator.simulate(state, (my_action, opp_action), 0, add_action=True, deep_copy=False)
+                winner = state.get_winner()
+                turn_num += 1
+            if winner == 0:
+                return 0.5
+            else: 
+                return int(winner == 1)
+        except:
+            # print "Error in rollout"
+            pass
+        return 0.5
 
-        return int(winner == 1)
 
     def search(self, state, who, start, log=False):
         self.tree.re_root(state)
@@ -200,7 +231,7 @@ class MonteCarloAgent(Agent):
                 outcome = int(winner==1)
                 self.tree.back_propogate(child.parent, outcome)
             else:
-                new_state = self.simulator.simulate(parent_state, child.action_pair, who)
+                new_state = self.simulator.simulate(parent_state, child.action_pair, who, add_action=True, deep_copy=False)
                 
                 # add new gamestate node to tree
                 leaf = self.tree.add_gamestate(child, new_state)
@@ -208,11 +239,12 @@ class MonteCarloAgent(Agent):
                 # run rollout policy and backpropogate outcome
                 num_times = 2
                 outcome = 0.0
-                for i in range(num_times):
-                    outcome += self.rollout(new_state.deep_copy())
-                outcome /= num_times
-                val = new_state.evaluate(0)
-                outcome = outcome*0.5 + val/15.0
+                outcomes = (self.rollout(new_state.deep_copy(), child.parent.turn_num + 1) for i in range(num_times))
+                #for i in range(num_times):
+                #    outcome += self.rollout(new_state.deep_copy(), child.parent.turn_num + 1)
+                outcome = sum(outcomes)/num_times
+                value = new_state.value_function(self.tree.value_function, child.parent.turn_num + 1, 0)
+                outcome = (1-self.lmbda)*outcome + self.lmbda*value
                 self.tree.back_propogate(leaf, outcome)
             count += 1
 
